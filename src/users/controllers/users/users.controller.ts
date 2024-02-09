@@ -11,18 +11,22 @@ import {
   ValidationPipe,
   ParseIntPipe,
   ParseBoolPipe,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from '../../dtos/CreateUser.dto';
+import { UsersService } from '../../services/users/users.service';
 
 //api route: /users
 @Controller('users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
   //méthode
   //route params = @Get(':id')
   @Get()
   getUsers() {
-    return { username: 'tonton', emaim: 'tonton@gmail' };
+    return this.usersService.fetchUsers();
   }
 
   @Get('posts')
@@ -37,12 +41,21 @@ export class UsersController {
     return { username: 'tonton', emaim: 'xxxxxx@xxxxx' };
   }
 
+  // @Post('create')
+  // //UsePipes middleware qui vérifie les conditions de validation ici les champs username, email et password avec CreateUserDto
+  // @UsePipes(new ValidationPipe())
+  // createUserProtected(@Body() userData: CreateUserDto) {
+  //   console.log(userData);
+  //   return {};
+  // }
+
   @Post('create')
   //UsePipes middleware qui vérifie les conditions de validation ici les champs username, email et password avec CreateUserDto
   @UsePipes(new ValidationPipe())
   createUserProtected(@Body() userData: CreateUserDto) {
-    console.log(userData);
-    return {};
+    const result = this.usersService.createUser(userData);
+    if (!result)
+      throw new HttpException('User not created', HttpStatus.BAD_REQUEST);
   }
 
   // @Get(':id')
