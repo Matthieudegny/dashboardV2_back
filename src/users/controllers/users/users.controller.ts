@@ -13,13 +13,18 @@ import {
   ParseBoolPipe,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from '../../dtos/CreateUser.dto';
 import { UsersService } from '../../services/users/users.service';
+import { ValidateCreateUserPipe } from '../../pipes/validate-create-user/validate-create-user.pipe';
+import { AuthGuard } from '../../guards/auth/auth.guard';
 
 //api route: /users
 @Controller('users')
+//Guard pour l'ensemble du controller sinon le placer au niveau de la méthode
+@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
   //méthode
@@ -52,7 +57,8 @@ export class UsersController {
   @Post('create')
   //UsePipes middleware qui vérifie les conditions de validation ici les champs username, email et password avec CreateUserDto
   @UsePipes(new ValidationPipe())
-  createUserProtected(@Body() userData: CreateUserDto) {
+  createUserProtected(@Body(ValidateCreateUserPipe) userData: CreateUserDto) {
+    console.log(userData.age);
     const result = this.usersService.createUser(userData);
     if (!result)
       throw new HttpException('User not created', HttpStatus.BAD_REQUEST);
