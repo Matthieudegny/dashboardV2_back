@@ -9,3 +9,9 @@ export type CreateFailureParams = {
   failure_title: string;
   failure_description: string;
 };
+
+export type UpdateFailureParams = {
+  failure_id: number;
+  failure_title: string;
+  failure_description: string;
+};

@@ -10,10 +10,16 @@ export class FailureService {
   constructor(
     @InjectRepository(Failure) private failureRepository: Repository<Failure>,
   ) {}
-  findAllFailure() {}
+  findAllFailure() {
+    return this.failureRepository.find();
+  }
 
   createFailure(failureDetails: CreateFailureParams) {
     const newFailure = this.failureRepository.create(failureDetails);
     return this.failureRepository.save(failureDetails);
+  }
+
+  updateFailure(id: number, failureDetails: CreateFailureParams) {
+    return this.failureRepository.update(id, failureDetails);
   }
 }
