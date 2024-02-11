@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { Failure } from './typeorm/entities/Failure';
+import { FailureModule } from './failure/failure.module';
 
 @Module({
   imports: [
@@ -13,10 +15,11 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: '$moiLH29!',
       database: 'dashboard',
-      entities: [],
+      entities: [Failure],
       synchronize: true,
     }),
     UsersModule,
+    FailureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
