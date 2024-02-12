@@ -22,4 +22,8 @@ export class FailureService {
   updateFailure(id: number, failureDetails: CreateFailureParams) {
     return this.failureRepository.update(id, failureDetails);
   }
+
+  deleteFailure(id: number) {
+    return this.failureRepository.delete(id);
+  }
 }

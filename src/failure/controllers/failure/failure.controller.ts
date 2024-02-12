@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { CreateFailureDto } from 'src/failure/dtos/CreateFailure.dto';
 import { FailureService } from 'src/failure/services/failure/failure.service';
@@ -30,5 +31,10 @@ export class FailureController {
     @Body() updateFailure: UpdateFailureDto,
   ) {
     this.failureService.updateFailure(id, updateFailure);
+  }
+
+  @Delete(':id')
+  deleteFailure(@Param('id', ParseIntPipe) id: number) {
+    this.failureService.deleteFailure(id);
   }
 }
