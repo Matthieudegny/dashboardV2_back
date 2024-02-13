@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Global_Order {
@@ -6,7 +13,11 @@ export class Global_Order {
   go_id: number;
 
   @Column()
-  user_id: number;
+  go_user_id: number;
+
+  @ManyToOne(() => User, (user) => user.idUser)
+  @JoinColumn({ name: 'go_user_id' })
+  user: User;
 
   @Column({ type: 'datetime' })
   go_openDate: Date;

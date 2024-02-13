@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { Failure } from './typeorm/entities/Failure';
+import { Failure } from './typeorm/entities/Failure/Failure';
 import { FailureModule } from './failure/failure.module';
 
 @Module({

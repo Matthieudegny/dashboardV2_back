@@ -6,10 +6,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Failure } from './Failure';
-import { Global_Order } from './Global_Order';
+import { Sub_Order } from '../Sub_Order';
 
 @Entity()
-export class FailureGo {
+export class Failure_go {
   @PrimaryGeneratedColumn()
   failure_go_id: number;
 
@@ -23,7 +23,7 @@ export class FailureGo {
   @JoinColumn({ name: 'failure_go_failure' })
   failure: Failure;
 
-  @ManyToOne(() => Global_Order, (globalOrder) => globalOrder.go_id)
+  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id)
   @JoinColumn({ name: 'failure_go_go_id' })
-  globalOrder: Global_Order;
+  globalOrder: Sub_Order;
 }
