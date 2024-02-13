@@ -9,7 +9,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CreateFailureDto } from 'src/failure/dtos/CreateFailure.dto';
-import { FailureService } from 'src/failure/services/failure/failure.service';
+import { FailureService } from 'src/failure/failure.service';
 import { UpdateFailureDto } from 'src/failure/dtos/UpdateFailure.dto';
 
 @Controller('failure')
