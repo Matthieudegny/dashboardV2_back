@@ -14,7 +14,7 @@ export class Failure_Go {
   failure_go_id: number;
 
   @Column()
-  failure_go_failure: number;
+  failure_go_failure_id: number;
 
   @Column()
   failure_go_go_id: number;

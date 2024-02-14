@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { FailureSoService } from './failure_so.service';
-import { CreateFailureSoDto } from './dto/create-failure_so.dto';
-import { UpdateFailureSoDto } from './dto/update-failure_so.dto';
+import { Failure_SoDto } from './dto/failure_so.dto';
 
 @Controller('failure-so')
 export class FailureSoController {
   constructor(private readonly failureSoService: FailureSoService) {}
 
   @Post()
-  create(@Body() createFailureSoDto: CreateFailureSoDto) {
+  create(@Body() createFailureSoDto: Failure_SoDto) {
     return this.failureSoService.create(createFailureSoDto);
   }
 
@@ -23,7 +30,7 @@ export class FailureSoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFailureSoDto: UpdateFailureSoDto) {
+  update(@Param('id') id: string, @Body() updateFailureSoDto: Failure_SoDto) {
     return this.failureSoService.update(+id, updateFailureSoDto);
   }
 

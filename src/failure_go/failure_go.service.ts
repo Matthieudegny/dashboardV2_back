@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFailureGoDto } from './dto/create-failure_go.dto';
-import { UpdateFailureGoDto } from './dto/update-failure_go.dto';
+import { Failure_GoDto } from './dto/failure_go.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Failure_Go } from '../entities/Failure/Failure_go';
 
 @Injectable()
 export class FailureGoService {
-  create(createFailureGoDto: CreateFailureGoDto) {
-    return 'This action adds a new failureGo';
+  constructor(
+    @InjectRepository(Failure_Go)
+    private failureGoRepository: Repository<Failure_Go>,
+  ) {}
+  create(createFailureGoDto: Failure_GoDto) {
+    const newFailureGo = this.failureGoRepository.create(createFailureGoDto);
+    return this.failureGoRepository.save(newFailureGo);
   }
 
   findAll() {
-    return `This action returns all failureGo`;
+    return this.failureGoRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} failureGo`;
+    return this.failureGoRepository.findOneBy({ failure_go_id: id });
   }
 
-  update(id: number, updateFailureGoDto: UpdateFailureGoDto) {
-    return `This action updates a #${id} failureGo`;
+  update(id: number, updateFailureGoDto: Failure_GoDto) {
+    return this.failureGoRepository.update(id, updateFailureGoDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} failureGo`;
+    return this.failureGoRepository.delete(id);
   }
 }

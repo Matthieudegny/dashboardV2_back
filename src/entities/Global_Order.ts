@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../typeorm/entities/User';
+import { User } from './User';
 
 @Entity()
 export class Global_Order {
