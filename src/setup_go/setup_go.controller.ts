@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SetupGoService } from './setup_go.service';
-import { CreateSetupGoDto } from './dto/create-setup_go.dto';
-import { UpdateSetupGoDto } from './dto/update-setup_go.dto';
+import { SetupGoDto } from './dto/setup_go.dto';
 
 @Controller('setup-go')
 export class SetupGoController {
   constructor(private readonly setupGoService: SetupGoService) {}
 
   @Post()
-  create(@Body() createSetupGoDto: CreateSetupGoDto) {
+  create(@Body() createSetupGoDto: SetupGoDto) {
     return this.setupGoService.create(createSetupGoDto);
   }
 
@@ -23,7 +30,7 @@ export class SetupGoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSetupGoDto: UpdateSetupGoDto) {
+  update(@Param('id') id: string, @Body() updateSetupGoDto: SetupGoDto) {
     return this.setupGoService.update(+id, updateSetupGoDto);
   }
 

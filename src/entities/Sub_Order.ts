@@ -19,10 +19,10 @@ export class Sub_Order {
   @JoinColumn({ name: 'so_go_id' })
   Global_Order: Global_Order;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'datetime' })
   so_openDate: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'datetime' })
   so_closeDate: Date;
 
   @Column({ type: 'decimal', precision: 10, scale: 0 })

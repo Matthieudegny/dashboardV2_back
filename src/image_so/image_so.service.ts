@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateImageSoDto } from './dto/create-image_so.dto';
-import { UpdateImageSoDto } from './dto/update-image_so.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ImageSoDto } from './dto/image_so.dto';
+import { Image_So } from '../entities/image/Image_so';
 
 @Injectable()
 export class ImageSoService {
-  create(createImageSoDto: CreateImageSoDto) {
-    return 'This action adds a new imageSo';
+  constructor(
+    @InjectRepository(Image_So)
+    private imageSoRepository: Repository<Image_So>,
+  ) {}
+  create(createImageSoDto: ImageSoDto) {
+    const newImageSo = this.imageSoRepository.create(createImageSoDto);
+    return this.imageSoRepository.save(newImageSo);
   }
 
   findAll() {
-    return `This action returns all imageSo`;
+    return this.imageSoRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} imageSo`;
+    return this.imageSoRepository.findOneBy({ image_so_id: id });
   }
 
-  update(id: number, updateImageSoDto: UpdateImageSoDto) {
-    return `This action updates a #${id} imageSo`;
+  update(id: number, updateImageSoDto: ImageSoDto) {
+    return this.imageSoRepository.update(id, updateImageSoDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} imageSo`;
+    return this.imageSoRepository.delete(id);
   }
 }

@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSetupDto } from './dto/create-setup.dto';
-import { UpdateSetupDto } from './dto/update-setup.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Setup } from '../entities/Setup/Setup';
+import { SetupDto } from './dto/setup.dto';
 
 @Injectable()
 export class SetupService {
-  create(createSetupDto: CreateSetupDto) {
-    return 'This action adds a new setup';
+  constructor(
+    @InjectRepository(Setup)
+    private setupRepository: Repository<Setup>,
+  ) {}
+  create(createSetupDto: SetupDto) {
+    const newSetup = this.setupRepository.create(createSetupDto);
+    return this.setupRepository.save(newSetup);
   }
 
   findAll() {
-    return `This action returns all setup`;
+    return this.setupRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} setup`;
+    return this.setupRepository.findOneBy({ setup_id: id });
   }
 
-  update(id: number, updateSetupDto: UpdateSetupDto) {
-    return `This action updates a #${id} setup`;
+  update(id: number, updateSetupDto: SetupDto) {
+    return this.setupRepository.update(id, updateSetupDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} setup`;
+    return this.setupRepository.delete(id);
   }
 }

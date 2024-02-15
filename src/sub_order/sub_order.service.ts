@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSubOrderDto } from './dto/create-sub_order.dto';
-import { UpdateSubOrderDto } from './dto/update-sub_order.dto';
+import { SubOrderDto } from './dto/sub_order.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Sub_Order } from '../entities/Sub_Order';
 
 @Injectable()
 export class SubOrderService {
-  create(createSubOrderDto: CreateSubOrderDto) {
-    return 'This action adds a new subOrder';
+  constructor(
+    @InjectRepository(Sub_Order)
+    private subOrderRepository: Repository<Sub_Order>,
+  ) {}
+  create(createSubOrderDto: SubOrderDto) {
+    const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
+    return this.subOrderRepository.save(newSubOrder);
   }
 
   findAll() {
-    return `This action returns all subOrder`;
+    return this.subOrderRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} subOrder`;
+    return this.subOrderRepository.findOneBy({ so_id: id });
   }
 
-  update(id: number, updateSubOrderDto: UpdateSubOrderDto) {
-    return `This action updates a #${id} subOrder`;
+  update(id: number, updateSubOrderDto: SubOrderDto) {
+    return this.subOrderRepository.update(id, updateSubOrderDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} subOrder`;
+    return this.subOrderRepository.delete(id);
   }
 }

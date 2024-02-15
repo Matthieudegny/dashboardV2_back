@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSetupGoDto } from './dto/create-setup_go.dto';
-import { UpdateSetupGoDto } from './dto/update-setup_go.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Setup_Go } from '../entities/Setup/Setup_go';
+import { SetupGoDto } from './dto/setup_go.dto';
 
 @Injectable()
 export class SetupGoService {
-  create(createSetupGoDto: CreateSetupGoDto) {
-    return 'This action adds a new setupGo';
+  constructor(
+    @InjectRepository(Setup_Go)
+    private setupGoRepository: Repository<Setup_Go>,
+  ) {}
+  create(createSetupGoDto: SetupGoDto) {
+    const newSetupGo = this.setupGoRepository.create(createSetupGoDto);
+    return this.setupGoRepository.save(newSetupGo);
   }
 
   findAll() {
-    return `This action returns all setupGo`;
+    return this.setupGoRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} setupGo`;
+    return this.setupGoRepository.findOneBy({ setup_go_id: id });
   }
 
-  update(id: number, updateSetupGoDto: UpdateSetupGoDto) {
-    return `This action updates a #${id} setupGo`;
+  update(id: number, updateSetupGoDto: SetupGoDto) {
+    return this.setupGoRepository.update(id, updateSetupGoDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} setupGo`;
+    return this.setupGoRepository.delete(id);
   }
 }
