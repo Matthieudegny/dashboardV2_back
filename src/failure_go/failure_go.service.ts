@@ -10,7 +10,7 @@ export class FailureGoService {
     @InjectRepository(Failure_Go)
     private failureGoRepository: Repository<Failure_Go>,
   ) {}
-  create(createFailureGoDto: Failure_GoDto) {
+  createFailure_go(createFailureGoDto: Failure_GoDto) {
     const newFailureGo = this.failureGoRepository.create(createFailureGoDto);
     return this.failureGoRepository.save(newFailureGo);
   }

@@ -15,7 +15,9 @@ export class Image_Go {
   @Column()
   image_go_go_id: number;
 
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id)
+  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'image_go_go_id' })
   Global_Order: Global_Order;
 

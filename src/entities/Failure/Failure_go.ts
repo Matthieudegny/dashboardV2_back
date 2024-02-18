@@ -19,11 +19,15 @@ export class Failure_Go {
   @Column()
   failure_go_go_id: number;
 
-  @ManyToOne(() => Failure, (Failure) => Failure.failure_id)
-  @JoinColumn({ name: 'failure_go_failure' })
-  Failure: Failure;
+  @ManyToOne(() => Failure, (Failure) => Failure.failure_id, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'failure_go_failure_id' })
+  Failure?: Failure;
 
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id)
+  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'failure_go_go_id' })
-  Global_Order: Global_Order;
+  Global_Order?: Global_Order;
 }

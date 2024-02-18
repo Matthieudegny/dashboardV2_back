@@ -21,7 +21,7 @@ export class FailureController {
 
   @Post()
   createFailure(@Body() createFailure: FailureDto) {
-    this.failureService.createFailure(createFailure);
+    return this.failureService.createFailure(createFailure);
   }
 
   @Put(':id')
@@ -29,11 +29,11 @@ export class FailureController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateFailure: FailureDto,
   ) {
-    this.failureService.updateFailure(id, updateFailure);
+    return this.failureService.updateFailure(id, updateFailure);
   }
 
   @Delete(':id')
   deleteFailure(@Param('id', ParseIntPipe) id: number) {
-    this.failureService.deleteFailure(id);
+    return this.failureService.deleteFailure(id);
   }
 }

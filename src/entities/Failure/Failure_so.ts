@@ -19,11 +19,15 @@ export class Failure_So {
   @Column()
   failure_so_so_id: number;
 
-  @ManyToOne(() => Failure, (Failure) => Failure.failure_id)
+  @ManyToOne(() => Failure, (Failure) => Failure.failure_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'failure_so_failure' })
   Failure: Failure;
 
-  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id)
+  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'failure_so_so_id' })
   Sub_Order: Sub_Order;
 }

@@ -15,7 +15,9 @@ export class Image_So {
   @Column()
   image_so_so_id: number;
 
-  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id)
+  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'image_so_so_id' })
   Sub_Order: Sub_Order;
 

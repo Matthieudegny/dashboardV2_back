@@ -16,7 +16,7 @@ export class FailureService {
 
   createFailure(failureDetails: CreateFailureParams) {
     const newFailure = this.failureRepository.create(failureDetails);
-    return this.failureRepository.save(failureDetails);
+    return this.failureRepository.save(newFailure);
   }
 
   updateFailure(id: number, failureDetails: CreateFailureParams) {

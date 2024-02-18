@@ -16,7 +16,7 @@ export class FailureGoController {
 
   @Post()
   create(@Body() createFailureGoDto: Failure_GoDto) {
-    return this.failureGoService.create(createFailureGoDto);
+    return this.failureGoService.createFailure_go(createFailureGoDto);
   }
 
   @Get()

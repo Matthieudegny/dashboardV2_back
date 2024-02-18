@@ -15,7 +15,7 @@ export class Global_Order {
   @Column()
   go_user_id: number;
 
-  @ManyToOne(() => User, (user) => user.idUser)
+  @ManyToOne(() => User, (user) => user.idUser, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'go_user_id' })
   user: User;
 

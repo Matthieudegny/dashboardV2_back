@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 //entities
 import { Failure } from './entities/Failure/Failure';
+import { Failure_Go } from './entities/Failure/Failure_go';
+import { Failure_So } from './entities/Failure/Failure_so';
 import { User } from './entities/User';
 import { Image_Go } from './entities/image/Image_go';
 import { Image_So } from './entities/image/Image_so';
@@ -38,6 +40,8 @@ import { GlobalOrderModule } from './global_order/global_order.module';
       database: 'dashboard',
       entities: [
         Failure,
+        Failure_Go,
+        Failure_So,
         User,
         Image_Go,
         Image_So,

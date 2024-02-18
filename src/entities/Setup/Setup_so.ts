@@ -16,14 +16,16 @@ export class Setup_So {
   @Column()
   setup_so_setup_id: number;
 
-  @ManyToOne(() => Setup, (Setup) => Setup.setup_id)
+  @ManyToOne(() => Setup, (Setup) => Setup.setup_id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'setup_so_setup_id' })
   Setup: Setup;
 
   @Column()
   setup_so_so_id: number;
 
-  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id)
+  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'setup_so_so_id' })
   Sub_Order: Sub_Order;
 }

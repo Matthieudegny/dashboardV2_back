@@ -15,7 +15,9 @@ export class Sub_Order {
   @Column()
   so_go_id: number;
 
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id)
+  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'so_go_id' })
   Global_Order: Global_Order;
 
