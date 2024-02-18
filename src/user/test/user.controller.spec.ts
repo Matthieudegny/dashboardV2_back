@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { UserDto } from './dto/user.dto';
+import { UserController } from '../user.controller';
+import { UserService } from '../user.service';
+import { UserDto } from '../dto/user.dto';
 
 describe('UserController', () => {
   let userController: UserController;
@@ -11,7 +11,7 @@ describe('UserController', () => {
     create: jest.fn(),
     findAll: jest.fn(),
     findOne: jest.fn(),
-    update: jest.fn(),
+    updateUser: jest.fn(),
     remove: jest.fn(),
   };
 
@@ -62,7 +62,7 @@ describe('UserController', () => {
       password: 'UserPassword',
     };
     await userController.update(id, userDto);
-    expect(userService.update).toHaveBeenCalledWith(+id, userDto);
+    expect(userService.updateUser).toHaveBeenCalledWith(+id, userDto);
   });
 
   it('should remove a user', async () => {

@@ -8,9 +8,8 @@ import {
   ParseIntPipe,
   Delete,
 } from '@nestjs/common';
-import { CreateFailureDto } from 'src/failure/dtos/CreateFailure.dto';
-import { FailureService } from 'src/failure/failure.service';
-import { UpdateFailureDto } from 'src/failure/dtos/UpdateFailure.dto';
+import { FailureService } from './failure.service';
+import { FailureDto } from './dtos/failure.dto';
 
 @Controller('failure')
 export class FailureController {
@@ -21,14 +20,14 @@ export class FailureController {
   }
 
   @Post()
-  createFailure(@Body() createFailure: CreateFailureDto) {
+  createFailure(@Body() createFailure: FailureDto) {
     this.failureService.createFailure(createFailure);
   }
 
   @Put(':id')
   updateFailure(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateFailure: UpdateFailureDto,
+    @Body() updateFailure: FailureDto,
   ) {
     this.failureService.updateFailure(id, updateFailure);
   }

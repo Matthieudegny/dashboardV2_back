@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entities/User';
-import { UserService } from './user.service';
-import { UserDto } from './dto/user.dto';
+import { User } from '../../entities/User';
+import { UserService } from '../user.service';
+import { UserDto } from '../dto/user.dto';
+import { UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 
 describe('UserService', () => {
   let service: UserService;
@@ -94,29 +96,18 @@ describe('UserService', () => {
       login: 'UserLogin',
       password: 'UserPassword',
     };
-    const user: User = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
+    const result: UpdateResult = { raw: [], affected: 1, generatedMaps: [] };
+    jest.spyOn(repo, 'update').mockResolvedValue(result as UpdateResult);
 
-    jest.spyOn(repo, 'findOne').mockResolvedValue(user);
-    jest.spyOn(repo, 'create').mockReturnValue(user);
-    jest.spyOn(repo, 'save').mockResolvedValue(user);
-
-    expect(await service.update(id, userDto)).toEqual(user);
-    expect(repo.findOne).toHaveBeenCalledWith({ where: { idUser: id } });
-    expect(repo.create).toHaveBeenCalledWith({ ...user, ...userDto });
-    expect(repo.save).toHaveBeenCalledWith(user);
+    expect(await service.updateUser(id, userDto)).toEqual(result);
+    expect(repo.update).toHaveBeenCalledWith(id, userDto);
   });
 
   it('should remove a user', async () => {
     const id = 1;
-    const result = { affected: 1 };
+    const result: DeleteResult = { raw: [], affected: 1 };
 
-    jest.spyOn(repo, 'delete').mockResolvedValue(result as any);
+    jest.spyOn(repo, 'delete').mockResolvedValue(result as DeleteResult);
 
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
