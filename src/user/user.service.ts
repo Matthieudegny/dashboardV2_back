@@ -20,11 +20,18 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return this.userRepository.findOneBy({ idUser: id });
+    return this.userRepository.findOne({ where: { idUser: id } });
   }
 
-  update(id: number, updateUserDto: UserDto) {
-    return this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UserDto) {
+    const userToUpdate = await this.userRepository.findOne({
+      where: { idUser: id },
+    });
+    const updatedUser = this.userRepository.create({
+      ...userToUpdate,
+      ...updateUserDto,
+    });
+    return this.userRepository.save(updatedUser);
   }
 
   remove(id: number) {
