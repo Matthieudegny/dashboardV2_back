@@ -23,11 +23,11 @@ export class Failure_So {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'failure_so_failure' })
-  Failure: Failure;
+  Failure?: Failure;
 
   @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'failure_so_so_id' })
-  Sub_Order: Sub_Order;
+  Sub_Order?: Sub_Order;
 }
