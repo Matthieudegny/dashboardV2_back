@@ -3,6 +3,8 @@ import { FailureGoController } from '../failure_go.controller';
 import { FailureGoService } from '../failure_go.service';
 import { Failure_GoDto } from '../dto/failure_go.dto';
 
+const failureGoDto = new Failure_GoDto();
+
 describe('FailureGoController', () => {
   let failureGoController: FailureGoController;
   let failureGoService: FailureGoService;
@@ -32,11 +34,6 @@ describe('FailureGoController', () => {
   });
 
   it('should create a failure', async () => {
-    const failureGoDto: Failure_GoDto = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
     await failureGoController.create(failureGoDto);
     expect(failureGoService.createFailure_go).toHaveBeenCalledWith(
       failureGoDto,
@@ -56,11 +53,6 @@ describe('FailureGoController', () => {
 
   it('should update a failure', async () => {
     const id = '1';
-    const failureGoDto: Failure_GoDto = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
     await failureGoController.update(id, failureGoDto);
     expect(failureGoService.update).toHaveBeenCalledWith(+id, failureGoDto);
   });

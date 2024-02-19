@@ -7,6 +7,9 @@ import { Failure_GoDto } from '../dto/failure_go.dto';
 import { UpdateResult } from 'typeorm';
 import { DeleteResult } from 'typeorm';
 
+const failureGoDto = new Failure_GoDto();
+const failureGo = new Failure_Go();
+
 describe('FailureGoService', () => {
   let service: FailureGoService;
   let repo: Repository<Failure_Go>;
@@ -31,17 +34,6 @@ describe('FailureGoService', () => {
   });
 
   it('should create a failure', async () => {
-    const failureGoDto: Failure_GoDto = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
-    const failureGo: Failure_Go = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
-
     jest.spyOn(repo, 'create').mockReturnValue(failureGo);
     jest.spyOn(repo, 'save').mockResolvedValue(failureGo);
 
@@ -51,13 +43,7 @@ describe('FailureGoService', () => {
   });
 
   it('should find all failures', async () => {
-    const failures: Failure_Go[] = [
-      {
-        failure_go_id: 1,
-        failure_go_failure_id: 1,
-        failure_go_go_id: 1,
-      },
-    ];
+    const failures: Failure_Go[] = [failureGo, failureGo, failureGo];
 
     jest.spyOn(repo, 'find').mockResolvedValue(failures);
 
@@ -67,12 +53,6 @@ describe('FailureGoService', () => {
 
   it('should find one failure by id', async () => {
     const id = 1;
-    const failureGo: Failure_Go = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
-
     jest.spyOn(repo, 'findOneBy').mockResolvedValue(failureGo);
 
     expect(await service.findOne(id)).toEqual(failureGo);
@@ -81,11 +61,6 @@ describe('FailureGoService', () => {
 
   it('should update a failure', async () => {
     const id = 1;
-    const failureGoDto: Failure_GoDto = {
-      failure_go_id: 1,
-      failure_go_failure_id: 1,
-      failure_go_go_id: 1,
-    };
     const result: UpdateResult = { raw: [], affected: 1, generatedMaps: [] };
     jest.spyOn(repo, 'update').mockResolvedValue(result as UpdateResult);
 

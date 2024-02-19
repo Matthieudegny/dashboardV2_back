@@ -7,6 +7,9 @@ import { UserDto } from '../dto/user.dto';
 import { UpdateResult } from 'typeorm';
 import { DeleteResult } from 'typeorm';
 
+const userDto = new UserDto();
+const user = new User();
+
 describe('UserService', () => {
   let service: UserService;
   let repo: Repository<User>;
@@ -31,21 +34,6 @@ describe('UserService', () => {
   });
 
   it('should create a user', async () => {
-    const userDto: UserDto = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
-    const user: User = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
-
     jest.spyOn(repo, 'create').mockReturnValue(user);
     jest.spyOn(repo, 'save').mockResolvedValue(user);
 
@@ -55,15 +43,7 @@ describe('UserService', () => {
   });
 
   it('should find all users', async () => {
-    const users: User[] = [
-      {
-        idUser: 1,
-        firstName: 'User',
-        lastName: 'USer',
-        login: 'UserLogin',
-        password: 'UserPassword',
-      },
-    ];
+    const users: User[] = [user, user, user];
 
     jest.spyOn(repo, 'find').mockResolvedValue(users);
 
@@ -73,14 +53,6 @@ describe('UserService', () => {
 
   it('should find one user by id', async () => {
     const id = 1;
-    const user: User = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
-
     jest.spyOn(repo, 'findOne').mockResolvedValue(user);
 
     expect(await service.findOne(id)).toEqual(user);
@@ -89,13 +61,6 @@ describe('UserService', () => {
 
   it('should update a user', async () => {
     const id = 1;
-    const userDto: UserDto = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
     const result: UpdateResult = { raw: [], affected: 1, generatedMaps: [] };
     jest.spyOn(repo, 'update').mockResolvedValue(result as UpdateResult);
 

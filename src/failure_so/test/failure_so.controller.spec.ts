@@ -3,6 +3,8 @@ import { FailureSoController } from '../failure_so.controller';
 import { FailureSoService } from '../failure_so.service';
 import { Failure_SoDto } from '../dto/failure_so.dto';
 
+const failureSoDto = new Failure_SoDto();
+
 describe('FailureSoController', () => {
   let controller: FailureSoController;
   let service: FailureSoService;
@@ -33,11 +35,6 @@ describe('FailureSoController', () => {
   });
 
   it('should create a failure', async () => {
-    const failureSoDto: Failure_SoDto = {
-      failure_so_id: 1,
-      failure_so_failure_id: 1,
-      failure_so_so_id: 1,
-    };
     await controller.create(failureSoDto);
     expect(service.create).toHaveBeenCalledWith(failureSoDto);
   });
@@ -55,11 +52,6 @@ describe('FailureSoController', () => {
 
   it('should update a failure', async () => {
     const id = '1';
-    const failureSoDto: Failure_SoDto = {
-      failure_so_id: 1,
-      failure_so_failure_id: 1,
-      failure_so_so_id: 1,
-    };
     await controller.update(id, failureSoDto);
     expect(service.update).toHaveBeenCalledWith(+id, failureSoDto);
   });

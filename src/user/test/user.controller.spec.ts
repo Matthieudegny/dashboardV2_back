@@ -3,6 +3,8 @@ import { UserController } from '../user.controller';
 import { UserService } from '../user.service';
 import { UserDto } from '../dto/user.dto';
 
+const userDto = new UserDto();
+
 describe('UserController', () => {
   let userController: UserController;
   let userService: UserService;
@@ -30,13 +32,6 @@ describe('UserController', () => {
   });
 
   it('should create a user', async () => {
-    const userDto: UserDto = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
     await userController.create(userDto);
     expect(userService.create).toHaveBeenCalledWith(userDto);
   });
@@ -54,13 +49,6 @@ describe('UserController', () => {
 
   it('should update a user', async () => {
     const id = '1';
-    const userDto: UserDto = {
-      idUser: 1,
-      firstName: 'User',
-      lastName: 'USer',
-      login: 'UserLogin',
-      password: 'UserPassword',
-    };
     await userController.update(id, userDto);
     expect(userService.updateUser).toHaveBeenCalledWith(+id, userDto);
   });
