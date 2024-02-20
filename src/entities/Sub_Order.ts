@@ -19,7 +19,7 @@ export class Sub_Order {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'so_go_id' })
-  Global_Order: Global_Order;
+  Global_Order?: Global_Order;
 
   @Column({ type: 'datetime' })
   so_openDate: Date;

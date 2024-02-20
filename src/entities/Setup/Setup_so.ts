@@ -18,7 +18,7 @@ export class Setup_So {
 
   @ManyToOne(() => Setup, (Setup) => Setup.setup_id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'setup_so_setup_id' })
-  Setup: Setup;
+  Setup?: Setup;
 
   @Column()
   setup_so_so_id: number;
@@ -27,5 +27,5 @@ export class Setup_So {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'setup_so_so_id' })
-  Sub_Order: Sub_Order;
+  Sub_Order?: Sub_Order;
 }

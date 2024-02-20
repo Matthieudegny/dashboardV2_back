@@ -17,7 +17,7 @@ export class Global_Order {
 
   @ManyToOne(() => User, (user) => user.idUser, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'go_user_id' })
-  user: User;
+  user?: User;
 
   @Column({ type: 'datetime' })
   go_openDate: Date;
