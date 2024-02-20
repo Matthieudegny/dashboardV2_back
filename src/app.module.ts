@@ -28,9 +28,17 @@ import { SetupSoModule } from './setup_so/setup_so.module';
 import { SetupModule } from './setup/setup.module';
 import { SubOrderModule } from './sub_order/sub_order.module';
 import { GlobalOrderModule } from './global_order/global_order.module';
+import { UploadModule } from './upload/upload.module';
+
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath:
+        'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
+      serveRoot: '/images/',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -64,6 +72,7 @@ import { GlobalOrderModule } from './global_order/global_order.module';
     SetupModule,
     SubOrderModule,
     GlobalOrderModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
