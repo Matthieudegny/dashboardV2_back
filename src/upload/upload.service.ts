@@ -1,6 +1,4 @@
-// src/upload/upload.service.ts
 import { Injectable } from '@nestjs/common';
-import { Express } from 'express';
 
 @Injectable()
 export class UploadService {

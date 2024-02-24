@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 //entities
 import { Failure } from './entities/Failure/Failure';
 import { Failure_Go } from './entities/Failure/Failure_go';
@@ -31,9 +31,13 @@ import { GlobalOrderModule } from './global_order/global_order.module';
 import { UploadModule } from './upload/upload.module';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // Rend les variables d'environnement disponibles globalement
+    }),
     ServeStaticModule.forRoot({
       rootPath:
         'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
@@ -73,8 +77,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     SubOrderModule,
     GlobalOrderModule,
     UploadModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
 })
 export class AppModule {}

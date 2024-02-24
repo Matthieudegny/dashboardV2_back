@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { FailureController } from './failure.controller';
 import { FailureService } from './failure.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Failure } from 'src/entities/Failure/Failure';
+import { Failure } from '../entities/Failure/Failure';
 
 @Module({
   //appel de la fonction forFeature de TypeOrmModule pour importer l'entité Failure et l'utilsier dans le module ( services)

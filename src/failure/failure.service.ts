@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Failure } from '../entities/Failure/Failure';
-import { CreateFailureParams } from 'src/utils/types';
+import { CreateFailureParams } from '../utils/types';
 
 @Injectable()
 export class FailureService {
