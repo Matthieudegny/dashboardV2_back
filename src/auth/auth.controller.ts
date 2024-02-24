@@ -9,10 +9,9 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
-import { LoginDto } from './dto/Login.dto';
-import { SignUpDto } from './dto/signUp.dto';
+import { LoginDto, AccessTokenResponseDto } from './dto/Login.dto';
+import { UnauthorizedException } from '@nestjs/common';
 import { UserDto } from '../user/dto/user.dto';
-import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
@@ -22,7 +21,9 @@ export class AuthController {
   ) {}
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto) {
+  async login(
+    @Body() loginDto: LoginDto,
+  ): Promise<AccessTokenResponseDto | UnauthorizedException> {
     console.log(loginDto);
     return this.authService.findByLogin(loginDto);
   }

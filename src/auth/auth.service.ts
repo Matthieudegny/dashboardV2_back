@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { LoginDto } from './dto/Login.dto';
+import { LoginDto, AccessTokenResponseDto } from './dto/Login.dto';
 import { User } from '../entities/User';
 
 @Injectable()
@@ -13,7 +13,9 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async findByLogin(loginDto: LoginDto) {
+  async findByLogin(
+    loginDto: LoginDto,
+  ): Promise<AccessTokenResponseDto | UnauthorizedException> {
     const { login } = loginDto;
     const user = await this.userRepository.findOne({ where: { login } });
 
@@ -21,7 +23,13 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user.idUser, username: user.firstName };
+    const payload = {
+      sub: user.idUser,
+      username: user.firstName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      login: user.login,
+    };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
