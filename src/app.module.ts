@@ -32,6 +32,7 @@ import { UploadModule } from './upload/upload.module';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
+import { MainDatasModule } from './main-datas/main-datas.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { AuthModule } from './auth/auth.module';
     GlobalOrderModule,
     UploadModule,
     AuthModule,
+    MainDatasModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],
