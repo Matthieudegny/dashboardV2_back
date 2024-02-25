@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SetupSoService } from '../setup_so.service';
 import { SetupSoDto } from '../dto/setup_so.dto';
-import { Setup_So } from '../../entities/Setup/Setup_so';
+import { Setup_So } from '../../entities/setup/Setup_so';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 const setupSoDto = new SetupSoDto(); // Instance of the DTO at the top
@@ -68,5 +68,21 @@ describe('SetupSoService', () => {
     const result = new DeleteResult();
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
+  });
+
+  it('should find all setup sos by sub order id', async () => {
+    const subOrderId = 123;
+    const setupSos: Setup_So[] = [
+      new Setup_So(),
+      new Setup_So(),
+      new Setup_So(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(setupSos);
+
+    expect(await service.findAllBySubOrderId(subOrderId)).toEqual(setupSos);
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { setup_so_id: subOrderId },
+    });
   });
 });

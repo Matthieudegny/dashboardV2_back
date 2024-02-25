@@ -77,4 +77,22 @@ describe('FailureGoService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all failures by global order id', async () => {
+    const globalOrderId = 123;
+    const failures: Failure_Go[] = [
+      new Failure_Go(),
+      new Failure_Go(),
+      new Failure_Go(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(failures);
+
+    expect(await service.findAllByGlobalOrderId(globalOrderId)).toEqual(
+      failures,
+    );
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { failure_go_id: globalOrderId },
+    });
+  });
 });

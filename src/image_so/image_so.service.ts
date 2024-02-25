@@ -19,6 +19,12 @@ export class ImageSoService {
     return this.imageSoRepository.find();
   }
 
+  findAllBySubOrderId(globalOrderId: number) {
+    return this.imageSoRepository.find({
+      where: { image_so_id: globalOrderId },
+    });
+  }
+
   findOne(id: number) {
     return this.imageSoRepository.findOneBy({ image_so_id: id });
   }

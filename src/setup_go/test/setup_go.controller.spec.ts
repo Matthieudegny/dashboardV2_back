@@ -15,6 +15,7 @@ describe('SetupGoController', () => {
     findOne: jest.fn((id) => ({ id })),
     update: jest.fn((id, dto) => ({ ...dto, id })),
     remove: jest.fn((id) => ({ id })),
+    findAllByGlobalOrderId: jest.fn((id) => []),
   };
 
   beforeEach(async () => {
@@ -57,5 +58,11 @@ describe('SetupGoController', () => {
     const id = '1';
     await controller.remove(id);
     expect(service.remove).toHaveBeenCalledWith(+id);
+  });
+
+  it('should find all setup gos by global order id', async () => {
+    const globalOrderId = '1';
+    await controller.findAllByGlobalOrderId(globalOrderId);
+    expect(service.findAllByGlobalOrderId).toHaveBeenCalledWith(+globalOrderId);
   });
 });

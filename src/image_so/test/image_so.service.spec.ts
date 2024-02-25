@@ -69,4 +69,20 @@ describe('ImageSoService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all image sos by sub order id', async () => {
+    const subOrderId = 123;
+    const imageSos: Image_So[] = [
+      new Image_So(),
+      new Image_So(),
+      new Image_So(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(imageSos);
+
+    expect(await service.findAllBySubOrderId(subOrderId)).toEqual(imageSos);
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { image_so_id: subOrderId },
+    });
+  });
 });

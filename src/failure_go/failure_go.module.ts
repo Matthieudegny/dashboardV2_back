@@ -3,10 +3,12 @@ import { FailureGoService } from './failure_go.service';
 import { FailureGoController } from './failure_go.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Failure_Go } from '../entities/Failure/Failure_go';
+import { Failure } from '../entities/Failure/Failure';
+import { FailureService } from '../failure/failure.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Failure_Go])],
+  imports: [TypeOrmModule.forFeature([Failure_Go, Failure])],
   controllers: [FailureGoController],
-  providers: [FailureGoService],
+  providers: [FailureGoService, FailureService],
 })
 export class FailureGoModule {}

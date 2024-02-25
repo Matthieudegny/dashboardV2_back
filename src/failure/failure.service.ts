@@ -14,6 +14,10 @@ export class FailureService {
     return this.failureRepository.find();
   }
 
+  findOne(id: number) {
+    return this.failureRepository.findOneBy({ failure_id: id });
+  }
+
   createFailure(failureDetails: CreateFailureParams) {
     const newFailure = this.failureRepository.create(failureDetails);
     return this.failureRepository.save(newFailure);

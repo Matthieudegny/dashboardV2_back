@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SetupService } from '../setup.service';
 import { SetupDto } from '../dto/setup.dto';
-import { Setup } from '../../entities/Setup/Setup';
+import { Setup } from '../../entities/setup/Setup';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 const setupDto = new SetupDto(); // Définition en haut du fichier

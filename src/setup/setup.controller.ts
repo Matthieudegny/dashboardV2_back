@@ -12,10 +12,11 @@ import { SetupDto } from './dto/setup.dto';
 
 @Controller('setup')
 export class SetupController {
-  constructor(private readonly setupService: SetupService) {}
+  constructor(private setupService: SetupService) {}
 
   @Post()
   create(@Body() createSetupDto: SetupDto) {
+    console.log('controller');
     return this.setupService.create(createSetupDto);
   }
 

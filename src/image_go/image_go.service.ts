@@ -19,6 +19,12 @@ export class ImageGoService {
     return this.imageGoRepository.find();
   }
 
+  findAllByGlobalOrderId(globalOrderId: number) {
+    return this.imageGoRepository.find({
+      where: { image_go_go_id: globalOrderId },
+    });
+  }
+
   findOne(id: number) {
     return this.imageGoRepository.findOneBy({ image_go_id: id });
   }

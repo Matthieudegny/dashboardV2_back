@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Setup } from '../entities/Setup/Setup';
+import { Setup } from '../entities/setup/Setup';
 import { SetupDto } from './dto/setup.dto';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class SetupService {
     private setupRepository: Repository<Setup>,
   ) {}
   create(createSetupDto: SetupDto) {
+    console.log('service');
     const newSetup = this.setupRepository.create(createSetupDto);
     return this.setupRepository.save(newSetup);
   }

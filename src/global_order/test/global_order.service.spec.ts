@@ -101,4 +101,20 @@ describe('GlobalOrderService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all global orders by global order id', async () => {
+    const globalOrderId = 123;
+    const globalOrders: Global_Order[] = [
+      new Global_Order(),
+      new Global_Order(),
+      new Global_Order(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(globalOrders);
+
+    expect(await service.findAllByIdUser(globalOrderId)).toEqual(globalOrders);
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { go_id: globalOrderId },
+    });
+  });
 });

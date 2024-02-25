@@ -25,6 +25,11 @@ export class SetupGoController {
   }
 
   @Get(':id')
+  findAllByGlobalOrderId(@Param('id') id: string) {
+    return this.setupGoService.findAllByGlobalOrderId(+id);
+  }
+
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.setupGoService.findOne(+id);
   }

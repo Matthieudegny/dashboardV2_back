@@ -91,4 +91,20 @@ describe('FailureSoService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all failures by sub order id', async () => {
+    const subOrderId = 123;
+    const failures: Failure_So[] = [
+      new Failure_So(),
+      new Failure_So(),
+      new Failure_So(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(failures);
+
+    expect(await service.findAllBySubOrderId(subOrderId)).toEqual(failures);
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { failure_so_id: subOrderId },
+    });
+  });
 });

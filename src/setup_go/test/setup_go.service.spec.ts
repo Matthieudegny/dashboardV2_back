@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SetupGoService } from '../setup_go.service';
 import { SetupGoDto } from '../dto/setup_go.dto';
-import { Setup_Go } from '../../entities/Setup/Setup_go';
+import { Setup_Go } from '../../entities/setup/Setup_go';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 const setupGoDto = new SetupGoDto();
@@ -68,5 +68,16 @@ describe('SetupGoService', () => {
     const result = new DeleteResult();
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
+  });
+
+  it('should find all setup gos by global order id', async () => {
+    const globalOrderId = 1;
+    const setupGos = [setupGo];
+    expect(await service.findAllByGlobalOrderId(globalOrderId)).toEqual(
+      setupGos,
+    );
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { setup_go_go_id: globalOrderId },
+    });
   });
 });

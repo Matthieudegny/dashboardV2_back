@@ -19,6 +19,12 @@ export class SubOrderService {
     return this.subOrderRepository.find();
   }
 
+  findAllByGlobalOrderId(globalOrderId: number) {
+    return this.subOrderRepository.find({
+      where: { so_go_id: globalOrderId },
+    });
+  }
+
   findOne(id: number) {
     return this.subOrderRepository.findOneBy({ so_id: id });
   }

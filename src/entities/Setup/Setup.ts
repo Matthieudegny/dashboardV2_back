@@ -5,9 +5,9 @@ export class Setup {
   @PrimaryGeneratedColumn()
   setup_id: number;
 
-  @Column({ type: 'text' })
+  @Column()
   setup_title: string;
 
-  @Column({ type: 'text' })
+  @Column()
   setup_description: string;
 }

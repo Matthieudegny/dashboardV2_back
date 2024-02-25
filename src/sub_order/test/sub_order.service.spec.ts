@@ -69,4 +69,22 @@ describe('SubOrderService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all sub orders by global order id', async () => {
+    const globalOrderId = 123;
+    const subOrders: Sub_Order[] = [
+      new Sub_Order(),
+      new Sub_Order(),
+      new Sub_Order(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(subOrders);
+
+    expect(await service.findAllByGlobalOrderId(globalOrderId)).toEqual(
+      subOrders,
+    );
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { so_go_id: globalOrderId },
+    });
+  });
 });

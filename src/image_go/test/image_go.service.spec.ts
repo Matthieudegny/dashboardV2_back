@@ -90,4 +90,22 @@ describe('ImageGoService', () => {
     expect(await service.remove(id)).toEqual(result);
     expect(repo.delete).toHaveBeenCalledWith(id);
   });
+
+  it('should find all image gos by global order id', async () => {
+    const globalOrderId = 123;
+    const imageGos: Image_Go[] = [
+      new Image_Go(),
+      new Image_Go(),
+      new Image_Go(),
+    ];
+
+    jest.spyOn(repo, 'find').mockResolvedValue(imageGos);
+
+    expect(await service.findAllByGlobalOrderId(globalOrderId)).toEqual(
+      imageGos,
+    );
+    expect(repo.find).toHaveBeenCalledWith({
+      where: { image_go_go_id: globalOrderId },
+    });
+  });
 });
