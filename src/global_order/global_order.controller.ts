@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { GlobalOrderService } from './global_order.service';
 import { GlobalOrderDto } from './dto/global_order.dto';
 
+@ApiTags('Global_Order')
 @Controller('global-order')
 export class GlobalOrderController {
   constructor(private readonly globalOrderService: GlobalOrderService) {}

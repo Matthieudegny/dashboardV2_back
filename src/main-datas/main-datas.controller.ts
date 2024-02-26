@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param } from '@nestjs/common';
 //Services
 import { MainDatasService } from './main-datas.service';
@@ -18,9 +19,7 @@ import { MainDatasDto } from './dto/main-datas.dto';
 import { GlobalOrderFillWithDatasDto } from './dto/main-datas.dto';
 import { SubOrderFillWithDatasDto } from './dto/main-datas.dto';
 
-//Entities
-import { Setup } from '../entities/setup/Setup';
-
+@ApiTags('MainDatas')
 @Controller('main-datas')
 export class MainDatasController {
   constructor(
@@ -42,19 +41,20 @@ export class MainDatasController {
     console.log('main-datas.controller.ts:findAll');
   }
 
-  @Get(':id')
-  async findMainDatasbyIdUser(@Param('id') idUser: number) {
+  @Get(':idUser')
+  async findMainDatasbyIdUser(@Param('idUser') idUser: number) {
+    console.log('idUser', idUser);
     const mainDatas = new MainDatasDto();
     //1. first the categories data
     mainDatas.setupList = await this.setupService.findAll();
     mainDatas.failureList = await this.failureService.findAllFailure();
     let globalOrderList = new Array<GlobalOrderFillWithDatasDto>();
     let subOrderList = new Array<SubOrderFillWithDatasDto>();
-
     //2 then the global orders data
     const listGlobalOrders: Array<GlobalOrderDto> =
       await this.globalOrderService.findAllByIdUser(idUser);
 
+    console.log('listGlobalOrders.length > 0', listGlobalOrders);
     if (listGlobalOrders.length > 0) {
       let listSubOrders: Array<SubOrderDto> = [];
 
@@ -97,11 +97,11 @@ export class MainDatasController {
           }
           subOrderList.push(subOrderFillWithData);
         }
-        globalOrderFillWithData.subOrderList = subOrderList;
         globalOrderList.push(globalOrderFillWithData);
-        mainDatas.globalOrderList = globalOrderList;
+        globalOrderFillWithData.subOrderList = subOrderList;
       }
     }
+    mainDatas.globalOrderList = globalOrderList;
     return mainDatas;
   }
 }

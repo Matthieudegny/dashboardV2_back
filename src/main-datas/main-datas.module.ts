@@ -20,8 +20,8 @@ import { Setup } from '../entities/setup/Setup';
 import { Failure } from '../entities/Failure/Failure';
 import { Failure_Go } from '../entities/Failure/Failure_go';
 import { Failure_So } from '../entities/Failure/Failure_so';
-import { Image_Go } from '../entities/Image/Image_go';
-import { Image_So } from '../entities/Image/Image_so';
+import { Image_Go } from '../entities/image/Image_go';
+import { Image_So } from '../entities/image/Image_so';
 import { Sub_Order } from '../entities/Sub_Order';
 import { Global_Order } from '../entities/Global_Order';
 

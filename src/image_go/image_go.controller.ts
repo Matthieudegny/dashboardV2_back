@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { ImageGoService } from './image_go.service';
 import { ImageGoDto } from './dto/image_go.dto';
 
+@ApiTags('Image_Go')
 @Controller('image-go')
 export class ImageGoController {
   constructor(private readonly imageGoService: ImageGoService) {}

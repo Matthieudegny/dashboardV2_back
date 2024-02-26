@@ -16,7 +16,6 @@ export class UserService {
   }
 
   findAll() {
-    console.log('test', this.userRepository.find());
     return this.userRepository.find();
   }
 

@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { FailureGoService } from './failure_go.service';
 import { Failure_GoDto } from './dto/failure_go.dto';
 
+@ApiTags('Failure_Go')
 @Controller('failure-go')
 export class FailureGoController {
   constructor(private readonly failureGoService: FailureGoService) {}

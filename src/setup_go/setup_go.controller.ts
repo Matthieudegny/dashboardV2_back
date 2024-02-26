@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { SetupGoService } from './setup_go.service';
 import { SetupGoDto } from './dto/setup_go.dto';
 
+@ApiTags('Setup_Go')
 @Controller('setup-go')
 export class SetupGoController {
   constructor(private readonly setupGoService: SetupGoService) {}

@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { SetupSoService } from './setup_so.service';
 import { SetupSoDto } from './dto/setup_so.dto';
 
+@ApiTags('Setup_So')
 @Controller('setup-so')
 export class SetupSoController {
   constructor(private readonly setupSoService: SetupSoService) {}

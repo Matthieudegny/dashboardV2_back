@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
 import { SubOrderService } from './sub_order.service';
 import { SubOrderDto } from './dto/sub_order.dto';
 
+@ApiTags('Sub_Order')
 @Controller('sub-order')
 export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
