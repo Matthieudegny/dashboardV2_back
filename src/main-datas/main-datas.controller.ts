@@ -8,13 +8,8 @@ import { MainDatasService } from './main-datas.service';
 export class MainDatasController {
   constructor(private readonly mainDatasService: MainDatasService) {}
 
-  @Get()
-  findAll() {
-    console.log('main-datas.controller.ts:findAll');
-  }
-
   @Get(':idUser')
-  async findMainDatasbyIdUser(@Param('idUser') idUser: number) {
+  findMainDatasbyIdUser(@Param('idUser') idUser: number) {
     return this.mainDatasService.findMainDatasbyIdUser(idUser);
   }
 }

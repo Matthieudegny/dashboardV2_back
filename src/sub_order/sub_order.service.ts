@@ -3,12 +3,22 @@ import { SubOrderDto } from './dto/sub_order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sub_Order } from '../entities/Sub_Order';
+//other dtos used
+import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
+
+//services used
+import { SetupSoService } from '../setup_so/setup_so.service';
+import { ImageSoService } from '../image_so/image_so.service';
+import { FailureSoService } from '../failure_so/failure_so.service';
 
 @Injectable()
 export class SubOrderService {
   constructor(
     @InjectRepository(Sub_Order)
     private subOrderRepository: Repository<Sub_Order>,
+    private readonly setupSoService: SetupSoService,
+    private readonly imageSoService: ImageSoService,
+    private readonly failureSoService: FailureSoService,
   ) {}
   create(createSubOrderDto: SubOrderDto) {
     const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
@@ -35,5 +45,37 @@ export class SubOrderService {
 
   remove(id: number) {
     return this.subOrderRepository.delete(id);
+  }
+
+  async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
+    globalOrderId: number,
+  ) {
+    let subOrderList = new Array<SubOrderFillWithDatasDto>();
+
+    //1. first the list of sub orders
+    const listSubOrders: Array<SubOrderDto> =
+      await this.findAllByGlobalOrderId(globalOrderId);
+
+    //2. then i fill each sub order with its datas
+    for (const subOrder of listSubOrders) {
+      let subOrderFillWithData: SubOrderFillWithDatasDto =
+        new SubOrderFillWithDatasDto();
+      //2.1. fill the sub order with its datas
+      subOrderFillWithData.subOrder = subOrder;
+      //2.2. fill the setup_so
+      subOrderFillWithData.setupSo =
+        await this.setupSoService.findAllBySubOrderId(subOrder.so_id);
+      //2.3. fill the image_so
+      subOrderFillWithData.imageSo =
+        await this.imageSoService.findAllBySubOrderId(subOrder.so_id);
+      //2.4. fill the failure_so
+      subOrderFillWithData.failureSo =
+        await this.failureSoService.findAllBySubOrderId(subOrder.so_id);
+
+      //2.5. add the sub order to the list
+      subOrderList.push(subOrderFillWithData);
+    }
+
+    return subOrderList;
   }
 }

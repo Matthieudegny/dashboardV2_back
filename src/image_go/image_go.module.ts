@@ -8,5 +8,6 @@ import { Image_Go } from '../entities/image/Image_go';
   imports: [TypeOrmModule.forFeature([Image_Go])],
   controllers: [ImageGoController],
   providers: [ImageGoService],
+  exports: [ImageGoService],
 })
 export class ImageGoModule {}

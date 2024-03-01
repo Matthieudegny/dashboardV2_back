@@ -9,5 +9,6 @@ import { Failure } from '../entities/Failure/Failure';
   imports: [TypeOrmModule.forFeature([Failure])],
   controllers: [FailureController],
   providers: [FailureService],
+  exports: [FailureService],
 })
 export class FailureModule {}

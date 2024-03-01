@@ -10,5 +10,6 @@ import { SetupService } from 'src/setup/setup.service';
   imports: [TypeOrmModule.forFeature([Setup_So, Setup])],
   controllers: [SetupSoController],
   providers: [SetupSoService, SetupService],
+  exports: [SetupSoService],
 })
 export class SetupSoModule {}

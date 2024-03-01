@@ -10,5 +10,6 @@ import { FailureService } from '../failure/failure.service';
   imports: [TypeOrmModule.forFeature([Failure_So, Failure])],
   controllers: [FailureSoController],
   providers: [FailureSoService, FailureService],
+  exports: [FailureSoService],
 })
 export class FailureSoModule {}

@@ -22,7 +22,7 @@ export class SetupSoService {
     return this.setupSoRepository.find();
   }
 
-  async findAllBySubOrderId(globalOrderId: number) {
+  public async findAllBySubOrderId(globalOrderId: number) {
     const listSetUpSoBySubOrderId = await this.setupSoRepository.find({
       where: { setup_so_id: globalOrderId },
     });

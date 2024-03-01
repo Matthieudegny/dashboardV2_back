@@ -8,5 +8,6 @@ import { Setup } from '../entities/setup/Setup';
   imports: [TypeOrmModule.forFeature([Setup])],
   controllers: [SetupController],
   providers: [SetupService],
+  exports: [SetupService],
 })
 export class SetupModule {}
