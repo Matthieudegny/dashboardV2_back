@@ -72,7 +72,9 @@ export class GlobalOrderService {
         await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);
       //2.4. fill the failure_go
       globalOrderFillWithData.failureGo =
-        await this.failureGoService.findAllByGlobalOrderId(globalOrder.go_id);
+        await this.failureGoService.findAllFailureCategoriesByGlobalOrderId(
+          globalOrder.go_id,
+        );
       //2.5. get the list sub orders and fill them
       globalOrderFillWithData.subOrderList =
         await this.subOrderService.findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(

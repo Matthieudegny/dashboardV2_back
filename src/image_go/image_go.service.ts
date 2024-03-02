@@ -20,11 +20,9 @@ export class ImageGoService {
   }
 
   findAllByGlobalOrderId(globalOrderId: number) {
-    console.log('globalOrderId', globalOrderId);
-    return this.imageGoRepository.find();
-    // return this.imageGoRepository.find({
-    //   where: { image_go_go_id: globalOrderId },
-    // });
+    return this.imageGoRepository.find({
+      where: { image_go_go_id: globalOrderId },
+    });
   }
 
   findOne(id: number) {

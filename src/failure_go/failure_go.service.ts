@@ -22,7 +22,7 @@ export class FailureGoService {
     return this.failureGoRepository.find();
   }
 
-  async findAllByGlobalOrderId(globalOrderId: number) {
+  async findAllFailureCategoriesByGlobalOrderId(globalOrderId: number) {
     const listFailuresGoByGlobalOrderId: Array<Failure_Go> =
       await this.failureGoRepository.find({
         where: { failure_go_id: globalOrderId },

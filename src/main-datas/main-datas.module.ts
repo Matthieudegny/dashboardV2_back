@@ -4,8 +4,8 @@ import { MainDatasController } from './main-datas.controller';
 
 //modules used
 import { GlobalOrderModule } from 'src/global_order/global_order.module';
-import { SetupModule } from 'src/setup/setup.module';
-import { FailureModule } from 'src/failure/failure.module';
+import { SetupModule } from '../setup/setup.module';
+import { FailureModule } from '../failure/failure.module';
 
 @Module({
   imports: [GlobalOrderModule, SetupModule, FailureModule],

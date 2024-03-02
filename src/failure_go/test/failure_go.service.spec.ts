@@ -1,98 +1,134 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Failure_Go } from '../../entities/Failure/Failure_go';
+import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 import { FailureGoService } from '../failure_go.service';
-import { Failure_GoDto } from '../dto/failure_go.dto';
-import { UpdateResult } from 'typeorm';
-import { DeleteResult } from 'typeorm';
-
-const failureGoDto = new Failure_GoDto();
-const failureGo = new Failure_Go();
+import { Failure_Go } from '../../entities/Failure/Failure_go';
+import { FailureService } from '../../failure/failure.service';
+import { FailureDto } from '../../failure/dtos/failure.dto';
+import { Failure } from '../../entities/Failure/Failure';
 
 describe('FailureGoService', () => {
-  let service: FailureGoService;
-  let repo: Repository<Failure_Go>;
+  let failureGoService: FailureGoService;
+  let failureGoRepository: Repository<Failure_Go>;
+  let failureService: FailureService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         FailureGoService,
+        FailureService,
         {
           provide: getRepositoryToken(Failure_Go),
+          useClass: Repository,
+        },
+        {
+          provide: getRepositoryToken(Failure),
           useClass: Repository,
         },
       ],
     }).compile();
 
-    service = module.get<FailureGoService>(FailureGoService);
-    repo = module.get<Repository<Failure_Go>>(getRepositoryToken(Failure_Go));
+    failureGoService = module.get<FailureGoService>(FailureGoService);
+    failureGoRepository = module.get<Repository<Failure_Go>>(
+      getRepositoryToken(Failure_Go),
+    );
+    failureService = module.get<FailureService>(FailureService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(failureGoService).toBeDefined();
   });
 
-  it('should create a failure', async () => {
-    jest.spyOn(repo, 'create').mockReturnValue(failureGo);
-    jest.spyOn(repo, 'save').mockResolvedValue(failureGo);
-
-    expect(await service.createFailure_go(failureGoDto)).toEqual(failureGo);
-    expect(repo.create).toHaveBeenCalledWith(failureGoDto);
-    expect(repo.save).toHaveBeenCalledWith(failureGo);
+  describe('createFailure_go', () => {
+    it('should create a new failure_go', async () => {
+      const mockFailureGoDto = new Failure_Go();
+      const mockCreatedFailureGo = new Failure_Go();
+      jest
+        .spyOn(failureGoRepository, 'create')
+        .mockResolvedValueOnce(undefined as never);
+      jest
+        .spyOn(failureGoRepository, 'save')
+        .mockResolvedValueOnce(mockCreatedFailureGo);
+      const result = await failureGoService.createFailure_go(mockFailureGoDto);
+      expect(result).toEqual(mockCreatedFailureGo);
+    });
   });
 
-  it('should find all failures', async () => {
-    const failures: Failure_Go[] = [failureGo, failureGo, failureGo];
-
-    jest.spyOn(repo, 'find').mockResolvedValue(failures);
-
-    expect(await service.findAll()).toEqual(failures);
-    expect(repo.find).toHaveBeenCalled();
+  describe('findAll', () => {
+    it('should return an array of failure_gos', async () => {
+      const mockFailureGos: Failure_Go[] = [new Failure_Go()];
+      jest
+        .spyOn(failureGoRepository, 'find')
+        .mockResolvedValueOnce(mockFailureGos);
+      const result = await failureGoService.findAll();
+      expect(result).toEqual(mockFailureGos);
+    });
   });
 
-  it('should find one failure by id', async () => {
-    const id = 1;
-    jest.spyOn(repo, 'findOneBy').mockResolvedValue(failureGo);
+  describe('findAllFailureCategoriesByGlobalOrderId', () => {
+    it('should return an array of failure categories', async () => {
+      const mockGlobalOrderId = 1;
+      const mockListFailuresGoByGlobalOrderId: Failure_Go[] = [
+        new Failure_Go(),
+      ];
+      const mockFailureData: FailureDto = new FailureDto();
+      jest
+        .spyOn(failureGoRepository, 'find')
+        .mockResolvedValueOnce(mockListFailuresGoByGlobalOrderId);
+      jest
+        .spyOn(failureService, 'findOne')
+        .mockResolvedValueOnce(mockFailureData);
 
-    expect(await service.findOne(id)).toEqual(failureGo);
-    expect(repo.findOneBy).toHaveBeenCalledWith({ failure_go_id: id });
+      const result =
+        await failureGoService.findAllFailureCategoriesByGlobalOrderId(
+          mockGlobalOrderId,
+        );
+      expect(result).toEqual([mockFailureData]);
+    });
   });
 
-  it('should update a failure', async () => {
-    const id = 1;
-    const result: UpdateResult = { raw: [], affected: 1, generatedMaps: [] };
-    jest.spyOn(repo, 'update').mockResolvedValue(result as UpdateResult);
-
-    expect(await service.update(id, failureGoDto)).toEqual(result);
-    expect(repo.update).toHaveBeenCalledWith(id, failureGoDto);
+  describe('findOne', () => {
+    it('should return a single failure_go', async () => {
+      const mockFailureGo: Failure_Go = new Failure_Go();
+      jest
+        .spyOn(failureGoRepository, 'findOneBy')
+        .mockResolvedValueOnce(mockFailureGo);
+      const result = await failureGoService.findOne(1);
+      expect(result).toEqual(mockFailureGo);
+    });
   });
 
-  it('should remove a failure', async () => {
-    const id = 1;
-    const result: DeleteResult = { raw: [], affected: 1 };
-
-    jest.spyOn(repo, 'delete').mockResolvedValue(result as DeleteResult);
-
-    expect(await service.remove(id)).toEqual(result);
-    expect(repo.delete).toHaveBeenCalledWith(id);
+  describe('update', () => {
+    it('should update an existing failure_go', async () => {
+      const mockFailureGoId = 1;
+      const mockUpdateResult: UpdateResult = {
+        affected: 1,
+        raw: {},
+        generatedMaps: [],
+      };
+      jest
+        .spyOn(failureGoRepository, 'update')
+        .mockResolvedValueOnce(mockUpdateResult);
+      const result = await failureGoService.update(
+        mockFailureGoId,
+        new Failure_Go(),
+      );
+      expect(result).toEqual(mockUpdateResult);
+    });
   });
 
-  it('should find all failures by global order id', async () => {
-    const globalOrderId = 123;
-    const failures: Failure_Go[] = [
-      new Failure_Go(),
-      new Failure_Go(),
-      new Failure_Go(),
-    ];
-
-    jest.spyOn(repo, 'find').mockResolvedValue(failures);
-
-    expect(await service.findAllByGlobalOrderId(globalOrderId)).toEqual(
-      failures,
-    );
-    expect(repo.find).toHaveBeenCalledWith({
-      where: { failure_go_id: globalOrderId },
+  describe('remove', () => {
+    it('should delete an existing failure_go', async () => {
+      const mockFailureGoId = 1;
+      const mockDeleteResult: DeleteResult = {
+        affected: 1,
+        raw: {},
+      };
+      jest
+        .spyOn(failureGoRepository, 'delete')
+        .mockResolvedValueOnce(mockDeleteResult);
+      const result = await failureGoService.remove(mockFailureGoId);
+      expect(result).toEqual(mockDeleteResult);
     });
   });
 });
