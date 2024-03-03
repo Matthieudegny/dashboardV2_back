@@ -7,16 +7,15 @@ import { User } from '../entities/User';
 import { JwtModule } from '@nestjs/jwt';
 import { Controller, Get } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    JwtModule.registerAsync({
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('DB_TOKEN'),
-        signOptions: { expiresIn: '60s' },
-      }),
-      inject: [ConfigService],
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
     }),
   ],
   controllers: [AuthController],

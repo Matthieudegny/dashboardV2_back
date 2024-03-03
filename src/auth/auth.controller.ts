@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { Public } from '../public.decorator';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 import { LoginDto, AccessTokenResponseDto } from './dto/Login.dto';
@@ -19,7 +20,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
-
+  @Public()
   @Post('login')
   async login(
     @Body() loginDto: LoginDto,
