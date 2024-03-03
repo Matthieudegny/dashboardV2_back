@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sub_Order } from '../entities/Sub_Order';
 
 //others modules used
-import { SetupSoModule } from 'src/setup_so/setup_so.module';
-import { ImageSoModule } from 'src/image_so/image_so.module';
-import { FailureSoModule } from 'src/failure_so/failure_so.module';
+import { SetupSoModule } from '../setup_so/setup_so.module';
+import { ImageSoModule } from '../image_so/image_so.module';
+import { FailureSoModule } from '../failure_so/failure_so.module';
 
 @Module({
   imports: [

@@ -4,7 +4,7 @@ import { SetupSoController } from './setup_so.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Setup_So } from '../entities/setup/Setup_so';
 import { Setup } from '../entities/setup/Setup';
-import { SetupService } from 'src/setup/setup.service';
+import { SetupService } from '../setup/setup.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Setup_So, Setup])],

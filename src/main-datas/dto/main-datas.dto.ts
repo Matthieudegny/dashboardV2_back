@@ -1,9 +1,9 @@
-import { Setup } from 'src/entities/setup/Setup';
-import { Failure } from 'src/entities/failure/Failure';
-import { Global_Order } from 'src/entities/Global_Order';
-import { Sub_Order } from 'src/entities/Sub_Order';
-import { Image_Go } from 'src/entities/Image/Image_go';
-import { Image_So } from 'src/entities/Image/Image_so';
+import { Setup } from '../../entities/setup/Setup';
+import { Failure } from '../../entities/failure/Failure';
+import { Global_Order } from '../../entities/Global_Order';
+import { Sub_Order } from '../../entities/Sub_Order';
+import { Image_Go } from '../../entities/Image/Image_go';
+import { Image_So } from '../../entities/Image/Image_so';
 
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderFillWithDatasDto>;

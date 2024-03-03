@@ -1,22 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FailureGoController } from '../failure_go.controller';
-import { FailureGoService } from '../failure_go.service';
-import { Failure_GoDto } from '../dto/failure_go.dto';
+import { ImageSoController } from '../image_so.controller';
+import { ImageSoService } from '../image_so.service';
+import { ImageSoDto } from '../dto/image_so.dto';
+import { Image_So } from '../../entities/image/Image_so';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
-const failureDto = new Failure_GoDto();
-describe('FailureGoController', () => {
-  let controller: FailureGoController;
-  let service: FailureGoService;
+const imageSoDto = new ImageSoDto();
+
+describe('ImageSoController', () => {
+  let controller: ImageSoController;
+  let service: ImageSoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FailureGoController],
+      controllers: [ImageSoController],
       providers: [
         {
-          provide: FailureGoService,
+          provide: ImageSoService,
           useValue: {
-            createFailure_go: jest.fn(),
+            create: jest.fn(),
             findAll: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
@@ -26,30 +28,30 @@ describe('FailureGoController', () => {
       ],
     }).compile();
 
-    controller = module.get<FailureGoController>(FailureGoController);
-    service = module.get<FailureGoService>(FailureGoService);
+    controller = module.get<ImageSoController>(ImageSoController);
+    service = module.get<ImageSoService>(ImageSoService);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a failure_go', async () => {
-    const expectedResult: Failure_GoDto = new Failure_GoDto();
-    jest.spyOn(service, 'createFailure_go').mockResolvedValue(expectedResult);
+  it('should create an imageSo', async () => {
+    const expectedResult: Image_So = new Image_So();
+    jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
-    expect(await controller.create(failureDto)).toBe(expectedResult);
+    expect(await controller.create(imageSoDto)).toBe(expectedResult);
   });
 
-  it('should find all failure_go', async () => {
-    const expectedResult: Failure_GoDto[] = [new Failure_GoDto()];
+  it('should find all imageSo', async () => {
+    const expectedResult: Image_So[] = [new Image_So()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
     expect(await controller.findAll()).toBe(expectedResult);
   });
 
-  it('should find one failure_go', async () => {
-    const expectedResult: Failure_GoDto = new Failure_GoDto();
+  it('should find one imageSo', async () => {
+    const expectedResult: Image_So = new Image_So();
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
@@ -57,7 +59,7 @@ describe('FailureGoController', () => {
     expect(service.findOne).toHaveBeenCalledWith(+id);
   });
 
-  it('should update a failure_go', async () => {
+  it('should update an imageSo', async () => {
     const expectedResult: UpdateResult = {
       affected: 1,
       raw: {},
@@ -66,11 +68,11 @@ describe('FailureGoController', () => {
     const id = '1';
     jest.spyOn(service, 'update').mockResolvedValue(expectedResult);
 
-    expect(await controller.update(id, failureDto)).toBe(expectedResult);
-    expect(service.update).toHaveBeenCalledWith(+id, failureDto);
+    expect(await controller.update(id, imageSoDto)).toBe(expectedResult);
+    expect(service.update).toHaveBeenCalledWith(+id, imageSoDto);
   });
 
-  it('should remove a failure_go', async () => {
+  it('should remove an imageSo', async () => {
     const expectedResult: DeleteResult = {
       affected: 1,
       raw: {},

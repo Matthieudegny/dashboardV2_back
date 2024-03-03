@@ -18,10 +18,10 @@ export class GlobalOrderService {
   constructor(
     @InjectRepository(Global_Order)
     private globalOrderRepository: Repository<Global_Order>,
-    private readonly setupGoService: SetupGoService,
-    private readonly imageGoService: ImageGoService,
-    private readonly failureGoService: FailureGoService,
-    private readonly subOrderService: SubOrderService,
+    private setupGoService: SetupGoService,
+    private imageGoService: ImageGoService,
+    private failureGoService: FailureGoService,
+    private subOrderService: SubOrderService,
   ) {}
   create(createGlobalOrderDto: GlobalOrderDto) {
     const newGlobalOrder =

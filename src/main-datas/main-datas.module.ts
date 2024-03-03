@@ -3,7 +3,7 @@ import { MainDatasService } from './main-datas.service';
 import { MainDatasController } from './main-datas.controller';
 
 //modules used
-import { GlobalOrderModule } from 'src/global_order/global_order.module';
+import { GlobalOrderModule } from '../global_order/global_order.module';
 import { SetupModule } from '../setup/setup.module';
 import { FailureModule } from '../failure/failure.module';
 
