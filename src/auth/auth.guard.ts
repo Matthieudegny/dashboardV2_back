@@ -29,6 +29,12 @@ export class AuthGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const headers = request.headers as IncomingHttpHeaders;
+    console.log('headers', headers);
+
+    if (headers.referer && headers.referer.includes('/api')) {
+      return true; // Autorise l'accès sans authentification
+    }
+
     const token = this.extractTokenFromHeader(headers);
     if (!token) {
       throw new UnauthorizedException();

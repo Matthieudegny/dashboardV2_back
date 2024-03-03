@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { Public } from '../public.decorator';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
@@ -14,12 +15,20 @@ import { LoginDto, AccessTokenResponseDto } from './dto/Login.dto';
 import { UnauthorizedException } from '@nestjs/common';
 import { UserDto } from '../user/dto/user.dto';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
+  @ApiBody({ type: LoginDto }) // Specify the type of the request body
+  @ApiResponse({ status: 200, type: AccessTokenResponseDto })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+    type: UnauthorizedException,
+  })
   @Public()
   @Post('login')
   async login(
