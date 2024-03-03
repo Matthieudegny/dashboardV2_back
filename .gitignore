@@ -1,6 +1,8 @@
 #constant
 src/auth/constants.ts
-
+.auth/constants.ts
+/src/auth/constants.ts
+/auth/constants.ts
 # compiled output
 /dist
 /node_modules

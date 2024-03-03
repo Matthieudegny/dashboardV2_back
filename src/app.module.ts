@@ -4,7 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+
+//guards
 import { AuthGuard } from './auth/auth.guard';
+
 //entities
 import { Failure } from './entities/Failure/Failure';
 import { Failure_Go } from './entities/Failure/Failure_go';
