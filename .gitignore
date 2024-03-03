@@ -1,5 +1,5 @@
 #constant
-src/auth/constants.ts
+.auth/constants.ts
 
 # compiled output
 /dist
