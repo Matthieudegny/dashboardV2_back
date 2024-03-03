@@ -48,9 +48,9 @@ import { MainDatasModule } from './main-datas/main-datas.module';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: '$moiLH29!',
-      database: 'dashboard',
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [
         Failure,
         Failure_Go,
