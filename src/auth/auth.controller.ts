@@ -22,13 +22,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
-  @ApiBody({ type: LoginDto }) // Specify the type of the request body
-  @ApiResponse({ status: 200, type: AccessTokenResponseDto })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized',
-    type: UnauthorizedException,
-  })
+  @ApiBody({ type: LoginDto })
   @Public()
   @Post('login')
   async login(

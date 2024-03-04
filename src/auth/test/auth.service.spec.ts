@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../../entities/User';
 import { UnauthorizedException } from '@nestjs/common';
-import { LoginDto } from '../dto/Login.dto';
+import { AccessTokenResponseDto, LoginDto } from '../dto/Login.dto';
 import { UserDto } from '../../user/dto/user.dto';
 
 const loginDto = new LoginDto();
@@ -44,13 +44,19 @@ describe('AuthService', () => {
 
   it('should return an access token when findByLogin is called with valid credentials', async () => {
     const token = 'testAccessToken';
+    const response: AccessTokenResponseDto = {
+      access_token: token,
+      idUser: userDto.idUser,
+      firstName: userDto.firstName,
+      lastName: userDto.lastName,
+    };
 
     mockUserRepository.findOne.mockResolvedValue(userDto);
     mockJwtService.signAsync.mockResolvedValue(token);
 
     const result = await service.findByLogin(loginDto);
 
-    expect(result).toEqual({ access_token: token });
+    expect(result).toEqual(response);
     expect(mockUserRepository.findOne).toHaveBeenCalledWith({
       where: { login: loginDto.login },
     });
