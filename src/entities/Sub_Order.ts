@@ -7,6 +7,16 @@ import {
 } from 'typeorm';
 import { Global_Order } from './Global_Order';
 
+export class DecimalColumnTransformer {
+  to(data: number): number {
+    return data;
+  }
+
+  from(data: string): number {
+    return parseFloat(data);
+  }
+}
+
 @Entity()
 export class Sub_Order {
   @PrimaryGeneratedColumn()
@@ -27,19 +37,39 @@ export class Sub_Order {
   @Column({ type: 'datetime' })
   so_closeDate: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   so_quantity: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   so_entryPrice: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   so_exitPrice: number;
 
   @Column({ type: 'boolean' })
   so_status: boolean;
 
-  @Column({ type: 'decimal', precision: 10, scale: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   so_result: number;
 
   @Column({ type: 'text' })

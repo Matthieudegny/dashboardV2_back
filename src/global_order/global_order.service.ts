@@ -33,10 +33,12 @@ export class GlobalOrderService {
     return this.globalOrderRepository.find();
   }
 
-  findAllByIdUser(idUser: number) {
-    return this.globalOrderRepository.find({
+  async findAllByIdUser(idUser: number) {
+    const result = await this.globalOrderRepository.find({
       where: { go_user_id: idUser },
     });
+    console.log('result test', result);
+    return result;
   }
 
   findOne(id: number) {
