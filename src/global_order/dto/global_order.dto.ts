@@ -17,6 +17,8 @@ export class GlobalOrderDto {
   go_exitPrice: number;
   @ApiProperty({ description: '% engaged' })
   go_percentageEngaged: number;
+  @ApiProperty({ description: 'Amount engaged' })
+  go_amountEngaged: number;
   @ApiProperty({ description: '% stop loss' })
   go_percentageStopLoss: number;
   @ApiProperty({ description: 'Status' })

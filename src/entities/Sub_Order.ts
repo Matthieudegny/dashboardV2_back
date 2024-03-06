@@ -59,6 +59,14 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
+  so_amountEngaged: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   so_exitPrice: number;
 
   @Column({ type: 'boolean' })

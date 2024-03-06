@@ -76,6 +76,14 @@ export class Global_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
+  go_amountEngaged: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
   go_percentageStopLoss: number;
 
   @Column({ type: 'boolean' })

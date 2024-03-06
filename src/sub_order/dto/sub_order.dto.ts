@@ -11,6 +11,8 @@ export class SubOrderDto {
   so_quantity: number;
   @ApiProperty({ example: 10, description: 'Entry Price' })
   so_entryPrice: number;
+  @ApiProperty({ example: 10, description: 'Amount Engaged' })
+  so_amountEngaged: number;
   @ApiProperty({ example: 10, description: 'Exit Price' })
   so_exitPrice: number;
   @ApiProperty({ example: true, description: 'Statut' })
