@@ -62,13 +62,13 @@ export class SubOrderService {
         new SubOrderFillWithDatasDto();
       //2.1. fill the sub order with its datas
       subOrderFillWithData.subOrder = subOrder;
-      //2.2. fill the setup_so
+      //2.2. fill the setup_so used
       subOrderFillWithData.setupSo =
         await this.setupSoService.findAllBySubOrderId(subOrder.so_id);
       //2.3. fill the image_so
       subOrderFillWithData.imageSo =
         await this.imageSoService.findAllBySubOrderId(subOrder.so_id);
-      //2.4. fill the failure_so
+      //2.4. fill the failure_so used
       subOrderFillWithData.failureSo =
         await this.failureSoService.findAllBySubOrderId(subOrder.so_id);
 

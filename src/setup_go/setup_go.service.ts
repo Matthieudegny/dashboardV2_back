@@ -34,7 +34,13 @@ export class SetupGoService {
         const setupData: SetupDto = await this.setupService.findOne(
           setupGo.setup_go_setup_id,
         );
-        listSetupCategoriesByGlobalOrder.push(setupData);
+        //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
+        if (
+          !listSetupCategoriesByGlobalOrder.some(
+            (setup) => setup.setup_id === setupData.setup_id,
+          )
+        )
+          listSetupCategoriesByGlobalOrder.push(setupData);
       }
     }
     return listSetupCategoriesByGlobalOrder;

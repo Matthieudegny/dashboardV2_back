@@ -35,7 +35,13 @@ export class FailureGoService {
         const failureData: FailureDto = await this.failureService.findOne(
           failureGo.failure_go_failure_id,
         );
-        listFailuresCategoriesByGlobalOrder.push(failureData);
+        //if listFailuresCategoriesByGlobalOrder doesnt contain the failure category, i add it
+        if (
+          !listFailuresCategoriesByGlobalOrder.some(
+            (failure) => failure.failure_id === failureData.failure_id,
+          )
+        )
+          listFailuresCategoriesByGlobalOrder.push(failureData);
       }
     }
     return listFailuresCategoriesByGlobalOrder;

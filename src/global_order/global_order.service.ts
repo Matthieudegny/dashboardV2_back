@@ -66,13 +66,13 @@ export class GlobalOrderService {
         new GlobalOrderFillWithDatasDto();
       //2.1. fill the global order with its datas
       globalOrderFillWithData.globalOrder = globalOrder;
-      //2.2. fill the setup_go
+      //2.2. fill the setup used
       globalOrderFillWithData.setupGo =
         await this.setupGoService.findAllByGlobalOrderId(globalOrder.go_id);
       //2.3. fill the image_go
       globalOrderFillWithData.imageGo =
         await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);
-      //2.4. fill the failure_go
+      //2.4. fill the failure used
       globalOrderFillWithData.failureGo =
         await this.failureGoService.findAllFailureCategoriesByGlobalOrderId(
           globalOrder.go_id,

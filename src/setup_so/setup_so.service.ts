@@ -33,7 +33,13 @@ export class SetupSoService {
         const setupData: SetupDto = await this.setupService.findOne(
           setupSo.setup_so_setup_id,
         );
-        listSetupCategoriesBySubOrder.push(setupData);
+        //if listSetupCategoriesBySubOrder doesnt contain the setup category, i add it
+        if (
+          !listSetupCategoriesBySubOrder.some(
+            (setup) => setup.setup_id === setupData.setup_id,
+          )
+        )
+          listSetupCategoriesBySubOrder.push(setupData);
       }
     }
     return listSetupCategoriesBySubOrder;
