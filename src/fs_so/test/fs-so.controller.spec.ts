@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FailureSoController } from '../failure_so.controller';
-import { FailureSoService } from '../failure_so.service';
-import { Failure_SoDto } from '../dto/failure_so.dto';
+import { Fs_So_Controller } from '../../fs_so/fs_so.controller';
+import { Fs_So_Service } from '../../fs_so/fs_so.service';
+import { Fs_So_Dto } from '../../fs_so/dto/fs_so.dto';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
-const failureDto = new Failure_SoDto();
+const failureDto = new Fs_So_Dto();
 
-describe('FailureSoController', () => {
-  let controller: FailureSoController;
-  let service: FailureSoService;
+describe('Fs_So_Controller', () => {
+  let controller: Fs_So_Controller;
+  let service: Fs_So_Service;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FailureSoController],
+      controllers: [Fs_So_Controller],
       providers: [
         {
-          provide: FailureSoService,
+          provide: Fs_So_Service,
           useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
@@ -27,30 +27,30 @@ describe('FailureSoController', () => {
       ],
     }).compile();
 
-    controller = module.get<FailureSoController>(FailureSoController);
-    service = module.get<FailureSoService>(FailureSoService);
+    controller = module.get<Fs_So_Controller>(Fs_So_Controller);
+    service = module.get<Fs_So_Service>(Fs_So_Service);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a failure_so', async () => {
-    const expectedResult: Failure_SoDto = new Failure_SoDto();
+  it('should create a fs_so', async () => {
+    const expectedResult: Fs_So_Dto = new Fs_So_Dto();
     jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
     expect(await controller.create(failureDto)).toBe(expectedResult);
   });
 
-  it('should find all failure_so', async () => {
-    const expectedResult: Failure_SoDto[] = [new Failure_SoDto()];
+  it('should find all fs_so', async () => {
+    const expectedResult: Fs_So_Dto[] = [new Fs_So_Dto()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
     expect(await controller.findAll()).toBe(expectedResult);
   });
 
-  it('should find one failure_so', async () => {
-    const expectedResult: Failure_SoDto = new Failure_SoDto();
+  it('should find one fs_so', async () => {
+    const expectedResult: Fs_So_Dto = new Fs_So_Dto();
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
@@ -58,7 +58,7 @@ describe('FailureSoController', () => {
     expect(service.findOne).toHaveBeenCalledWith(+id);
   });
 
-  it('should update a failure_so', async () => {
+  it('should update a fs_so', async () => {
     const expectedResult: UpdateResult = {
       affected: 1,
       raw: {},
@@ -71,7 +71,7 @@ describe('FailureSoController', () => {
     expect(service.update).toHaveBeenCalledWith(+id, failureDto);
   });
 
-  it('should remove a failure_so', async () => {
+  it('should remove a fs_so', async () => {
     const expectedResult: DeleteResult = {
       affected: 1,
       raw: {},

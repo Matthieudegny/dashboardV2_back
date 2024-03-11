@@ -8,6 +8,7 @@ import { Sub_Order } from '../../entities/Sub_Order';
 import { SetupSoService } from '../../setup_so/setup_so.service';
 import { ImageSoService } from '../../image_so/image_so.service';
 import { FailureSoService } from '../../failure_so/failure_so.service';
+import { Fs_So_Service } from '../../fs_so/fs_so.service';
 import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
 import { SetupDto } from '../../setup/dto/setup.dto';
 import { Image_So } from '../../entities/image/Image_so';
@@ -19,7 +20,7 @@ describe('SubOrderService', () => {
   let repository: Repository<Sub_Order>;
   let setupSoService: SetupSoService;
   let imageSoService: ImageSoService;
-  let failureSoService: FailureSoService;
+  let fsSoService: Fs_So_Service;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -38,8 +39,8 @@ describe('SubOrderService', () => {
           useValue: createMock<SetupSoService>(),
         },
         {
-          provide: FailureSoService,
-          useValue: createMock<FailureSoService>(),
+          provide: Fs_So_Service,
+          useValue: createMock<Fs_So_Service>(),
         },
       ],
     }).compile();
@@ -50,7 +51,7 @@ describe('SubOrderService', () => {
     );
     setupSoService = module.get<SetupSoService>(SetupSoService);
     imageSoService = module.get<ImageSoService>(ImageSoService);
-    failureSoService = module.get<FailureSoService>(FailureSoService);
+    fsSoService = module.get<Fs_So_Service>(Fs_So_Service);
   });
 
   it('should be defined', () => {
@@ -157,7 +158,7 @@ describe('SubOrderService', () => {
         .spyOn(imageSoService, 'findAllBySubOrderId')
         .mockResolvedValueOnce(mockImageSoList);
       jest
-        .spyOn(failureSoService, 'findAllBySubOrderId')
+        .spyOn(fsSoService, 'findAllBySubOrderId')
         .mockResolvedValueOnce(mockFailureSoList);
 
       const result =

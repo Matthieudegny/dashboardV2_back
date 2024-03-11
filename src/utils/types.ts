@@ -10,6 +10,12 @@ export type CreateFailureParams = {
   failure_description: string;
 };
 
+export type CreateFailureSoParams = {
+  failure_so_id: number;
+  failure_so_title: string;
+  failure_so_description: string;
+};
+
 export type UpdateFailureParams = {
   failure_id: number;
   failure_title: string;

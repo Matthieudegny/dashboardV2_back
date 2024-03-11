@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Failure } from './Failure';
-import { Sub_Order } from '../Sub_Order';
+import { Failure_so } from '../Failure_so';
+import { Sub_Order } from '../../Sub_Order';
 
 @Entity({ name: 'fs_so' })
 export class Fs_So {
@@ -19,15 +19,15 @@ export class Fs_So {
   @Column()
   fs_so_sub_order_id: number;
 
-  @ManyToOne(() => Failure, (Failure) => Failure.failure_id, {
+  @ManyToOne(() => Failure_so, (Failure_so) => Failure_so.failure_so_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'failure_so_failure' })
-  Failure?: Failure;
+  @JoinColumn({ name: 'fs_so_failure_so_id' })
+  Failure_so: Failure_so;
 
   @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'failure_so_so_id' })
+  @JoinColumn({ name: 'fs_so_sub_order_id' })
   Sub_Order?: Sub_Order;
 }

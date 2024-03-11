@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Fs_So } from '../entities/Failure/Fs_So';
-import { Failure_So } from '../entities/Failure/Failure_so';
+import { Fs_So } from '../entities/Failure/Associations/Fs_So';
 import { Fs_So_Dto } from './dto/fs_So.dto';
 import { FailureDto } from '../failure/dtos/failure.dto';
 import { FailureService } from '../failure/failure.service';
