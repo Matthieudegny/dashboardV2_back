@@ -9,7 +9,7 @@ import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 //services used
 import { SetupSoService } from '../setup_so/setup_so.service';
 import { ImageSoService } from '../image_so/image_so.service';
-import { FailureSoService } from '../failure_so/failure_so.service';
+import { Fs_So_Service } from '../fs_so/fs_So.service';
 
 @Injectable()
 export class SubOrderService {
@@ -18,7 +18,7 @@ export class SubOrderService {
     private subOrderRepository: Repository<Sub_Order>,
     private readonly setupSoService: SetupSoService,
     private readonly imageSoService: ImageSoService,
-    private readonly failureSoService: FailureSoService,
+    private readonly failureSoService: Fs_So_Service,
   ) {}
   create(createSubOrderDto: SubOrderDto) {
     const newSubOrder = this.subOrderRepository.create(createSubOrderDto);

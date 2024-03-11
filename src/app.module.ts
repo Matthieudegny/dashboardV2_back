@@ -12,6 +12,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { Failure } from './entities/Failure/Failure';
 import { Failure_Go } from './entities/Failure/Failure_go';
 import { Failure_So } from './entities/Failure/Failure_so';
+import { Fs_So } from './entities/Failure/Fs_So';
 import { User } from './entities/User';
 import { Image_Go } from './entities/image/Image_go';
 import { Image_So } from './entities/image/Image_so';
@@ -26,6 +27,7 @@ import { FailureModule } from './failure/failure.module';
 import { UserModule } from './user/user.module';
 import { FailureGoModule } from './failure_go/failure_go.module';
 import { FailureSoModule } from './failure_so/failure_so.module';
+import { Fs_So_Module } from './fs_so/fs_So.module';
 import { ImageSoModule } from './image_so/image_so.module';
 import { ImageGoModule } from './image_go/image_go.module';
 import { SetupGoModule } from './setup_go/setup_go.module';
@@ -60,6 +62,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         Failure,
         Failure_Go,
         Failure_So,
+        Fs_So,
         User,
         Image_Go,
         Image_So,
@@ -75,6 +78,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     UserModule,
     FailureGoModule,
     FailureSoModule,
+    Fs_So_Module,
     ImageSoModule,
     ImageGoModule,
     SetupGoModule,

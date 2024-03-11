@@ -7,14 +7,14 @@ import { Sub_Order } from '../entities/Sub_Order';
 //others modules used
 import { SetupSoModule } from '../setup_so/setup_so.module';
 import { ImageSoModule } from '../image_so/image_so.module';
-import { FailureSoModule } from '../failure_so/failure_so.module';
+import { Fs_So_Module } from '../fs_so/fs_So.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Sub_Order]),
     SetupSoModule,
     ImageSoModule,
-    FailureSoModule,
+    Fs_So_Module,
   ],
   controllers: [SubOrderController],
   providers: [SubOrderService],
