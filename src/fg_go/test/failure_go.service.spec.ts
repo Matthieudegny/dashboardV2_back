@@ -78,9 +78,7 @@ describe('FailureGoService', () => {
         .mockResolvedValueOnce(mockFailureData);
 
       const result =
-        await failureGoService.findAllFailureCategoriesByGlobalOrderId(
-          mockGlobalOrderId,
-        );
+        await failureGoService.findAllByGlobalOrderId(mockGlobalOrderId);
       expect(result).toEqual([mockFailureData]);
     });
   });

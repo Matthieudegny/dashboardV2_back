@@ -25,19 +25,20 @@ export class Fs_SoService {
     return this.fs_SoRepository.find();
   }
 
-  //find all the failures categories of a sub order
-  async findAllBySubOrderId(globalOrderId: number) {
-    const listFailuresGoByGlobalOrderId: Array<Fs_So> =
-      await this.fs_SoRepository.find({
-        where: { fs_so_id: globalOrderId },
-      });
+  //find all the failures categories used for one sub order
+  async findAllBySubOrderId(subOrderId: number) {
+    const listFs_SoBySubOrderId: Array<Fs_So> = await this.fs_SoRepository.find(
+      {
+        where: { fs_so_sub_order_id: subOrderId },
+      },
+    );
 
     let listFailuresCategoriesBySubOrder: Array<FailureSoDto> = [];
-    if (listFailuresGoByGlobalOrderId.length > 0) {
-      //for each failure_go i get the failure category data
-      for (const failureGo of listFailuresGoByGlobalOrderId) {
+    if (listFs_SoBySubOrderId.length > 0) {
+      //for each Fs_So i get the failure category data which correspond
+      for (const failureSo of listFs_SoBySubOrderId) {
         const failureData: FailureSoDto = await this.failure_So_Service.findOne(
-          failureGo.fs_so_failure_so_id,
+          failureSo.fs_so_failure_so_id,
         );
         //if listFailuresCategoriesBySubOrder doesnt contain the failure category, i add it
         if (

@@ -24,18 +24,18 @@ export class Fg_GoService {
     return this.fg_GoRepository.find();
   }
 
-  async findAllFailureCategoriesByGlobalOrderId(globalOrderId: number) {
+  async findAllByGlobalOrderId(globalOrderId: number) {
     const listFailuresGoByGlobalOrderId: Array<Fg_Go> =
       await this.fg_GoRepository.find({
-        where: { fg_go_id: globalOrderId },
+        where: { fg_go_go_id: globalOrderId },
       });
 
     let listFailuresCategoriesByGlobalOrder: Array<FailureGoDto> = [];
     if (listFailuresGoByGlobalOrderId.length > 0) {
-      //for each failure_go i get the failure category data
+      //for each failure_go i get the failure category data which correspond
       for (const failureGo of listFailuresGoByGlobalOrderId) {
         const failureData: FailureGoDto = await this.failureGoService.findOne(
-          failureGo.fg_go_failure_id,
+          failureGo.fg_go_failure_go_id,
         );
         //if listFailuresCategoriesByGlobalOrder doesnt contain the failure category, i add it
         if (
