@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { Fs_So_Service } from '../../fs_so/fs_so.service';
+import { Fs_SoService } from '../../fs_so/fs_so.service';
 import { Fs_So } from '../../../entities/Failure/Associations/Fs_So';
 import { Fs_So_Dto } from '../../fs_so/dto/fs_so.dto';
 import { FailureDto } from '../../../failure/dtos/failure.dto';
@@ -9,14 +9,14 @@ import { FailureService } from '../../../failure/failure.service';
 import { Failure } from '../../../entities/Failure/Failure';
 
 describe('Fs_So_Service', () => {
-  let fsSoService: Fs_So_Service;
+  let fsSoService: Fs_SoService;
   let fsSoRepository: Repository<Fs_So>;
   let failureService: FailureService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        Fs_So_Service,
+        Fs_SoService,
         FailureService,
         {
           provide: getRepositoryToken(Fs_So),
@@ -29,7 +29,7 @@ describe('Fs_So_Service', () => {
       ],
     }).compile();
 
-    fsSoService = module.get<Fs_So_Service>(Fs_So_Service);
+    fsSoService = module.get<Fs_SoService>(Fs_SoService);
     fsSoRepository = module.get<Repository<Fs_So>>(getRepositoryToken(Fs_So));
     failureService = module.get<FailureService>(FailureService);
   });

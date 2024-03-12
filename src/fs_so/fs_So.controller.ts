@@ -8,13 +8,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { Fs_So_Service } from './fs_So.service';
+import { Fs_SoService } from './fs_So.service';
 import { Fs_So_Dto } from './dto/fs_So.dto';
 
 @ApiTags('Fs_So')
 @Controller('fs-so')
 export class Fs_So_Controller {
-  constructor(private readonly failureSoService: Fs_So_Service) {}
+  constructor(private readonly failureSoService: Fs_SoService) {}
 
   @Post()
   create(@Body() createFailureSoDto: Fs_So_Dto) {

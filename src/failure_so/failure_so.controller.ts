@@ -9,27 +9,27 @@ import {
   ParseIntPipe,
   Delete,
 } from '@nestjs/common';
-import { FailureService } from './failure.service';
-import { FailureDto } from './dtos/failure.dto';
+import { FailureSoService } from './failure_so.service';
+import { FailureSoDto } from './dtos/failureSo.dto';
 
-@ApiTags('Failure')
-@Controller('failure')
-export class FailureController {
-  constructor(private failureService: FailureService) {}
+@ApiTags('Failure_So')
+@Controller('failure_so')
+export class FailureSoController {
+  constructor(private failureService: FailureSoService) {}
   @Get()
   getFailure() {
     return this.failureService.findAllFailure();
   }
 
   @Post()
-  createFailure(@Body() createFailure: FailureDto) {
+  createFailure(@Body() createFailure: FailureSoDto) {
     return this.failureService.createFailure(createFailure);
   }
 
   @Put(':id')
   updateFailure(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateFailure: FailureDto,
+    @Body() updateFailure: FailureSoDto,
   ) {
     return this.failureService.updateFailure(id, updateFailure);
   }

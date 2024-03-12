@@ -1,28 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FailureService } from '../failure.service';
+import { FailureSoService } from '../failure_so.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { Failure } from '../../entities/Failure/Failure';
-import { CreateFailureParams } from '../../utils/types';
+import { Failure_so } from '../../../entities/Failure/Failure_so';
+import { CreateFailureSoParams } from '../../../utils/types';
 
-const failure = new Failure();
-describe('FailureService', () => {
-  let service: FailureService;
-  let repository: Repository<Failure>;
+const failureSo = new Failure_so();
+
+describe('FailureSoService', () => {
+  let service: FailureSoService;
+  let repository: Repository<Failure_so>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        FailureService,
+        FailureSoService,
         {
-          provide: getRepositoryToken(Failure),
+          provide: getRepositoryToken(Failure_so),
           useClass: Repository,
         },
       ],
     }).compile();
 
-    service = module.get<FailureService>(FailureService);
-    repository = module.get<Repository<Failure>>(getRepositoryToken(Failure));
+    service = module.get<FailureSoService>(FailureSoService);
+    repository = module.get<Repository<Failure_so>>(
+      getRepositoryToken(Failure_so),
+    );
   });
 
   it('should be defined', () => {
@@ -31,7 +34,7 @@ describe('FailureService', () => {
 
   describe('findAllFailure', () => {
     it('should return an array of failures', async () => {
-      const mockFailures: Failure[] = [failure];
+      const mockFailures: Failure_so[] = [failureSo];
       jest.spyOn(repository, 'find').mockResolvedValueOnce(mockFailures);
       const result = await service.findAllFailure();
       expect(result).toEqual(mockFailures);
@@ -40,8 +43,8 @@ describe('FailureService', () => {
 
   describe('findOne', () => {
     it('should return a single failure', async () => {
-      const mockFailure: Failure = failure;
-      jest.spyOn(repository, 'findOneBy').mockResolvedValueOnce(mockFailure);
+      const mockFailure: Failure_so = failureSo;
+      jest.spyOn(repository, 'findOne').mockResolvedValueOnce(mockFailure);
       const result = await service.findOne(1);
       expect(result).toEqual(mockFailure);
     });
@@ -49,8 +52,8 @@ describe('FailureService', () => {
 
   describe('createFailure', () => {
     it('should create a new failure', async () => {
-      const mockFailureDetails: CreateFailureParams = failure;
-      const mockCreatedFailure: Failure = failure;
+      const mockFailureDetails: CreateFailureSoParams = failureSo;
+      const mockCreatedFailure: Failure_so = failureSo;
       jest.spyOn(repository, 'create').mockReturnValueOnce(mockCreatedFailure);
       jest.spyOn(repository, 'save').mockResolvedValueOnce(mockCreatedFailure);
       const result = await service.createFailure(mockFailureDetails);
@@ -61,7 +64,7 @@ describe('FailureService', () => {
   describe('updateFailure', () => {
     it('should update an existing failure', async () => {
       const mockFailureId = 1;
-      const mockFailureDetails: CreateFailureParams = failure;
+      const mockFailureDetails: CreateFailureSoParams = failureSo;
       const mockUpdateResult: UpdateResult = {
         affected: 1,
         raw: {},

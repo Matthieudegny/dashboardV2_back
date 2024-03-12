@@ -4,10 +4,10 @@ export type CreateUserType = {
   email: string;
 };
 
-export type CreateFailureParams = {
-  failure_id: number;
-  failure_title: string;
-  failure_description: string;
+export type CreateFailureGoParams = {
+  failure_go_id: number;
+  failure_go_title: string;
+  failure_go_description: string;
 };
 
 export type CreateFailureSoParams = {

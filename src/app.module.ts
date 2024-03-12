@@ -9,8 +9,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 
 //entities
-import { Failure } from './entities/Failure/Failure';
-import { Failure_Go } from './entities/Failure/Failure_go';
+import { Failure_go } from './entities/Failure/Failure_go';
+import { Fg_Go } from './entities/Failure/Associations/Fg_go';
 import { Failure_so } from './entities/Failure/Failure_so';
 import { Fs_So } from './entities/Failure/Associations/Fs_So';
 import { User } from './entities/User';
@@ -25,10 +25,10 @@ import { Sub_Order } from './entities/Sub_Order';
 //modules
 import { UserModule } from './user/user.module';
 //failures
-import { FailureModule } from './failure/failure.module';
 import { FailureGoModule } from './failure_go/failure_go.module';
-import { Fs_So_Module } from './failure folder/fs_so/fs_So.module';
-import { FailureSoModule } from './failure folder/failure_so/failure_so.module';
+import { FailureSoModule } from './failure_so/failure_so.module';
+import { Fs_So_Module } from './fs_so/fs_So.module';
+import { Fg_Go_Module } from './fg_go/fg_Go.module';
 //images
 import { ImageSoModule } from './image_so/image_so.module';
 import { ImageGoModule } from './image_go/image_go.module';
@@ -65,8 +65,8 @@ import { MainDatasModule } from './main-datas/main-datas.module';
       entities: [
         User,
         //failure
-        Failure,
-        Failure_Go,
+        Failure_go,
+        Fg_Go,
         Failure_so,
         Fs_So,
         //image
@@ -84,10 +84,10 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     }),
     UserModule,
     //failure
-    FailureModule,
     FailureGoModule,
-    Fs_So_Module,
     FailureSoModule,
+    Fg_Go_Module,
+    Fs_So_Module,
     //image
     ImageSoModule,
     ImageGoModule,

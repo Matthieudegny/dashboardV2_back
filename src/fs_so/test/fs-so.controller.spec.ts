@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Fs_So_Controller } from '../../fs_so/fs_so.controller';
-import { Fs_So_Service } from '../../fs_so/fs_so.service';
+import { Fs_SoService } from '../../fs_so/fs_so.service';
 import { Fs_So_Dto } from '../../fs_so/dto/fs_so.dto';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
@@ -8,14 +8,14 @@ const failureDto = new Fs_So_Dto();
 
 describe('Fs_So_Controller', () => {
   let controller: Fs_So_Controller;
-  let service: Fs_So_Service;
+  let service: Fs_SoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [Fs_So_Controller],
       providers: [
         {
-          provide: Fs_So_Service,
+          provide: Fs_SoService,
           useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
@@ -28,7 +28,7 @@ describe('Fs_So_Controller', () => {
     }).compile();
 
     controller = module.get<Fs_So_Controller>(Fs_So_Controller);
-    service = module.get<Fs_So_Service>(Fs_So_Service);
+    service = module.get<Fs_SoService>(Fs_SoService);
   });
 
   it('should be defined', () => {

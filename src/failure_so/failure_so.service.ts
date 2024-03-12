@@ -1,30 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Failure } from '../entities/Failure/Failure';
-import { CreateFailureParams } from '../utils/types';
+import { Failure_so } from '../entities/Failure/Failure_so';
+import { CreateFailureSoParams } from '../utils/types';
 
 @Injectable()
-export class FailureService {
-  //injection de dépendance pour utiliser le repository Failure (repository = couche de l'ORM)
+export class FailureSoService {
   constructor(
-    @InjectRepository(Failure)
-    private failureRepository: Repository<Failure>,
+    @InjectRepository(Failure_so)
+    private failureRepository: Repository<Failure_so>,
   ) {}
   findAllFailure() {
     return this.failureRepository.find();
   }
 
   findOne(id: number) {
-    return this.failureRepository.findOneBy({ failure_id: id });
+    return this.failureRepository.findOneBy({ failure_so_id: id });
   }
 
-  createFailure(failureDetails: CreateFailureParams) {
+  createFailure(failureDetails: CreateFailureSoParams) {
     const newFailure = this.failureRepository.create(failureDetails);
     return this.failureRepository.save(newFailure);
   }
 
-  updateFailure(id: number, failureDetails: CreateFailureParams) {
+  updateFailure(id: number, failureDetails: CreateFailureSoParams) {
     return this.failureRepository.update(id, failureDetails);
   }
 

@@ -1,32 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Fs_So } from '../../entities/Failure/Associations/Fs_So';
+
+import { Fs_So } from '../entities/Failure/Associations/Fs_So';
 import { Fs_So_Dto } from './dto/fs_So.dto';
+
 import { FailureSoDto } from '../failure_so/dtos/failureSo.dto';
-import { FailureSo_Service } from '../failure_so/failure_so.service';
+import { FailureSoService } from '../failure_so/failure_so.service';
 
 @Injectable()
-export class Fs_So_Service {
+export class Fs_SoService {
   constructor(
     @InjectRepository(Fs_So)
-    private fs_So_Repository: Repository<Fs_So>,
-    private failure_So_Service: FailureSo_Service,
+    private fs_SoRepository: Repository<Fs_So>,
+    private failure_So_Service: FailureSoService,
   ) {}
 
   create(createFailureSoDto: Fs_So_Dto) {
-    const newFailureSo = this.fs_So_Repository.create(createFailureSoDto);
-    return this.fs_So_Repository.save(newFailureSo);
+    const newFailureSo = this.fs_SoRepository.create(createFailureSoDto);
+    return this.fs_SoRepository.save(newFailureSo);
   }
 
   findAll() {
-    return this.fs_So_Repository.find();
+    return this.fs_SoRepository.find();
   }
 
   //find all the failures categories of a sub order
   async findAllBySubOrderId(globalOrderId: number) {
     const listFailuresGoByGlobalOrderId: Array<Fs_So> =
-      await this.fs_So_Repository.find({
+      await this.fs_SoRepository.find({
         where: { fs_so_id: globalOrderId },
       });
 
@@ -50,14 +52,14 @@ export class Fs_So_Service {
   }
 
   findOne(id: number) {
-    return this.fs_So_Repository.findOneBy({ fs_so_id: id });
+    return this.fs_SoRepository.findOneBy({ fs_so_id: id });
   }
 
   update(id: number, updateFailureSoDto: Fs_So_Dto) {
-    return this.fs_So_Repository.update(id, updateFailureSoDto);
+    return this.fs_SoRepository.update(id, updateFailureSoDto);
   }
 
   remove(id: number) {
-    return this.fs_So_Repository.delete(id);
+    return this.fs_SoRepository.delete(id);
   }
 }

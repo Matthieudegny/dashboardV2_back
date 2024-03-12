@@ -1,36 +1,36 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { FailureGoService } from '../failure_go.service';
-import { Failure_Go } from '../../entities/Failure/Failure_go';
+import { Fg_GoService } from '../fg_Go.service';
+import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
 import { FailureService } from '../../failure/failure.service';
 import { FailureDto } from '../../failure/dtos/failure.dto';
-import { Failure } from '../../entities/Failure/Failure';
+import { Failure_go } from '../../entities/Failure/Failure_go';
 
 describe('FailureGoService', () => {
-  let failureGoService: FailureGoService;
-  let failureGoRepository: Repository<Failure_Go>;
+  let failureGoService: Fg_GoService;
+  let failureGoRepository: Repository<Fg_Go>;
   let failureService: FailureService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        FailureGoService,
+        Fg_GoService,
         FailureService,
         {
-          provide: getRepositoryToken(Failure_Go),
+          provide: getRepositoryToken(Fg_Go),
           useClass: Repository,
         },
         {
-          provide: getRepositoryToken(Failure),
+          provide: getRepositoryToken(Failure_go),
           useClass: Repository,
         },
       ],
     }).compile();
 
-    failureGoService = module.get<FailureGoService>(FailureGoService);
-    failureGoRepository = module.get<Repository<Failure_Go>>(
-      getRepositoryToken(Failure_Go),
+    failureGoService = module.get<Fg_GoService>(Fg_GoService);
+    failureGoRepository = module.get<Repository<Fg_Go>>(
+      getRepositoryToken(Fg_Go),
     );
     failureService = module.get<FailureService>(FailureService);
   });
@@ -41,8 +41,8 @@ describe('FailureGoService', () => {
 
   describe('createFailure_go', () => {
     it('should create a new failure_go', async () => {
-      const mockFailureGoDto = new Failure_Go();
-      const mockCreatedFailureGo = new Failure_Go();
+      const mockFailureGoDto = new Fg_Go();
+      const mockCreatedFailureGo = new Fg_Go();
       jest
         .spyOn(failureGoRepository, 'create')
         .mockResolvedValueOnce(undefined as never);
@@ -56,7 +56,7 @@ describe('FailureGoService', () => {
 
   describe('findAll', () => {
     it('should return an array of failure_gos', async () => {
-      const mockFailureGos: Failure_Go[] = [new Failure_Go()];
+      const mockFailureGos: Fg_Go[] = [new Fg_Go()];
       jest
         .spyOn(failureGoRepository, 'find')
         .mockResolvedValueOnce(mockFailureGos);
@@ -68,9 +68,7 @@ describe('FailureGoService', () => {
   describe('findAllFailureCategoriesByGlobalOrderId', () => {
     it('should return an array of failure categories', async () => {
       const mockGlobalOrderId = 1;
-      const mockListFailuresGoByGlobalOrderId: Failure_Go[] = [
-        new Failure_Go(),
-      ];
+      const mockListFailuresGoByGlobalOrderId: Fg_Go[] = [new Fg_Go()];
       const mockFailureData: FailureDto = new FailureDto();
       jest
         .spyOn(failureGoRepository, 'find')
@@ -89,7 +87,7 @@ describe('FailureGoService', () => {
 
   describe('findOne', () => {
     it('should return a single failure_go', async () => {
-      const mockFailureGo: Failure_Go = new Failure_Go();
+      const mockFailureGo: Fg_Go = new Fg_Go();
       jest
         .spyOn(failureGoRepository, 'findOneBy')
         .mockResolvedValueOnce(mockFailureGo);
@@ -111,7 +109,7 @@ describe('FailureGoService', () => {
         .mockResolvedValueOnce(mockUpdateResult);
       const result = await failureGoService.update(
         mockFailureGoId,
-        new Failure_Go(),
+        new Fg_Go(),
       );
       expect(result).toEqual(mockUpdateResult);
     });
