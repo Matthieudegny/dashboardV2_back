@@ -18,7 +18,6 @@ export class FailureSoController {
   constructor(private failureService: FailureSo_Service) {}
   @Get()
   getFailure() {
-    return [1, 2, 3];
     return this.failureService.findAllFailure();
   }
 

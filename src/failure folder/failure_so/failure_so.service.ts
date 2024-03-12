@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Failure_so } from '../entities/Failure/Failure_so';
-import { CreateFailureSoParams } from '../utils/types';
+import { Failure_so } from '../../entities/Failure/Failure_so';
+import { CreateFailureSoParams } from '../../utils/types';
 
 @Injectable()
 export class FailureSo_Service {

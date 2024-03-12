@@ -2,11 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 import { Fs_So_Service } from '../../fs_so/fs_so.service';
-import { Fs_So } from '../../entities/Failure/Associations/Fs_So';
+import { Fs_So } from '../../../entities/Failure/Associations/Fs_So';
 import { Fs_So_Dto } from '../../fs_so/dto/fs_so.dto';
-import { FailureDto } from '../../failure/dtos/failure.dto';
-import { FailureService } from '../../failure/failure.service';
-import { Failure } from '../../entities/Failure/Failure';
+import { FailureDto } from '../../../failure/dtos/failure.dto';
+import { FailureService } from '../../../failure/failure.service';
+import { Failure } from '../../../entities/Failure/Failure';
 
 describe('Fs_So_Service', () => {
   let fsSoService: Fs_So_Service;

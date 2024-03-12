@@ -4,6 +4,8 @@ import { Global_Order } from '../../entities/Global_Order';
 import { Sub_Order } from '../../entities/Sub_Order';
 import { Image_Go } from '../../entities/Image/Image_go';
 import { Image_So } from '../../entities/Image/Image_so';
+//failure
+import { Failure_so } from '../../entities/Failure/Failure_so';
 
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderFillWithDatasDto>;
@@ -21,7 +23,7 @@ export class GlobalOrderFillWithDatasDto {
 
 export class SubOrderFillWithDatasDto {
   subOrder: Sub_Order;
-  failureSo: Array<Failure>;
+  failureSo: Array<Failure_so>;
   setupSo: Array<Setup>;
   imageSo: Array<Image_So>;
 }

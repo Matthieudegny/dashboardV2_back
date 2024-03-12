@@ -8,7 +8,8 @@ import { CreateFailureParams } from '../utils/types';
 export class FailureService {
   //injection de dépendance pour utiliser le repository Failure (repository = couche de l'ORM)
   constructor(
-    @InjectRepository(Failure) private failureRepository: Repository<Failure>,
+    @InjectRepository(Failure)
+    private failureRepository: Repository<Failure>,
   ) {}
   findAllFailure() {
     return this.failureRepository.find();

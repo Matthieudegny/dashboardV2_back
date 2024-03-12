@@ -23,20 +23,24 @@ import { Setup } from './entities/setup/Setup';
 import { Sub_Order } from './entities/Sub_Order';
 
 //modules
-import { FailureModule } from './failure/failure.module';
 import { UserModule } from './user/user.module';
+//failures
+import { FailureModule } from './failure/failure.module';
 import { FailureGoModule } from './failure_go/failure_go.module';
-import { Fs_So_Module } from './fs_so/fs_So.module';
-import { FailureSoModule } from './SoFailure/failure_so.module';
+import { Fs_So_Module } from './failure folder/fs_so/fs_So.module';
+import { FailureSoModule } from './failure folder/failure_so/failure_so.module';
+//images
 import { ImageSoModule } from './image_so/image_so.module';
 import { ImageGoModule } from './image_go/image_go.module';
+//setup
 import { SetupGoModule } from './setup_go/setup_go.module';
 import { SetupSoModule } from './setup_so/setup_so.module';
 import { SetupModule } from './setup/setup.module';
+//order
 import { SubOrderModule } from './sub_order/sub_order.module';
 import { GlobalOrderModule } from './global_order/global_order.module';
+//others
 import { UploadModule } from './upload/upload.module';
-
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
@@ -59,33 +63,42 @@ import { MainDatasModule } from './main-datas/main-datas.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [
+        User,
+        //failure
         Failure,
         Failure_Go,
         Failure_so,
         Fs_So,
-        User,
+        //image
         Image_Go,
         Image_So,
-        Global_Order,
+        //setups
         Setup_Go,
         Setup_So,
         Setup,
+        //order
+        Global_Order,
         Sub_Order,
       ],
       synchronize: true,
     }),
-    FailureModule,
     UserModule,
+    //failure
+    FailureModule,
     FailureGoModule,
     Fs_So_Module,
     FailureSoModule,
+    //image
     ImageSoModule,
     ImageGoModule,
+    //setup
     SetupGoModule,
     SetupSoModule,
     SetupModule,
+    //order
     SubOrderModule,
     GlobalOrderModule,
+    //others
     UploadModule,
     AuthModule,
     MainDatasModule,
