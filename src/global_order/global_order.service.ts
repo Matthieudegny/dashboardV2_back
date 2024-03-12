@@ -10,7 +10,7 @@ import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 //services used
 import { SetupGoService } from '../setup_go/setup_go.service';
 import { ImageGoService } from '../image_go/image_go.service';
-import { FailureGoService } from '../failure_go/failure_go.service';
+import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrderService } from '../sub_order/sub_order.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class GlobalOrderService {
     private globalOrderRepository: Repository<Global_Order>,
     private setupGoService: SetupGoService,
     private imageGoService: ImageGoService,
-    private failureGoService: FailureGoService,
+    private fg_GoService: Fg_GoService,
     private subOrderService: SubOrderService,
   ) {}
   create(createGlobalOrderDto: GlobalOrderDto) {
@@ -74,9 +74,7 @@ export class GlobalOrderService {
         await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);
       //2.4. fill the failure used
       globalOrderFillWithData.failureGo =
-        await this.failureGoService.findAllFailureCategoriesByGlobalOrderId(
-          globalOrder.go_id,
-        );
+        await this.fg_GoService.findAllByGlobalOrderId(globalOrder.go_id);
       //2.5. get the list sub orders and fill them
       globalOrderFillWithData.subOrderList =
         await this.subOrderService.findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(

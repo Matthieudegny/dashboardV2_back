@@ -1,33 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
-import { Failure } from './Failure';
-import { Global_Order } from '../Global_Order';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Failure_Go {
+@Entity({ name: 'failure_go' })
+export class Failure_go {
   @PrimaryGeneratedColumn()
   failure_go_id: number;
 
   @Column()
-  failure_go_failure_id: number;
+  failure_go_title: string;
 
   @Column()
-  failure_go_go_id: number;
-
-  @ManyToOne(() => Failure, (Failure) => Failure.failure_id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'failure_go_failure_id' })
-  Failure?: Failure;
-
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'failure_go_go_id' })
-  Global_Order?: Global_Order;
+  failure_go_description: string;
 }

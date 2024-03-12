@@ -1,19 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FailureController } from '../failure.controller';
-import { FailureService } from '../failure.service';
-import { FailureDto } from '../dtos/failure.dto';
+import { FailureGoController } from '../failure_go.controller';
+import { FailureGoService } from '../failure_go.service';
+import { FailureGoDto } from '../dtos/failure_go.dto';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
 describe('FailureController', () => {
-  let controller: FailureController;
-  let service: FailureService;
+  let controller: FailureGoController;
+  let service: FailureGoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FailureController],
+      controllers: [FailureGoController],
       providers: [
         {
-          provide: FailureService,
+          provide: FailureGoService,
           useValue: {
             findAllFailure: jest.fn(),
             createFailure: jest.fn(),
@@ -24,8 +24,8 @@ describe('FailureController', () => {
       ],
     }).compile();
 
-    controller = module.get<FailureController>(FailureController);
-    service = module.get<FailureService>(FailureService);
+    controller = module.get<FailureGoController>(FailureGoController);
+    service = module.get<FailureGoService>(FailureGoService);
   });
 
   it('should be defined', () => {
@@ -33,7 +33,7 @@ describe('FailureController', () => {
   });
 
   it('should get all failures', async () => {
-    const failures: FailureDto[] = [
+    const failures: FailureGoDto[] = [
       /* mock your failure data */
     ];
     jest.spyOn(service, 'findAllFailure').mockResolvedValue(failures);
@@ -42,8 +42,8 @@ describe('FailureController', () => {
   });
 
   it('should create a failure', async () => {
-    const failureDto: FailureDto = new FailureDto();
-    const expectedResult: FailureDto = new FailureDto();
+    const failureDto: FailureGoDto = new FailureGoDto();
+    const expectedResult: FailureGoDto = new FailureGoDto();
 
     jest.spyOn(service, 'createFailure').mockResolvedValue(expectedResult);
 
@@ -52,7 +52,7 @@ describe('FailureController', () => {
 
   it('should update a failure', async () => {
     const id = 1;
-    const failureDto: FailureDto = new FailureDto();
+    const failureDto: FailureGoDto = new FailureGoDto();
     const updateResult: UpdateResult = {
       raw: [],
       affected: 1,

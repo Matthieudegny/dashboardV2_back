@@ -9,7 +9,7 @@ import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 //services used
 import { SetupSoService } from '../setup_so/setup_so.service';
 import { ImageSoService } from '../image_so/image_so.service';
-import { FailureSoService } from '../failure_so/failure_so.service';
+import { Fs_SoService } from '../fs_so/fs_so.service';
 
 @Injectable()
 export class SubOrderService {
@@ -18,7 +18,7 @@ export class SubOrderService {
     private subOrderRepository: Repository<Sub_Order>,
     private readonly setupSoService: SetupSoService,
     private readonly imageSoService: ImageSoService,
-    private readonly failureSoService: FailureSoService,
+    private readonly fs_So_Service: Fs_SoService,
   ) {}
   create(createSubOrderDto: SubOrderDto) {
     const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
@@ -70,7 +70,7 @@ export class SubOrderService {
         await this.imageSoService.findAllBySubOrderId(subOrder.so_id);
       //2.4. fill the failure_so used
       subOrderFillWithData.failureSo =
-        await this.failureSoService.findAllBySubOrderId(subOrder.so_id);
+        await this.fs_So_Service.findAllBySubOrderId(subOrder.so_id);
 
       //2.5. add the sub order to the list
       subOrderList.push(subOrderFillWithData);

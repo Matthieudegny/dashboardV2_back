@@ -1,16 +1,13 @@
 import { Module } from '@nestjs/common';
-import { FailureSoService } from './failure_so.service';
 import { FailureSoController } from './failure_so.controller';
+import { FailureSoService } from './failure_so.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Failure_So } from '../entities/Failure/Failure_so';
-import { Failure } from '../entities/Failure/Failure';
-import { FailureService } from '../failure/failure.service';
-import { FailureModule } from '../failure/failure.module';
+import { Failure_so } from '../entities/Failure/Failure_so';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Failure_So, Failure]), FailureModule],
+  imports: [TypeOrmModule.forFeature([Failure_so])],
   controllers: [FailureSoController],
-  providers: [FailureSoService, FailureService],
+  providers: [FailureSoService],
   exports: [FailureSoService],
 })
 export class FailureSoModule {}

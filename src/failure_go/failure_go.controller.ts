@@ -4,40 +4,38 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
+  Put,
+  ParseIntPipe,
   Delete,
 } from '@nestjs/common';
 import { FailureGoService } from './failure_go.service';
-import { Failure_GoDto } from './dto/failure_go.dto';
+import { FailureGoDto } from './dtos/failure_go.dto';
 
-@ApiTags('Failure_Go')
-@Controller('failure-go')
+@ApiTags('Failure')
+@Controller('failure')
 export class FailureGoController {
-  constructor(private readonly failureGoService: FailureGoService) {}
+  constructor(private failureService: FailureGoService) {}
+  @Get()
+  getFailure() {
+    return this.failureService.findAllFailure();
+  }
 
   @Post()
-  create(@Body() createFailureGoDto: Failure_GoDto) {
-    return this.failureGoService.createFailure_go(createFailureGoDto);
+  createFailure(@Body() createFailure: FailureGoDto) {
+    return this.failureService.createFailure(createFailure);
   }
 
-  @Get()
-  findAll() {
-    return this.failureGoService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.failureGoService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFailureGoDto: Failure_GoDto) {
-    return this.failureGoService.update(+id, updateFailureGoDto);
+  @Put(':id')
+  updateFailure(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateFailure: FailureGoDto,
+  ) {
+    return this.failureService.updateFailure(id, updateFailure);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.failureGoService.remove(+id);
+  deleteFailure(@Param('id', ParseIntPipe) id: number) {
+    return this.failureService.deleteFailure(id);
   }
 }

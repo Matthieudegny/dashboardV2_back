@@ -15,7 +15,7 @@ import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
 
 //others entities used
 import { Image_Go } from '../../entities/image/Image_go';
-import { Failure_Go } from '../../entities/failure/Failure_go';
+import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
 import { Setup_Go } from '../../entities/setup/Setup_go';
 import { Sub_Order } from '../../entities/Sub_order';
 import { Image_So } from '../../entities/image/Image_so';
