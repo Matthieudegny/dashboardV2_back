@@ -12,13 +12,18 @@ import {
 import { FailureGoService } from './failure_go.service';
 import { FailureGoDto } from './dtos/failure_go.dto';
 
-@ApiTags('Failure')
-@Controller('failure')
+@ApiTags('Failure_Go')
+@Controller('failure_go')
 export class FailureGoController {
   constructor(private failureService: FailureGoService) {}
   @Get()
   getFailure() {
     return this.failureService.findAllFailure();
+  }
+
+  @Get(':idUser')
+  getFailureGoByIdUser(@Param('idUser', ParseIntPipe) idUser: number) {
+    return this.failureService.findAllFailureByIdUSer(idUser);
   }
 
   @Post()

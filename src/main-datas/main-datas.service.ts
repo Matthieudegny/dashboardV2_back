@@ -22,10 +22,14 @@ export class MainDatasService {
     const mainDatas = new MainDatasDto();
     try {
       //1. first the categories data
-      mainDatas.setupGoList = await this.setupGoService.findAll();
-      mainDatas.setupSoList = await this.setupSoService.findAll();
-      mainDatas.failureGoList = await this.failureGoService.findAllFailure();
-      mainDatas.failureSoList = await this.failureSoService.findAllFailure();
+      mainDatas.setupGoList =
+        await this.setupGoService.findAllSetupGoByIdUser(idUser);
+      mainDatas.setupSoList =
+        await this.setupSoService.findAllSetupSoByIdUser(idUser);
+      mainDatas.failureGoList =
+        await this.failureGoService.findAllFailureByIdUSer(idUser);
+      mainDatas.failureSoList =
+        await this.failureSoService.findAllFailureByIdUser(idUser);
 
       //2 then the global orders data (filles with images, setups, failures, and the list of suborders)
       mainDatas.globalOrderList =

@@ -27,6 +27,11 @@ export class SetupGoController {
     return this.setupService.findAll();
   }
 
+  @Get(':idUser')
+  findAllSetupGoByIdUser(@Param('idUser') idUser: string) {
+    return this.setupService.findAllSetupGoByIdUser(+idUser);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.setupService.findOne(+id);

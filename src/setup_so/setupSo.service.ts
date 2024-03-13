@@ -20,6 +20,12 @@ export class SetupSoService {
     return this.setupRepository.find();
   }
 
+  findAllSetupSoByIdUser(idUser: number) {
+    return this.setupRepository.find({
+      where: { setup_so_idUser: idUser },
+    });
+  }
+
   findOne(id: number) {
     return this.setupRepository.findOneBy({ setup_so_id: id });
   }

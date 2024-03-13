@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from '../User';
 @Entity({ name: 'setup_so' })
 export class Setup_so {
   @PrimaryGeneratedColumn()
@@ -10,4 +16,12 @@ export class Setup_so {
 
   @Column()
   setup_so_description: string;
+
+  @Column()
+  setup_so_idUser: number;
+  @ManyToOne(() => User, (User) => User.idUser, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'setup_so_idUser' })
+  User?: User;
 }

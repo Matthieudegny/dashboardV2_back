@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
+
+import { User } from '../User';
 
 @Entity({ name: 'failure_go' })
 export class Failure_go {
@@ -10,4 +18,12 @@ export class Failure_go {
 
   @Column()
   failure_go_description: string;
+
+  @Column()
+  failure_go_idUser: number;
+  @ManyToOne(() => User, (User) => User.idUser, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'failure_go_idUser' })
+  User?: User;
 }

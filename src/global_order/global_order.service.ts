@@ -62,6 +62,7 @@ export class GlobalOrderService {
 
     //2. then i fill each global order with its datas
     for (const globalOrder of listGlobalOrders) {
+      //2.0. create the object to fill
       let globalOrderFillWithData: GlobalOrderFillWithDatasDto =
         new GlobalOrderFillWithDatasDto();
       //2.1. fill the global order with its datas

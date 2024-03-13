@@ -21,6 +21,11 @@ export class FailureSoController {
     return this.failureService.findAllFailure();
   }
 
+  @Get(':idUser')
+  getFailureSoByIdUser(@Param('idUser', ParseIntPipe) idUser: number) {
+    return this.failureService.findAllFailureByIdUser(idUser);
+  }
+
   @Post()
   createFailure(@Body() createFailure: FailureSoDto) {
     return this.failureService.createFailure(createFailure);

@@ -17,6 +17,12 @@ export class SetupGoService {
     return this.setupRepository.save(newSetup);
   }
 
+  findAllSetupGoByIdUser(idUser: number) {
+    return this.setupRepository.find({
+      where: { setup_go_idUser: idUser },
+    });
+  }
+
   findAll() {
     return this.setupRepository.find();
   }

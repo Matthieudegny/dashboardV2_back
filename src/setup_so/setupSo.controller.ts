@@ -27,6 +27,11 @@ export class SetupSoController {
     return this.setupService.findAll();
   }
 
+  @Get(':idUser')
+  findAllSetupSoByIdUser(@Param('idUser') idUser: string) {
+    return this.setupService.findAllSetupSoByIdUser(+idUser);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.setupService.findOne(+id);

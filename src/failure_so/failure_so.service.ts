@@ -14,6 +14,12 @@ export class FailureSoService {
     return this.failureRepository.find();
   }
 
+  findAllFailureByIdUser(idUser: number) {
+    return this.failureRepository.find({
+      where: { failure_so_idUser: idUser },
+    });
+  }
+
   findOne(id: number) {
     return this.failureRepository.findOneBy({ failure_so_id: id });
   }
