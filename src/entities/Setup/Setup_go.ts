@@ -1,31 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
-import { Global_Order } from '../Global_Order';
-import { Setup } from './Setup';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Setup_Go {
+@Entity({ name: 'setup_go' })
+export class Setup_go {
   @PrimaryGeneratedColumn()
   setup_go_id: number;
 
   @Column()
-  setup_go_setup_id: number;
-
-  @ManyToOne(() => Setup, (Setup) => Setup.setup_id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'setup_go_setup_id' })
-  Setup?: Setup;
+  setup_go_title: string;
 
   @Column()
-  setup_go_go_id: number;
-
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'setup_go_go_id' })
-  Global_Order?: Global_Order;
+  setup_go_description: string;
 }

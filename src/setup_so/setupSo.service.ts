@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Setup } from '../entities/setup/Setup';
-import { SetupDto } from './dto/setup.dto';
+import { Setup_so } from '../entities/Setup/Setup_so';
+import { SetupSoDto } from './dto/setupSo.dto';
 
 @Injectable()
-export class SetupService {
+export class SetupSoService {
   constructor(
-    @InjectRepository(Setup)
-    private setupRepository: Repository<Setup>,
+    @InjectRepository(Setup_so)
+    private setupRepository: Repository<Setup_so>,
   ) {}
-  create(createSetupDto: SetupDto) {
+  create(createSetupDto: SetupSoDto) {
     console.log('service');
     const newSetup = this.setupRepository.create(createSetupDto);
     return this.setupRepository.save(newSetup);
@@ -21,10 +21,10 @@ export class SetupService {
   }
 
   findOne(id: number) {
-    return this.setupRepository.findOneBy({ setup_id: id });
+    return this.setupRepository.findOneBy({ setup_so_id: id });
   }
 
-  update(id: number, updateSetupDto: SetupDto) {
+  update(id: number, updateSetupDto: SetupSoDto) {
     return this.setupRepository.update(id, updateSetupDto);
   }
 

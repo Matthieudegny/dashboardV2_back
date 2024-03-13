@@ -1,7 +1,5 @@
 import { Module, Logger } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -17,9 +15,9 @@ import { User } from './entities/User';
 import { Image_Go } from './entities/image/Image_go';
 import { Image_So } from './entities/image/Image_so';
 import { Global_Order } from './entities/Global_Order';
-import { Setup_Go } from './entities/setup/Setup_go';
-import { Setup_So } from './entities/setup/Setup_so';
-import { Setup } from './entities/setup/Setup';
+import { Sg_Go } from './entities/Setup/Associations/Ss_go';
+import { Ss_So } from './entities/Setup/Associations/Ss_so';
+import { Setup_go } from './entities/Setup/Setup_go';
 import { Sub_Order } from './entities/Sub_Order';
 
 //modules
@@ -33,9 +31,10 @@ import { Fg_Go_Module } from './fg_go/fg_Go.module';
 import { ImageSoModule } from './image_so/image_so.module';
 import { ImageGoModule } from './image_go/image_go.module';
 //setup
-import { SetupGoModule } from './setup_go/setup_go.module';
-import { SetupSoModule } from './setup_so/setup_so.module';
-import { SetupModule } from './setup/setup.module';
+import { SetupGoModule } from './setup_go/setupGo.module';
+import { SetupSoModule } from './setup_so/setupSo.module';
+import { Ss_So_Module } from './ss_so/ss_so.module';
+import { Sg_Go_Module } from './sg_go/sg_go.module';
 //order
 import { SubOrderModule } from './sub_order/sub_order.module';
 import { GlobalOrderModule } from './global_order/global_order.module';
@@ -44,6 +43,7 @@ import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
+import { Setup_so } from './entities/Setup/Setup_so';
 
 @Module({
   imports: [
@@ -73,9 +73,10 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         Image_Go,
         Image_So,
         //setups
-        Setup_Go,
-        Setup_So,
-        Setup,
+        Sg_Go,
+        Ss_So,
+        Setup_so,
+        Setup_go,
         //order
         Global_Order,
         Sub_Order,
@@ -94,7 +95,8 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     //setup
     SetupGoModule,
     SetupSoModule,
-    SetupModule,
+    Ss_So_Module,
+    Sg_Go_Module,
     //order
     SubOrderModule,
     GlobalOrderModule,
@@ -103,9 +105,8 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     AuthModule,
     MainDatasModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     Logger,
     {
       provide: APP_GUARD,

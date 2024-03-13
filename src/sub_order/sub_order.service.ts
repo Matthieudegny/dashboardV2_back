@@ -7,7 +7,7 @@ import { Sub_Order } from '../entities/Sub_Order';
 import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
-import { SetupSoService } from '../setup_so/setup_so.service';
+import { SsSoService } from '../ss_so/ss_so.service';
 import { ImageSoService } from '../image_so/image_so.service';
 import { Fs_SoService } from '../fs_so/fs_so.service';
 
@@ -16,7 +16,7 @@ export class SubOrderService {
   constructor(
     @InjectRepository(Sub_Order)
     private subOrderRepository: Repository<Sub_Order>,
-    private readonly setupSoService: SetupSoService,
+    private readonly ssSoService: SsSoService,
     private readonly imageSoService: ImageSoService,
     private readonly fs_So_Service: Fs_SoService,
   ) {}
@@ -63,8 +63,9 @@ export class SubOrderService {
       //2.1. fill the sub order with its datas
       subOrderFillWithData.subOrder = subOrder;
       //2.2. fill the setup_so used
-      subOrderFillWithData.setupSo =
-        await this.setupSoService.findAllBySubOrderId(subOrder.so_id);
+      subOrderFillWithData.setupSo = await this.ssSoService.findAllBySubOrderId(
+        subOrder.so_id,
+      );
       //2.3. fill the image_so
       subOrderFillWithData.imageSo =
         await this.imageSoService.findAllBySubOrderId(subOrder.so_id);

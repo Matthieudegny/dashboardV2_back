@@ -8,16 +8,16 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { SetupService } from './setup.service';
-import { SetupDto } from './dto/setup.dto';
+import { SetupSoService } from './setupSo.service';
+import { SetupSoDto } from './dto/setupSo.dto';
 
 @ApiTags('Setup')
 @Controller('setup')
-export class SetupController {
-  constructor(private setupService: SetupService) {}
+export class SetupSoController {
+  constructor(private setupService: SetupSoService) {}
 
   @Post()
-  create(@Body() createSetupDto: SetupDto) {
+  create(@Body() createSetupDto: SetupSoDto) {
     console.log('controller');
     return this.setupService.create(createSetupDto);
   }
@@ -33,7 +33,7 @@ export class SetupController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSetupDto: SetupDto) {
+  update(@Param('id') id: string, @Body() updateSetupDto: SetupSoDto) {
     return this.setupService.update(+id, updateSetupDto);
   }
 

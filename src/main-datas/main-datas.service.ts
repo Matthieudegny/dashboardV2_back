@@ -3,7 +3,8 @@ import { MainDatasDto } from './dto/main-datas.dto';
 
 //Services
 import { GlobalOrderService } from '../global_order/global_order.service';
-import { SetupService } from '../setup/setup.service';
+import { SetupSoService } from 'src/setup_so/setupSo.service';
+import { SetupGoService } from 'src/setup_go/setupGo.service';
 import { FailureGoService } from 'src/failure_go/failure_go.service';
 import { FailureSoService } from 'src/failure_so/failure_so.service';
 
@@ -11,7 +12,8 @@ import { FailureSoService } from 'src/failure_so/failure_so.service';
 export class MainDatasService {
   constructor(
     private readonly globalOrderService: GlobalOrderService,
-    private readonly setupService: SetupService,
+    private readonly setupSoService: SetupSoService,
+    private readonly setupGoService: SetupGoService,
     private readonly failureGoService: FailureGoService,
     private readonly failureSoService: FailureSoService,
   ) {}
@@ -20,7 +22,8 @@ export class MainDatasService {
     const mainDatas = new MainDatasDto();
     try {
       //1. first the categories data
-      mainDatas.setupList = await this.setupService.findAll();
+      mainDatas.setupGoList = await this.setupGoService.findAll();
+      mainDatas.setupSoList = await this.setupSoService.findAll();
       mainDatas.failureGoList = await this.failureGoService.findAllFailure();
       mainDatas.failureSoList = await this.failureSoService.findAllFailure();
 

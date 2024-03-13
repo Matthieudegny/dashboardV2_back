@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SetupSoController } from '../setup_so.controller';
-import { SetupSoService } from '../setup_so.service';
-import { SetupSoDto } from '../dto/setup_so.dto';
+import { SsSoController } from '../ss_so.controller';
+import { SsSoService } from '../ss_so.service';
+import { Ss_SoDto } from '../dto/ss_so.dto';
 import { NotFoundException } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
 describe('SetupSoController', () => {
-  let controller: SetupSoController;
-  let service: SetupSoService;
+  let controller: SsSoController;
+  let service: SsSoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SetupSoController],
+      controllers: [SsSoController],
       providers: [
-        SetupSoService,
+        SsSoService,
         {
-          provide: SetupSoService,
+          provide: SsSoService,
           useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
@@ -27,8 +27,8 @@ describe('SetupSoController', () => {
       ],
     }).compile();
 
-    controller = module.get<SetupSoController>(SetupSoController);
-    service = module.get<SetupSoService>(SetupSoService);
+    controller = module.get<SsSoController>(SsSoController);
+    service = module.get<SsSoService>(SsSoService);
   });
 
   it('should be defined', () => {
@@ -37,8 +37,8 @@ describe('SetupSoController', () => {
 
   describe('create', () => {
     it('should call service with provided data and return created setup', async () => {
-      const mockSetupSoDto = new SetupSoDto();
-      const expectedResult = new SetupSoDto();
+      const mockSetupSoDto = new Ss_SoDto();
+      const expectedResult = new Ss_SoDto();
       jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
       const result = await controller.create(mockSetupSoDto);
@@ -49,7 +49,7 @@ describe('SetupSoController', () => {
 
   describe('findAll', () => {
     it('should return an array of setups', async () => {
-      const expectedResult: SetupSoDto[] = [new SetupSoDto()];
+      const expectedResult: Ss_SoDto[] = [new Ss_SoDto()];
       jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
       const result = await controller.findAll();
@@ -60,7 +60,7 @@ describe('SetupSoController', () => {
   describe('findOne', () => {
     it('should return a single setup by id', async () => {
       const setupId = '1';
-      const expectedResult = new SetupSoDto();
+      const expectedResult = new Ss_SoDto();
       jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
       const result = await controller.findOne(setupId);
@@ -72,7 +72,7 @@ describe('SetupSoController', () => {
   describe('update', () => {
     it('should update an existing setup and return the result', async () => {
       const setupId = '1';
-      const mockSetupSoDto = new SetupSoDto();
+      const mockSetupSoDto = new Ss_SoDto();
       const expectedResult: UpdateResult = {
         affected: 1,
         raw: {},

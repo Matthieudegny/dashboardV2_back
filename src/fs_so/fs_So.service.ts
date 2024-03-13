@@ -13,7 +13,7 @@ export class Fs_SoService {
   constructor(
     @InjectRepository(Fs_So)
     private fs_SoRepository: Repository<Fs_So>,
-    private failure_So_Service: FailureSoService,
+    private failureSoService: FailureSoService,
   ) {}
 
   create(createFailureSoDto: Fs_So_Dto) {
@@ -27,17 +27,15 @@ export class Fs_SoService {
 
   //find all the failures categories used for one sub order
   async findAllBySubOrderId(subOrderId: number) {
-    const listFs_SoBySubOrderId: Array<Fs_So> = await this.fs_SoRepository.find(
-      {
-        where: { fs_so_sub_order_id: subOrderId },
-      },
-    );
+    const listFs_SoBySubOrderId = await this.fs_SoRepository.find({
+      where: { fs_so_sub_order_id: subOrderId },
+    });
 
     let listFailuresCategoriesBySubOrder: Array<FailureSoDto> = [];
     if (listFs_SoBySubOrderId.length > 0) {
       //for each Fs_So i get the failure category data which correspond
       for (const failureSo of listFs_SoBySubOrderId) {
-        const failureData: FailureSoDto = await this.failure_So_Service.findOne(
+        const failureData: FailureSoDto = await this.failureSoService.findOne(
           failureSo.fs_so_failure_so_id,
         );
         //if listFailuresCategoriesBySubOrder doesnt contain the failure category, i add it
