@@ -1,29 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
+
 import { Fs_SoService } from '../../fs_so/fs_so.service';
-import { Fs_So } from '../../../entities/Failure/Associations/Fs_So';
+import { Fs_So } from '../../entities/Failure/Associations/Fs_So';
 import { Fs_So_Dto } from '../../fs_so/dto/fs_so.dto';
-import { FailureDto } from '../../../failure/dtos/failure.dto';
-import { FailureService } from '../../../failure/failure.service';
-import { Failure } from '../../../entities/Failure/Failure';
+
+import { FailureSoDto } from '../../failure_so/dtos/failureSo.dto';
+import { FailureSoService } from '../../failure_so/failure_so.service';
+import { Failure_so } from '../../entities/Failure/Failure_so';
 
 describe('Fs_So_Service', () => {
   let fsSoService: Fs_SoService;
   let fsSoRepository: Repository<Fs_So>;
-  let failureService: FailureService;
+  let failureSoService: FailureSoService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         Fs_SoService,
-        FailureService,
+        FailureSoService,
         {
           provide: getRepositoryToken(Fs_So),
           useClass: Repository,
         },
         {
-          provide: getRepositoryToken(Failure),
+          provide: getRepositoryToken(Failure_so),
           useClass: Repository,
         },
       ],
@@ -31,7 +33,7 @@ describe('Fs_So_Service', () => {
 
     fsSoService = module.get<Fs_SoService>(Fs_SoService);
     fsSoRepository = module.get<Repository<Fs_So>>(getRepositoryToken(Fs_So));
-    failureService = module.get<FailureService>(FailureService);
+    failureSoService = module.get<FailureSoService>(FailureSoService);
   });
 
   it('should be defined', () => {
@@ -64,12 +66,12 @@ describe('Fs_So_Service', () => {
     it('should return an array of failure categories', async () => {
       const mockGlobalOrderId = 1;
       const mockListFailuresSoBySubOrderId: Fs_So[] = [new Fs_So()];
-      const mockFailureData: FailureDto = new FailureDto();
+      const mockFailureData: FailureSoDto = new FailureSoDto();
       jest
         .spyOn(fsSoRepository, 'find')
         .mockResolvedValueOnce(mockListFailuresSoBySubOrderId);
       jest
-        .spyOn(failureService, 'findOne')
+        .spyOn(failureSoService, 'findOne')
         .mockResolvedValueOnce(mockFailureData);
 
       const result = await fsSoService.findAllBySubOrderId(mockGlobalOrderId);
