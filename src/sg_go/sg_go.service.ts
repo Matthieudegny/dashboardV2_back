@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Sg_GoDto } from './dto/sg_go.dto';
-import { Sg_Go } from '../entities/Setup/Associations/Ss_go';
+import { Sg_Go } from '../entities/Setup/Associations/Sg_go';
 
 import { SetupGoDto } from '../setup_go/dto/setup_go.dto';
 import { SetupGoService } from '../setup_go/setupGo.service';

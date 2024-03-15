@@ -15,7 +15,7 @@ import { User } from './entities/User';
 import { Image_Go } from './entities/image/Image_go';
 import { Image_So } from './entities/image/Image_so';
 import { Global_Order } from './entities/Global_Order';
-import { Sg_Go } from './entities/Setup/Associations/Ss_go';
+import { Sg_Go } from './entities/Setup/Associations/Sg_go';
 import { Ss_So } from './entities/Setup/Associations/Ss_so';
 import { Setup_go } from './entities/Setup/Setup_go';
 import { Sub_Order } from './entities/Sub_Order';

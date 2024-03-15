@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 import { SgGoService } from '../sg_go.service';
 import { Sg_GoDto } from '../dto/sg_go.dto';
-import { Sg_Go } from '../../entities/Setup/Associations/Ss_go';
+import { Sg_Go } from '../../entities/Setup/Associations/Sg_go';
 import { SetupService } from '../../setup/setup.service';
 import { SetupDto } from '../../setup/dto/setup.dto';
 
