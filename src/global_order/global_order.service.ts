@@ -29,6 +29,42 @@ export class GlobalOrderService {
     return this.globalOrderRepository.save(newGlobalOrder);
   }
 
+  async createGlobalOrderWithDatas(
+    createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
+  ) {
+    //1. create the global order and take the id
+    const newGlobaOrder = await this.create(
+      createGlobalOrderWithDatasDto.globalOrder,
+    );
+
+    if (!newGlobaOrder) {
+      throw new Error('Failed to create global order.');
+    }
+
+    const newGlobaOrderId = newGlobaOrder.go_id;
+
+    //i get the global order id, so now i can create the datas related to this global order = images and setups
+
+    //2. create the setupsGo associations between the global order and the setupsGo
+    for (const setupGo of createGlobalOrderWithDatasDto.setupGo) {
+      await this.sgGoService.create({
+        sg_go_id: 0,
+        sg_go_setup_go_id: setupGo.setup_go_id,
+        sg_go_go_id: newGlobaOrderId,
+      });
+    }
+
+    //3. create the imagesGo
+    for (const imageGo of createGlobalOrderWithDatasDto.imageGo) {
+      await this.imageGoService.create({
+        image_go_id: 0,
+        image_go_go_id: newGlobaOrderId,
+        image_go_title: imageGo.image_go_title,
+        image_go_content: imageGo.image_go_content,
+      });
+    }
+  }
+
   findAll() {
     return this.globalOrderRepository.find();
   }

@@ -8,11 +8,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels } from '@nestjs/swagger';
 import { GlobalOrderService } from './global_order.service';
 import { GlobalOrderDto } from './dto/global_order.dto';
+import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 
 @ApiTags('Global_Order')
+@ApiExtraModels(GlobalOrderFillWithDatasDto, GlobalOrderDto)
 @Controller('global-order')
 export class GlobalOrderController {
   constructor(private readonly globalOrderService: GlobalOrderService) {}
@@ -21,6 +23,16 @@ export class GlobalOrderController {
   @ApiBody({ type: GlobalOrderDto })
   create(@Body() createGlobalOrderDto: GlobalOrderDto) {
     return this.globalOrderService.create(createGlobalOrderDto);
+  }
+
+  @Post('createGlobalOrderWithDatas')
+  @ApiBody({ type: GlobalOrderFillWithDatasDto })
+  createGlobalOrderWithDatas(
+    @Body() createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
+  ) {
+    return this.globalOrderService.createGlobalOrderWithDatas(
+      createGlobalOrderWithDatasDto,
+    );
   }
 
   @Get()

@@ -1,7 +1,14 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Global_Order } from '../../entities/Global_Order';
 import { Sub_Order } from '../../entities/Sub_Order';
 import { Image_Go } from '../../entities/Image/Image_go';
 import { Image_So } from '../../entities/Image/Image_so';
+//dto
+import { GlobalOrderDto } from '../../global_order/dto/global_order.dto';
+import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
+import { ImageGoDto } from '../../image_go/dto/image_go.dto';
+import { SetupGoDto } from '../../setup_go/dto/setup_go.dto';
+import { SubOrderDto } from '../../sub_order/dto/sub_order.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';
@@ -18,10 +25,31 @@ export class MainDatasDto {
 }
 
 export class GlobalOrderFillWithDatasDto {
+  @ApiProperty({ description: 'Global order', type: GlobalOrderDto })
   globalOrder: Global_Order;
+  @ApiProperty({
+    description: 'list failureGo',
+    type: FailureGoDto,
+    isArray: true,
+  })
   failureGo: Array<Failure_go>;
+  @ApiProperty({
+    description: 'list setupGo',
+    type: SetupGoDto,
+    isArray: true,
+  })
   setupGo: Array<Setup_go>;
+  @ApiProperty({
+    description: 'list imageGo',
+    type: ImageGoDto,
+    isArray: true,
+  })
   imageGo: Array<Image_Go>;
+  @ApiProperty({
+    description: 'list subOrder',
+    type: SubOrderDto,
+    isArray: true,
+  })
   subOrderList: Array<SubOrderFillWithDatasDto>;
 }
 
