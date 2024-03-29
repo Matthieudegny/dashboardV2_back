@@ -25,15 +25,15 @@ export class GlobalOrderController {
     return this.globalOrderService.create(createGlobalOrderDto);
   }
 
-  @Post('createGlobalOrderWithDatas')
-  @ApiBody({ type: GlobalOrderFillWithDatasDto })
-  createGlobalOrderWithDatas(
-    @Body() createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
-  ) {
-    return this.globalOrderService.createGlobalOrderWithDatas(
-      createGlobalOrderWithDatasDto,
-    );
-  }
+  // @Post('createGlobalOrderWithDatas')
+  // @ApiBody({ type: GlobalOrderFillWithDatasDto })
+  // createGlobalOrderWithDatas(
+  //   @Body() createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
+  // ) {
+  //   return this.globalOrderService.createGlobalOrderWithDatas(
+  //     createGlobalOrderWithDatasDto,
+  //   );
+  // }
 
   @Get()
   findAll() {

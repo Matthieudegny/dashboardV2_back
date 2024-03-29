@@ -32,8 +32,8 @@ export class Global_Order {
   @Column({ type: 'datetime' })
   go_openDate: Date;
 
-  @Column({ type: 'datetime' })
-  go_closeDate: Date;
+  @Column({ type: 'datetime', nullable: true })
+  go_closeDate: Date | null;
 
   @Column({ type: 'varchar', length: 45 })
   go_asset: string;
@@ -58,9 +58,10 @@ export class Global_Order {
     type: 'decimal',
     precision: 10,
     scale: 0,
+    nullable: true,
     transformer: new DecimalColumnTransformer(),
   })
-  go_exitPrice: number;
+  go_exitPrice: number | null;
 
   @Column({
     type: 'decimal',

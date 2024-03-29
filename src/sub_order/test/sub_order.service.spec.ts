@@ -5,7 +5,7 @@ import { SubOrderDto } from '../dto/sub_order.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Sub_Order } from '../../entities/Sub_Order';
-import { SetupSoService } from '../../setup_so/setup_so.service';
+import { SetupSoService } from '../../setup_so/setupSo.service';
 import { ImageSoService } from '../../image_so/image_so.service';
 import { FailureSoService } from '../../failure_so/failure_so.service';
 import { Fs_SoService } from '../../fs_so/fs_so.service';

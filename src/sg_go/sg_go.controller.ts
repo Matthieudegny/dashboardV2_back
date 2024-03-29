@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -10,39 +10,43 @@ import {
 } from '@nestjs/common';
 import { SgGoService } from './sg_go.service';
 import { Sg_GoDto } from './dto/sg_go.dto';
+import { SetupGoDto } from '../setup_go/dto/setup_go.dto';
 
-@ApiTags('Ss_Go')
-@Controller('ss-go')
+@ApiTags('Sg_Go')
+@ApiExtraModels(Sg_GoDto)
+@Controller('sg-go')
 export class SetupGoController {
-  constructor(private readonly setupGoService: SgGoService) {}
+  constructor(private readonly sgGoService: SgGoService) {}
 
-  @Post()
-  create(@Body() createSetupGoDto: Sg_GoDto) {
-    return this.setupGoService.create(createSetupGoDto);
+  //create SgGoList and return the list of the setup used
+  @Post('createSgGoList')
+  @ApiBody({ type: [Sg_GoDto] })
+  create(@Body() createSgGosDto: Sg_GoDto[]): Promise<SetupGoDto[]> {
+    return this.sgGoService.create(createSgGosDto);
   }
 
   @Get()
   findAll() {
-    return this.setupGoService.findAll();
+    return this.sgGoService.findAll();
   }
 
   @Get(':id')
   findAllByGlobalOrderId(@Param('id') id: string) {
-    return this.setupGoService.findAllByGlobalOrderId(+id);
+    return this.sgGoService.findAllByGlobalOrderId(+id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.setupGoService.findOne(+id);
+    return this.sgGoService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSetupGoDto: Sg_GoDto) {
-    return this.setupGoService.update(+id, updateSetupGoDto);
+    return this.sgGoService.update(+id, updateSetupGoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.setupGoService.remove(+id);
+    return this.sgGoService.remove(+id);
   }
 }

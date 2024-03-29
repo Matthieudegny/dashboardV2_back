@@ -12,21 +12,27 @@ import { SetupGoService } from '../setup_go/setupGo.service';
 export class SgGoService {
   constructor(
     @InjectRepository(Sg_Go)
-    private setupGoRepository: Repository<Sg_Go>,
+    private sgGoRepository: Repository<Sg_Go>,
     private setupGoService: SetupGoService,
   ) {}
-  create(createSetupGoDto: Sg_GoDto) {
-    const newSetupGo = this.setupGoRepository.create(createSetupGoDto);
-    return this.setupGoRepository.save(newSetupGo);
+  create(createSgGosDto: Sg_GoDto[]): Promise<SetupGoDto[]> {
+    createSgGosDto?.forEach((sg_Go) => {
+      const newSgGo = this.sgGoRepository.create(sg_Go);
+      this.sgGoRepository.save(newSgGo);
+    });
+    if (createSgGosDto.length > 0) {
+      let globalOrderID = createSgGosDto[0].sg_go_go_id;
+      return this.findAllByGlobalOrderId(globalOrderID);
+    }
   }
 
   findAll() {
-    return this.setupGoRepository.find();
+    return this.sgGoRepository.find();
   }
 
   async findAllByGlobalOrderId(globalOrderId: number) {
     const listSg_GoByGlobalOrderId: Array<Sg_GoDto> =
-      await this.setupGoRepository.find({
+      await this.sgGoRepository.find({
         where: { sg_go_go_id: globalOrderId },
       });
     let listSetupCategoriesByGlobalOrder: Array<SetupGoDto> = [];
@@ -49,14 +55,14 @@ export class SgGoService {
   }
 
   findOne(id: number) {
-    return this.setupGoRepository.findOneBy({ sg_go_id: id });
+    return this.sgGoRepository.findOneBy({ sg_go_id: id });
   }
 
   update(id: number, updateSetupGoDto: Sg_GoDto) {
-    return this.setupGoRepository.update(id, updateSetupGoDto);
+    return this.sgGoRepository.update(id, updateSetupGoDto);
   }
 
   remove(id: number) {
-    return this.setupGoRepository.delete(id);
+    return this.sgGoRepository.delete(id);
   }
 }

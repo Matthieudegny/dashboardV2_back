@@ -191,13 +191,13 @@ describe('GlobalOrderService', () => {
       const imageSo: Image_So[] = [new Image_So()];
       subOrderFillWithDatas.subOrder = subOrder;
       subOrderFillWithDatas.failureSo = failureSo;
-      subOrderFillWithDatas.setupSo = setupSo;
+      subOrderFillWithDatas.listSsgo = setupSo;
       subOrderFillWithDatas.imageSo = imageSo;
 
       globalOrderFillWithDatas.subOrderList = [subOrderFillWithDatas];
       globalOrderFillWithDatas.globalOrder = global_order;
       globalOrderFillWithDatas.failureGo = failureGo;
-      globalOrderFillWithDatas.setupGo = setupGo;
+      globalOrderFillWithDatas.listSg_go = setupGo;
       globalOrderFillWithDatas.imageGo = imageGo;
 
       const mockGlobalOrderFillWithData: GlobalOrderFillWithDatasDto[] = [

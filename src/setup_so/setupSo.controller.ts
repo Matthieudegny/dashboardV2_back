@@ -11,12 +11,12 @@ import {
 import { SetupSoService } from './setupSo.service';
 import { SetupSoDto } from './dto/setupSo.dto';
 
-@ApiTags('Setup')
-@Controller('setup')
+@ApiTags('Setup_So')
+@Controller('setup_so')
 export class SetupSoController {
   constructor(private setupService: SetupSoService) {}
 
-  @Post()
+  @Post('createSetupSo')
   create(@Body() createSetupDto: SetupSoDto) {
     console.log('controller');
     return this.setupService.create(createSetupDto);
