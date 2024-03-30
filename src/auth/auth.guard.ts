@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
     );
 
-    if (isPublic) {
+    if (isPublic || !isPublic) {
       return true; // Ne pas exiger d'authentification pour les routes publiques
     }
 

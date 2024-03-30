@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -12,13 +12,15 @@ import { ImageGoService } from './image_go.service';
 import { ImageGoDto } from './dto/image_go.dto';
 
 @ApiTags('Image_Go')
-@Controller('image-go')
+@ApiExtraModels(ImageGoDto)
+@Controller('image_go')
 export class ImageGoController {
   constructor(private readonly imageGoService: ImageGoService) {}
 
-  @Post()
-  create(@Body() createImageGoDto: ImageGoDto) {
-    return this.imageGoService.create(createImageGoDto);
+  @Post('create')
+  @ApiBody({ type: [ImageGoDto] })
+  create(@Body() listImageGoDto: ImageGoDto[]): boolean {
+    return this.imageGoService.create(listImageGoDto);
   }
 
   @Get()

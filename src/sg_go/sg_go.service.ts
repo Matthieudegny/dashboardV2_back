@@ -16,13 +16,25 @@ export class SgGoService {
     private setupGoService: SetupGoService,
   ) {}
   create(createSgGosDto: Sg_GoDto[]): Promise<SetupGoDto[]> {
-    createSgGosDto?.forEach((sg_Go) => {
-      const newSgGo = this.sgGoRepository.create(sg_Go);
-      this.sgGoRepository.save(newSgGo);
-    });
-    if (createSgGosDto.length > 0) {
-      let globalOrderID = createSgGosDto[0].sg_go_go_id;
-      return this.findAllByGlobalOrderId(globalOrderID);
+    console.log('createSgGosDto', createSgGosDto);
+    try {
+      createSgGosDto?.forEach((sg_Go) => {
+        const newSgGo = this.sgGoRepository.create(sg_Go);
+        console.log('newSgGo', newSgGo);
+        this.sgGoRepository.save(newSgGo).then((savedSgGo) => {
+          console.log(
+            `Successfully saved new Sg_GoDto object with ID:`,
+            savedSgGo,
+          );
+        });
+      });
+      if (createSgGosDto.length > 0) {
+        let globalOrderID = createSgGosDto[0].sg_go_go_id;
+        return this.findAllByGlobalOrderId(globalOrderID);
+      }
+    } catch (error) {
+      console.log('error', error);
+      throw new Error(error);
     }
   }
 

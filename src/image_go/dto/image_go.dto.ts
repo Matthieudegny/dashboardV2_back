@@ -7,5 +7,7 @@ export class ImageGoDto {
   @ApiProperty()
   image_go_title: string;
   @ApiProperty()
-  image_go_content: string;
+  image_go_description: string;
+  @ApiProperty()
+  image_go_path: string;
 }

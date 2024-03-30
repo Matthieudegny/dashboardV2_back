@@ -14,7 +14,7 @@ import { SetupGoDto } from '../setup_go/dto/setup_go.dto';
 
 @ApiTags('Sg_Go')
 @ApiExtraModels(Sg_GoDto)
-@Controller('sg-go')
+@Controller('sg_go')
 export class SetupGoController {
   constructor(private readonly sgGoService: SgGoService) {}
 

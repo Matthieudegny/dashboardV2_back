@@ -10,9 +10,16 @@ export class ImageGoService {
     @InjectRepository(Image_Go)
     private imageGoRepository: Repository<Image_Go>,
   ) {}
-  create(createImageGoDto: ImageGoDto) {
-    const newImageGo = this.imageGoRepository.create(createImageGoDto);
-    return this.imageGoRepository.save(newImageGo);
+  create(listImageGoDto: ImageGoDto[]): boolean {
+    try {
+      listImageGoDto.forEach(async (imageGo) => {
+        const newImageGo = this.imageGoRepository.create(imageGo);
+        await this.imageGoRepository.save(newImageGo);
+      });
+      return true;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   findAll() {
