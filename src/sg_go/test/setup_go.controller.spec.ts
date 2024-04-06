@@ -69,7 +69,7 @@ describe('SetupGoController', () => {
 
       const result = await controller.findAllByGlobalOrderId(globalOrderId);
       expect(result).toEqual(expectedResult);
-      expect(service.findAllByGlobalOrderId).toHaveBeenCalledWith(
+      expect(service.findAllSetupByGlobalOrderId).toHaveBeenCalledWith(
         +globalOrderId,
       );
     });

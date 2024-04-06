@@ -32,7 +32,7 @@ export class SetupGoController {
 
   @Get(':id')
   findAllByGlobalOrderId(@Param('id') id: string) {
-    return this.sgGoService.findAllByGlobalOrderId(+id);
+    return this.sgGoService.findAllSetupByGlobalOrderId(+id);
   }
 
   @Get(':id')

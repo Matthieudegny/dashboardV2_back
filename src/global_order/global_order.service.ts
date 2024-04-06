@@ -98,7 +98,7 @@ export class GlobalOrderService {
       globalOrderFillWithData.globalOrder = globalOrder;
       //2.2. fill the setup used
       globalOrderFillWithData.setupGo =
-        await this.sgGoService.findAllByGlobalOrderId(globalOrder.go_id);
+        await this.sgGoService.findAllSetupByGlobalOrderId(globalOrder.go_id);
       //2.3. fill the image_go
       globalOrderFillWithData.imageGo =
         await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);

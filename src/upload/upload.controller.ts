@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  Req,
+  UploadedFiles,
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Public } from '../public.decorator';
@@ -22,7 +24,7 @@ export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
   @Public()
-  @Post(':folder/:name')
+  @Post(':folder')
   //middleware to upload file
   @UseInterceptors(
     FilesInterceptor('files', 10, {
@@ -33,54 +35,40 @@ export class UploadController {
         //NameFolder can contain a - , that would represent a sub folder for the suborders
         //- will be remplace with / to create the subfolder
         destination: (req, file, cb) => {
-          console.log('req.params', req.params);
-          let folder: string = req.params.folder || 'default';
-          console.log('category', folder);
-          if (folder.includes('-')) folder = folder.replace('-', '/');
-          console.log('category', folder);
+          console.log('file', file);
+          let namefolder = req.params.folder || 'default';
+          //in case of suborder
+          if (namefolder.includes('-'))
+            namefolder = namefolder.replace('-', '/');
+
           const destPath = path.resolve(
             'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
-            folder,
+            namefolder,
           );
           if (!fs.existsSync(destPath)) {
             fs.mkdirSync(destPath, { recursive: true });
           }
           cb(null, destPath);
         },
-        //filename = how to name the file
-        // filename: (req, file, cb) => {
-        //   const name: string = req.params.name || 'default';
-        //   console.log('name', name);
-        //   const fileName: string =
-        //     path.parse(file.originalname).name.replace(/\s+/g, '-') +
-        //     '-' +
-        //     Date.now();
-        //   console.log('fileName', fileName);
-        //   const extension: string = path.parse(file.originalname).ext;
-        //   cb(null, `${name}${extension}`);
-        // },
         filename: (req, file, cb) => {
-          const index = Array.isArray(req.files)
-            ? req.files.findIndex((f) => f.fieldname === file.fieldname)
-            : -1;
-
-          const name: string = req.params.name || 'default';
-          console.log('name', name);
-          const fileName: string =
-            path.parse(file.originalname).name.replace(/\s+/g, '-') +
-            '-' +
-            index +
-            '-' +
-            Date.now();
-          console.log('fileName', fileName);
-          const extension: string = path.parse(file.originalname).ext;
-          cb(null, `${fileName}${extension}`);
+          cb(null, `${file.originalname}`);
         },
       }),
     }),
   )
-  async uploadFile(@UploadedFile() files: Express.Multer.File[]) {
-    console.log('file', files);
+  //Architectur storage=
+  //folder global order's name = Asset_globalOrderId
+  //image global order name = titleimage_imgaeId
+  //image global order path = Asset_globalOrderId/titleimage_imgaeId
+  //folder subOrder's name = Asset_globalOrderId/subOrder_subOrderId
+  //folder subOrder's path = Asset_globalOrderId/subOrder_subOrderId
+  //image subOrder's name = titleimage_imgaeId
+  //image subOrder's path = Asset_globalOrderId/subOrder_subOrderId/titleimage_imgaeId
+  async uploadFile(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Req() req: Request,
+  ) {
+    console.log('body', req.body);
     return true;
   }
 

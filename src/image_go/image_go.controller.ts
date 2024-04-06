@@ -19,7 +19,7 @@ export class ImageGoController {
 
   @Post('create')
   @ApiBody({ type: [ImageGoDto] })
-  create(@Body() listImageGoDto: ImageGoDto[]): boolean {
+  create(@Body() listImageGoDto: ImageGoDto[]): Promise<ImageGoDto[]> {
     return this.imageGoService.create(listImageGoDto);
   }
 

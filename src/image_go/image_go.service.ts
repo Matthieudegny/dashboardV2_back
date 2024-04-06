@@ -10,13 +10,15 @@ export class ImageGoService {
     @InjectRepository(Image_Go)
     private imageGoRepository: Repository<Image_Go>,
   ) {}
-  create(listImageGoDto: ImageGoDto[]): boolean {
+  async create(listImageGoDto: ImageGoDto[]): Promise<ImageGoDto[]> {
+    let listImagesCreated: ImageGoDto[] = [];
     try {
-      listImageGoDto.forEach(async (imageGo) => {
+      for (const imageGo of listImageGoDto) {
         const newImageGo = this.imageGoRepository.create(imageGo);
         await this.imageGoRepository.save(newImageGo);
-      });
-      return true;
+        listImagesCreated.push(newImageGo);
+      }
+      return listImagesCreated;
     } catch (error) {
       throw new Error(error);
     }

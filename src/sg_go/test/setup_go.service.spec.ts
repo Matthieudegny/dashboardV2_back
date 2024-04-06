@@ -74,7 +74,8 @@ describe('SetupGoService', () => {
         .spyOn(setupService, 'findOne')
         .mockResolvedValueOnce(mockSetupDtos[0]);
 
-      const result = await setupGoService.findAllByGlobalOrderId(globalOrderId);
+      const result =
+        await setupGoService.findAllSetupByGlobalOrderId(globalOrderId);
       expect(result).toEqual(mockSetupDtos);
       expect(setupService.findOne).toHaveBeenCalledWith(
         mockSetups[0].setup_go_setup_id,
