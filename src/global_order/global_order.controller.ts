@@ -54,8 +54,8 @@ export class GlobalOrderController {
     return this.globalOrderService.update(+id, updateGlobalOrderDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete('deleteOrder/:id')
+  remove(@Param('id') id: number) {
     return this.globalOrderService.remove(+id);
   }
 }

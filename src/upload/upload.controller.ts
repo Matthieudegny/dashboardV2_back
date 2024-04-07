@@ -35,7 +35,6 @@ export class UploadController {
         //NameFolder can contain a - , that would represent a sub folder for the suborders
         //- will be remplace with / to create the subfolder
         destination: (req, file, cb) => {
-          console.log('file', file);
           let namefolder = req.params.folder || 'default';
           //in case of suborder
           if (namefolder.includes('-'))
@@ -57,9 +56,9 @@ export class UploadController {
     }),
   )
   //Architectur storage=
-  //folder global order's name = Asset_globalOrderId
-  //image global order name = titleimage_imgaeId
-  //image global order path = Asset_globalOrderId/titleimage_imgaeId
+  //folder global order's name = NameAsset_globalOrderId
+  //image global order name = titleimage
+  //image global order path = NameAsset_globalOrderId/titleimage
   //folder subOrder's name = Asset_globalOrderId/subOrder_subOrderId
   //folder subOrder's path = Asset_globalOrderId/subOrder_subOrderId
   //image subOrder's name = titleimage_imgaeId
@@ -68,8 +67,12 @@ export class UploadController {
     @UploadedFiles() files: Express.Multer.File[],
     @Req() req: Request,
   ) {
-    console.log('body', req.body);
-    return true;
+    try {
+      return true;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error(error);
+    }
   }
 
   @Delete(':fileName')

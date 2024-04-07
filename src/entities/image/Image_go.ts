@@ -27,6 +27,6 @@ export class Image_Go {
   @Column({ type: 'text' })
   image_go_description: string;
 
-  @Column({ type: 'text' })
-  image_go_path: string;
+  @Column({ type: 'mediumtext' })
+  image_go_contentImage: string;
 }

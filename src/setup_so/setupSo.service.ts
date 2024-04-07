@@ -11,7 +11,6 @@ export class SetupSoService {
     private setupRepository: Repository<Setup_so>,
   ) {}
   create(createSetupDto: SetupSoDto) {
-    console.log('service');
     const newSetup = this.setupRepository.create(createSetupDto);
     return this.setupRepository.save(newSetup);
   }

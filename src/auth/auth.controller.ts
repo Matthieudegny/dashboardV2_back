@@ -28,7 +28,6 @@ export class AuthController {
   async login(
     @Body() loginDto: LoginDto,
   ): Promise<AccessTokenResponseDto | UnauthorizedException> {
-    console.log(loginDto);
     return this.authService.findByLogin(loginDto);
   }
 

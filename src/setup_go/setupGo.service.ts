@@ -12,7 +12,6 @@ export class SetupGoService {
     private setupRepository: Repository<Setup_go>,
   ) {}
   create(createSetupDto: SetupGoDto) {
-    console.log('service');
     const newSetup = this.setupRepository.create(createSetupDto);
     return this.setupRepository.save(newSetup);
   }

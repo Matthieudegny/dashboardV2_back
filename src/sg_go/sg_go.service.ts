@@ -16,7 +16,6 @@ export class SgGoService {
     private setupGoService: SetupGoService,
   ) {}
   create(createSgGosDto: Sg_GoDto[]): Promise<SetupGoDto[]> {
-    console.log('createSgGosDto', createSgGosDto);
     try {
       //first i delete all the sg_Go with the same global order id
       const listIsReset = this.deleteAllSgGoByGlobalOrderId(
@@ -74,10 +73,7 @@ export class SgGoService {
       await this.sgGoRepository.find({
         where: { sg_go_go_id: globalOrderId },
       });
-    console.log(
-      'listSg_GoByGlobalOrderId.length',
-      listSg_GoByGlobalOrderId.length,
-    );
+
     let listSetupCategoriesByGlobalOrder: Array<SetupGoDto> = [];
     if (listSg_GoByGlobalOrderId.length > 0) {
       //for each sg_Go i get the setup category data
@@ -94,10 +90,7 @@ export class SgGoService {
           listSetupCategoriesByGlobalOrder.push(setupData);
       }
     }
-    console.log(
-      'listSetupCategoriesByGlobalOrder',
-      listSetupCategoriesByGlobalOrder,
-    );
+
     return listSetupCategoriesByGlobalOrder;
   }
 

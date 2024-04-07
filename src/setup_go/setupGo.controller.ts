@@ -18,7 +18,6 @@ export class SetupGoController {
 
   @Post('createSetupGo')
   create(@Body() createSetupDto: SetupGoDto) {
-    console.log('controller');
     return this.setupService.create(createSetupDto);
   }
 
