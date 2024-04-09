@@ -121,7 +121,7 @@ export class GlobalOrderService {
       globalOrderFillWithData.failureGo =
         await this.fg_GoService.findAllByGlobalOrderId(globalOrder.go_id);
       //2.5. get the list sub orders and fill them
-      globalOrderFillWithData.subOrderList =
+      globalOrderFillWithData.globalSubOrderList =
         await this.subOrderService.findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
           globalOrder.go_id,
         );

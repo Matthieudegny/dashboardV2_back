@@ -15,7 +15,7 @@ import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 import { UpdateResult } from 'typeorm';
 
 @ApiTags('Global_Order')
-@ApiExtraModels(GlobalOrderFillWithDatasDto, GlobalOrderDto)
+@ApiExtraModels(GlobalOrderDto, GlobalOrderDto)
 @Controller('global-order')
 export class GlobalOrderController {
   constructor(private readonly globalOrderService: GlobalOrderService) {}

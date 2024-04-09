@@ -50,7 +50,7 @@ export class GlobalOrderFillWithDatasDto {
     type: SubOrderDto,
     isArray: true,
   })
-  subOrderList: Array<SubOrderFillWithDatasDto>;
+  globalSubOrderList: Array<SubOrderFillWithDatasDto>;
 }
 
 export class SubOrderFillWithDatasDto {

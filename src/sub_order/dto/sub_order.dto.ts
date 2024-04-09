@@ -5,12 +5,10 @@ export class SubOrderDto {
   so_go_id: number;
   @ApiProperty({ example: new Date(), description: 'Close Date' })
   so_closeDate: Date;
-  @ApiProperty({ example: '10', description: 'Quantity$' })
-  so_quantity: number;
-  @ApiProperty({ example: '10', description: 'Quantity%' })
-  so_quantityGlobalOrderFiled_Perc: number;
-  @ApiProperty({ example: '10', description: 'Quantity%' })
+  @ApiProperty({ example: '10', description: 'QuantityAsset' })
   so_quantityAsset_sold: number;
+  @ApiProperty({ example: '10', description: 'QuantityAsset' })
+  so_quantityAsset_sold_Perc: number;
   @ApiProperty({ example: 10, description: 'Exit Price' })
   so_exitPrice: number;
   @ApiProperty({ example: 10, description: 'Result' })

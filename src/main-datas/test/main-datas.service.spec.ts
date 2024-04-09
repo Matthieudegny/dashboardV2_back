@@ -3,10 +3,7 @@ import { MainDatasService } from '../main-datas.service';
 import { GlobalOrderService } from '../../global_order/global_order.service';
 import { SetupService } from '../../setup/setup.service';
 import { FailureService } from '../../failure/failure.service';
-import {
-  GlobalOrderFillWithDatasDto,
-  MainDatasDto,
-} from '../dto/main-datas.dto';
+import { GlobalOrderDto, MainDatasDto } from '../dto/main-datas.dto';
 
 //dtos used
 import { SetupDto } from '../../setup/dto/setup.dto';
@@ -59,8 +56,7 @@ describe('MainDatasService', () => {
 
       const setup: SetupDto = new SetupDto();
       const failure: FailureDto = new FailureDto();
-      const globalOrder: GlobalOrderFillWithDatasDto =
-        new GlobalOrderFillWithDatasDto();
+      const globalOrder: GlobalOrderDto = new GlobalOrderDto();
       const mockMainDatas: MainDatasDto = {
         setupList: [setup],
         failureList: [failure],

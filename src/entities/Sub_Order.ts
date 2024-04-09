@@ -40,22 +40,14 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_quantity: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
-  so_quantityGlobalOrderFiled_Perc: number;
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
   so_quantityAsset_sold: number;
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
+  so_quantityAsset_sold_Perc: number;
   @Column({
     type: 'decimal',
     precision: 10,

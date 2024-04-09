@@ -7,7 +7,7 @@ import { GlobalOrderDto } from '../dto/global_order.dto';
 
 import { EntityManager } from 'typeorm';
 import { createMock } from '@golevelup/ts-jest';
-import { GlobalOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
+import { GlobalOrderDto } from '../../main-datas/dto/main-datas.dto';
 import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
 
 // import { FailureService } from '../../failure/failure.service';
@@ -33,7 +33,7 @@ import { ImageGoModule } from '../../image_go/image_go.module';
 import { ImageSoDto } from 'src/image_so/dto/image_so.dto';
 
 const global_order = new Global_Order();
-const globalOrderFillWithDatas = new GlobalOrderFillWithDatasDto();
+const globalOrderFillWithDatas = new GlobalOrderDto();
 
 describe('GlobalOrderService', () => {
   let globalOrderService: GlobalOrderService;
@@ -194,13 +194,13 @@ describe('GlobalOrderService', () => {
       subOrderFillWithDatas.listSsgo = setupSo;
       subOrderFillWithDatas.imageSo = imageSo;
 
-      globalOrderFillWithDatas.subOrderList = [subOrderFillWithDatas];
+      globalOrderFillWithDatas.globalSubOrderList = [subOrderFillWithDatas];
       globalOrderFillWithDatas.globalOrder = global_order;
       globalOrderFillWithDatas.failureGo = failureGo;
       globalOrderFillWithDatas.listSg_go = setupGo;
       globalOrderFillWithDatas.imageGo = imageGo;
 
-      const mockGlobalOrderFillWithData: GlobalOrderFillWithDatasDto[] = [
+      const mockGlobalOrderFillWithData: GlobalOrderDto[] = [
         globalOrderFillWithDatas,
       ];
 
