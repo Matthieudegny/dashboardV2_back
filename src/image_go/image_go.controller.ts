@@ -38,8 +38,8 @@ export class ImageGoController {
     return this.imageGoService.update(+id, updateImageGoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete('deleteImageGo/:id')
+  remove(@Param('id') id: string): Promise<boolean> {
     return this.imageGoService.remove(+id);
   }
 }

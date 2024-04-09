@@ -12,6 +12,7 @@ import { ApiBody, ApiExtraModels } from '@nestjs/swagger';
 import { GlobalOrderService } from './global_order.service';
 import { GlobalOrderDto } from './dto/global_order.dto';
 import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
+import { UpdateResult } from 'typeorm';
 
 @ApiTags('Global_Order')
 @ApiExtraModels(GlobalOrderFillWithDatasDto, GlobalOrderDto)
@@ -42,15 +43,15 @@ export class GlobalOrderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.globalOrderService.findOne(+id);
+    return this.globalOrderService.findOneOrderById(+id);
   }
 
   @ApiTags('Global_Order')
-  @Patch(':id')
+  @Patch('update/:id')
   update(
     @Param('id') id: string,
     @Body() updateGlobalOrderDto: GlobalOrderDto,
-  ) {
+  ): Promise<GlobalOrderDto> {
     return this.globalOrderService.update(+id, updateGlobalOrderDto);
   }
 

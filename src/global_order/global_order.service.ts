@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GlobalOrderDto } from './dto/global_order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Global_Order } from '../entities/Global_Order';
 
 //others dto used
@@ -70,12 +70,27 @@ export class GlobalOrderService {
     return result;
   }
 
-  findOne(id: number) {
+  findOneOrderById(id: number) {
     return this.globalOrderRepository.findOneBy({ go_id: id });
   }
 
-  update(id: number, updateGlobalOrderDto: GlobalOrderDto) {
-    return this.globalOrderRepository.update(id, updateGlobalOrderDto);
+  async update(
+    id: number,
+    updateGlobalOrderDto: GlobalOrderDto,
+  ): Promise<GlobalOrderDto> {
+    try {
+      const orderIsUpdated = await this.globalOrderRepository.update(
+        id,
+        updateGlobalOrderDto,
+      );
+      if (orderIsUpdated.affected > 0) {
+        const OrderUpdated = await this.findOneOrderById(id);
+        return OrderUpdated;
+      }
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Failed to update global order.');
+    }
   }
 
   remove(id: number) {

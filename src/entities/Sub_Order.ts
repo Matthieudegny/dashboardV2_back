@@ -32,9 +32,6 @@ export class Sub_Order {
   Global_Order?: Global_Order;
 
   @Column({ type: 'datetime' })
-  so_openDate: Date;
-
-  @Column({ type: 'datetime' })
   so_closeDate: Date;
 
   @Column({
@@ -51,16 +48,14 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_entryPrice: number;
-
+  so_quantityGlobalOrderFiled_Perc: number;
   @Column({
     type: 'decimal',
     precision: 10,
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_amountEngaged: number;
-
+  so_quantityAsset_sold: number;
   @Column({
     type: 'decimal',
     precision: 10,
@@ -68,9 +63,6 @@ export class Sub_Order {
     transformer: new DecimalColumnTransformer(),
   })
   so_exitPrice: number;
-
-  @Column({ type: 'boolean' })
-  so_status: boolean;
 
   @Column({
     type: 'decimal',

@@ -42,7 +42,16 @@ export class ImageGoService {
     return this.imageGoRepository.update(id, updateImageGoDto);
   }
 
-  remove(id: number) {
-    return this.imageGoRepository.delete(id);
+  async remove(id: number): Promise<boolean> {
+    try {
+      const imgaeIsdelete = await this.imageGoRepository.delete(id);
+      if (imgaeIsdelete.affected === 0) {
+        throw new Error('Image is not found');
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
