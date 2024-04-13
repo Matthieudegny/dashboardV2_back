@@ -17,7 +17,7 @@ export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
 
   @Post()
-  create(@Body() createSubOrderDto: SubOrderDto) {
+  create(@Body() createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
     return this.subOrderService.create(createSubOrderDto);
   }
 
@@ -28,11 +28,15 @@ export class SubOrderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.subOrderService.findOne(+id);
+    return this.subOrderService.findOneOrderById(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubOrderDto: SubOrderDto) {
+  @ApiTags('Global_SubOrder')
+  @Patch('update/:id')
+  update(
+    @Param('id') id: string,
+    @Body() updateSubOrderDto: SubOrderDto,
+  ): Promise<SubOrderDto> {
     return this.subOrderService.update(+id, updateSubOrderDto);
   }
 

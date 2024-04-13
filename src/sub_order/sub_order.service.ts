@@ -20,7 +20,7 @@ export class SubOrderService {
     private readonly imageSoService: ImageSoService,
     private readonly fs_So_Service: Fs_SoService,
   ) {}
-  create(createSubOrderDto: SubOrderDto) {
+  create(createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
     const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
     return this.subOrderRepository.save(newSubOrder);
   }
@@ -35,12 +35,28 @@ export class SubOrderService {
     });
   }
 
-  findOne(id: number) {
+  findOneOrderById(id: number) {
     return this.subOrderRepository.findOneBy({ so_id: id });
   }
 
-  update(id: number, updateSubOrderDto: SubOrderDto) {
-    return this.subOrderRepository.update(id, updateSubOrderDto);
+  async update(
+    id: number,
+    updateSubOrderDto: SubOrderDto,
+  ): Promise<SubOrderDto> {
+    try {
+      const subOrderIsUpdated = await this.subOrderRepository.update(
+        id,
+        updateSubOrderDto,
+      );
+      if (subOrderIsUpdated.affected > 0) {
+        const subOrderUpdated = await this.findOneOrderById(id);
+        return subOrderUpdated;
+      } else {
+        throw new Error('Failed to update the sub order');
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   remove(id: number) {

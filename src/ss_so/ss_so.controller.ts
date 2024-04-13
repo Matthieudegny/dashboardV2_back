@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -11,14 +11,17 @@ import {
 
 import { SsSoService } from './ss_so.service';
 import { Ss_SoDto } from './dto/ss_so.dto';
+import { SetupSoDto } from '../setup_so/dto/setupSo.dto';
 
 @ApiTags('Ss_So')
-@Controller('ss-so')
+@ApiExtraModels(Ss_SoDto)
+@Controller('ss_so')
 export class SsSoController {
   constructor(private readonly setupSoService: SsSoService) {}
 
-  @Post()
-  create(@Body() createSetupSoDto: Ss_SoDto) {
+  @Post('createSsSoList')
+  @ApiBody({ type: [Ss_SoDto] })
+  create(@Body() createSetupSoDto: Ss_SoDto[]): Promise<SetupSoDto[]> {
     return this.setupSoService.create(createSetupSoDto);
   }
 

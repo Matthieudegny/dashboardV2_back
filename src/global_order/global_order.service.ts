@@ -86,6 +86,8 @@ export class GlobalOrderService {
       if (orderIsUpdated.affected > 0) {
         const OrderUpdated = await this.findOneOrderById(id);
         return OrderUpdated;
+      } else {
+        throw new Error('Failed to update global order.');
       }
     } catch (error) {
       console.log('error', error);

@@ -14,7 +14,7 @@ export class Ss_So {
   ss_so_id: number;
 
   @Column()
-  ss_so_setup_id: number;
+  ss_so_setup_so_id: number;
 
   @ManyToOne(() => Setup_so, (Setup_so) => Setup_so.setup_so_id, {
     onDelete: 'CASCADE',

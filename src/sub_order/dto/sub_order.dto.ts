@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class SubOrderDto {
+  @ApiProperty({ example: 1, description: 'suborder id' })
   so_id: number;
   @ApiProperty({ example: 1, description: 'Id of the global order' })
   so_go_id: number;
