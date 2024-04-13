@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Global_Order } from './Global_Order';
+import { Order } from './Order';
 
 export class DecimalColumnTransformer {
   to(data: number): number {
@@ -25,11 +25,11 @@ export class Sub_Order {
   @Column()
   so_go_id: number;
 
-  @ManyToOne(() => Global_Order, (Global_Order) => Global_Order.go_id, {
+  @ManyToOne(() => Order, (Global_Order) => Global_Order.go_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'so_go_id' })
-  Global_Order?: Global_Order;
+  Global_Order?: Order;
 
   @Column({ type: 'datetime' })
   so_closeDate: Date;

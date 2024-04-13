@@ -40,7 +40,7 @@ export class SubOrderController {
     return this.subOrderService.update(+id, updateSubOrderDto);
   }
 
-  @Delete(':id')
+  @Delete('deleteSubOrder/:id')
   remove(@Param('id') id: string) {
     return this.subOrderService.remove(+id);
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MainDatasDto } from './dto/main-datas.dto';
 
 //Services
-import { GlobalOrderService } from '../global_order/global_order.service';
+import { OrderService } from '../order/order.service';
 import { SetupSoService } from 'src/setup_so/setupSo.service';
 import { SetupGoService } from 'src/setup_go/setupGo.service';
 import { FailureGoService } from 'src/failure_go/failure_go.service';
@@ -11,7 +11,7 @@ import { FailureSoService } from 'src/failure_so/failure_so.service';
 @Injectable()
 export class MainDatasService {
   constructor(
-    private readonly globalOrderService: GlobalOrderService,
+    private readonly globalOrderService: OrderService,
     private readonly setupSoService: SetupSoService,
     private readonly setupGoService: SetupGoService,
     private readonly failureGoService: FailureGoService,

@@ -2,7 +2,7 @@ import { SetupGoDto } from 'src/setup_go/dto/setup_go.dto';
 import { ImageGoDto } from 'src/image_go/dto/image_go.dto';
 
 import { ApiProperty } from '@nestjs/swagger';
-export class GlobalOrderDto {
+export class OrderDto {
   go_id: number;
   @ApiProperty({ description: 'User ID' })
   go_user_id: number;

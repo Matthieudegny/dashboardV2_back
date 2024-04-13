@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Sg_GoDto {
+export class SoDto {
   @ApiProperty()
-  sg_go_id: number;
+  so_id: number;
   @ApiProperty()
-  sg_go_setup_go_id: number;
+  so_setup_go_id: number;
   @ApiProperty()
-  sg_go_go_id: number;
+  so_go_id: number;
 }

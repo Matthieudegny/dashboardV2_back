@@ -7,7 +7,7 @@ import { Sub_Order } from '../entities/Sub_Order';
 import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsSoService } from '../ss_so/ss_so.service';
+import { SsoService } from '../ss/sso.service';
 import { ImageSoService } from '../image_so/image_so.service';
 import { Fs_SoService } from '../fs_so/fs_so.service';
 
@@ -16,7 +16,7 @@ export class SubOrderService {
   constructor(
     @InjectRepository(Sub_Order)
     private subOrderRepository: Repository<Sub_Order>,
-    private readonly ssSoService: SsSoService,
+    private readonly ssSoService: SsoService,
     private readonly imageSoService: ImageSoService,
     private readonly fs_So_Service: Fs_SoService,
   ) {}
@@ -60,7 +60,11 @@ export class SubOrderService {
   }
 
   remove(id: number) {
-    return this.subOrderRepository.delete(id);
+    try {
+      return this.subOrderRepository.delete(id);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(

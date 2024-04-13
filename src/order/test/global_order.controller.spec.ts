@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GlobalOrderController } from '../global_order.controller';
-import { GlobalOrderService } from '../global_order.service';
-import { GlobalOrderDto } from '../dto/global_order.dto';
+import { OrderController } from '../order.controller';
+import { OrderService } from '../order.service';
+import { OrderDto } from '../dto/order.dto';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
-const globalOrderDto = new GlobalOrderDto();
+const globalOrderDto = new OrderDto();
 
 describe('GlobalOrderController', () => {
-  let controller: GlobalOrderController;
-  let service: GlobalOrderService;
+  let controller: OrderController;
+  let service: OrderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GlobalOrderController],
+      controllers: [OrderController],
       providers: [
         {
-          provide: GlobalOrderService,
+          provide: OrderService,
           useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
@@ -27,8 +27,8 @@ describe('GlobalOrderController', () => {
       ],
     }).compile();
 
-    controller = module.get<GlobalOrderController>(GlobalOrderController);
-    service = module.get<GlobalOrderService>(GlobalOrderService);
+    controller = module.get<OrderController>(OrderController);
+    service = module.get<OrderService>(OrderService);
   });
 
   it('should be defined', () => {
@@ -36,21 +36,21 @@ describe('GlobalOrderController', () => {
   });
 
   it('should create a global order', async () => {
-    const expectedResult: GlobalOrderDto = new GlobalOrderDto();
+    const expectedResult: OrderDto = new OrderDto();
     jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
     expect(await controller.create(globalOrderDto)).toBe(expectedResult);
   });
 
   it('should find all global orders', async () => {
-    const expectedResult: GlobalOrderDto[] = [new GlobalOrderDto()];
+    const expectedResult: OrderDto[] = [new OrderDto()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
     expect(await controller.findAll()).toBe(expectedResult);
   });
 
   it('should find one global order', async () => {
-    const expectedResult: GlobalOrderDto = new GlobalOrderDto();
+    const expectedResult: OrderDto = new OrderDto();
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 

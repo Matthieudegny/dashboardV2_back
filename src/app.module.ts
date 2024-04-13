@@ -14,9 +14,9 @@ import { Fs_So } from './entities/Failure/Associations/Fs_So';
 import { User } from './entities/User';
 import { Image_Go } from './entities/image/Image_go';
 import { Image_So } from './entities/image/Image_so';
-import { Global_Order } from './entities/Global_Order';
-import { Sg_Go } from './entities/Setup/Associations/Sg_go';
-import { Ss_So } from './entities/Setup/Associations/Ss_so';
+import { Order } from './entities/Order';
+import { So } from './entities/Setup/Associations/So';
+import { Ss_So } from './entities/Setup/Associations/Ss';
 import { Setup_go } from './entities/Setup/Setup_go';
 import { Sub_Order } from './entities/Sub_Order';
 
@@ -33,11 +33,11 @@ import { ImageGoModule } from './image_go/image_go.module';
 //setup
 import { SetupGoModule } from './setup_go/setupGo.module';
 import { SetupSoModule } from './setup_so/setupSo.module';
-import { Ss_So_Module } from './ss_so/ss_so.module';
-import { Sg_Go_Module } from './sg_go/sg_go.module';
+import { Sso_Module } from './ss/sso.module';
+import { So_Module } from './so/so.module';
 //order
 import { SubOrderModule } from './sub_order/sub_order.module';
-import { GlobalOrderModule } from './global_order/global_order.module';
+import { OrderModule } from './order/order.module';
 //others
 import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -73,12 +73,12 @@ import { Setup_so } from './entities/Setup/Setup_so';
         Image_Go,
         Image_So,
         //setups
-        Sg_Go,
+        So,
         Ss_So,
         Setup_so,
         Setup_go,
         //order
-        Global_Order,
+        Order,
         Sub_Order,
       ],
       synchronize: true,
@@ -95,11 +95,11 @@ import { Setup_so } from './entities/Setup/Setup_so';
     //setup
     SetupGoModule,
     SetupSoModule,
-    Ss_So_Module,
-    Sg_Go_Module,
+    Sso_Module,
+    So_Module,
     //order
     SubOrderModule,
-    GlobalOrderModule,
+    OrderModule,
     //others
     UploadModule,
     AuthModule,

@@ -1,32 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { GlobalOrderDto } from './dto/global_order.dto';
+import { OrderDto } from './dto/order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
-import { Global_Order } from '../entities/Global_Order';
+import { Order } from '../entities/Order';
 
 //others dto used
 import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
-import { SgGoService } from 'src/sg_go/sg_go.service';
+import { SoService } from 'src/so/so.service';
 import { ImageGoService } from '../image_go/image_go.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrderService } from '../sub_order/sub_order.service';
 
 @Injectable()
-export class GlobalOrderService {
+export class OrderService {
   constructor(
-    @InjectRepository(Global_Order)
-    private globalOrderRepository: Repository<Global_Order>,
-    private sgGoService: SgGoService,
+    @InjectRepository(Order)
+    private orderRepository: Repository<Order>,
+    private sgGoService: SoService,
     private imageGoService: ImageGoService,
     private fg_GoService: Fg_GoService,
     private subOrderService: SubOrderService,
   ) {}
-  create(createGlobalOrderDto: GlobalOrderDto) {
-    const newGlobalOrder =
-      this.globalOrderRepository.create(createGlobalOrderDto);
-    return this.globalOrderRepository.save(newGlobalOrder);
+  async create(createOrderDto: OrderDto) {
+    try {
+      const newGlobalOrder = this.orderRepository.create(createOrderDto);
+      const result = await this.orderRepository.save(newGlobalOrder);
+      console.log('result', result);
+      return result;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Failed to create global order.');
+    }
   }
 
   // async createGlobalOrderWithDatas(
@@ -60,28 +66,25 @@ export class GlobalOrderService {
   // }
 
   findAll() {
-    return this.globalOrderRepository.find();
+    return this.orderRepository.find();
   }
 
   async findAllByIdUser(idUser: number) {
-    const result = await this.globalOrderRepository.find({
+    const result = await this.orderRepository.find({
       where: { go_user_id: idUser },
     });
     return result;
   }
 
   findOneOrderById(id: number) {
-    return this.globalOrderRepository.findOneBy({ go_id: id });
+    return this.orderRepository.findOneBy({ go_id: id });
   }
 
-  async update(
-    id: number,
-    updateGlobalOrderDto: GlobalOrderDto,
-  ): Promise<GlobalOrderDto> {
+  async update(id: number, updateOrderDto: OrderDto): Promise<OrderDto> {
     try {
-      const orderIsUpdated = await this.globalOrderRepository.update(
+      const orderIsUpdated = await this.orderRepository.update(
         id,
-        updateGlobalOrderDto,
+        updateOrderDto,
       );
       if (orderIsUpdated.affected > 0) {
         const OrderUpdated = await this.findOneOrderById(id);
@@ -96,18 +99,21 @@ export class GlobalOrderService {
   }
 
   remove(id: number) {
-    return this.globalOrderRepository.delete(id);
+    try {
+      return this.orderRepository.delete(id);
+    } catch (error) {
+      throw new Error(`Failed to delete global order.${error}`);
+    }
   }
 
   async findAllGlobalOrdersByIdUserFilledWithData(idUser: number) {
-    let globalOrderList = new Array<GlobalOrderFillWithDatasDto>();
+    let orderList = new Array<GlobalOrderFillWithDatasDto>();
 
     //1. first the list of global orders
-    const listGlobalOrders: Array<GlobalOrderDto> =
-      await this.findAllByIdUser(idUser);
+    const listOrders: Array<OrderDto> = await this.findAllByIdUser(idUser);
 
     //2. then i fill each global order with its datas
-    for (const globalOrder of listGlobalOrders) {
+    for (const globalOrder of listOrders) {
       //2.0. create the object to fill
       let globalOrderFillWithData: GlobalOrderFillWithDatasDto =
         new GlobalOrderFillWithDatasDto();
@@ -115,7 +121,7 @@ export class GlobalOrderService {
       globalOrderFillWithData.globalOrder = globalOrder;
       //2.2. fill the setup used
       globalOrderFillWithData.setupGo =
-        await this.sgGoService.findAllSetupByGlobalOrderId(globalOrder.go_id);
+        await this.sgGoService.findAllSetupByOrderId(globalOrder.go_id);
       //2.3. fill the image_go
       globalOrderFillWithData.imageGo =
         await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);
@@ -129,10 +135,10 @@ export class GlobalOrderService {
         );
 
       //2.6. add the global order to the list
-      globalOrderList.push(globalOrderFillWithData);
+      orderList.push(globalOrderFillWithData);
     }
 
     //3. return the list of global orders
-    return globalOrderList;
+    return orderList;
   }
 }

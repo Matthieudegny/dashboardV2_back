@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Global_Order } from '../../entities/Global_Order';
+import { Order } from '../../entities/Order';
 import { Sub_Order } from '../../entities/Sub_Order';
 import { Image_Go } from '../../entities/Image/Image_go';
 import { Image_So } from '../../entities/Image/Image_so';
 //dto
-import { GlobalOrderDto } from '../../global_order/dto/global_order.dto';
+import { OrderDto } from '../../order/dto/order.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { ImageGoDto } from '../../image_go/dto/image_go.dto';
 import { SetupGoDto } from '../../setup_go/dto/setup_go.dto';
@@ -25,8 +25,8 @@ export class MainDatasDto {
 }
 
 export class GlobalOrderFillWithDatasDto {
-  @ApiProperty({ description: 'Global order', type: GlobalOrderDto })
-  globalOrder: Global_Order;
+  @ApiProperty({ description: 'Global order', type: OrderDto })
+  globalOrder: Order;
   @ApiProperty({
     description: 'list failureGo',
     type: FailureGoDto,

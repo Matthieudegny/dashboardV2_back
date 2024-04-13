@@ -1,23 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { SgGoService } from '../sg_go.service';
-import { Sg_GoDto } from '../dto/sg_go.dto';
-import { Sg_Go } from '../../entities/Setup/Associations/Sg_go';
+import { SoService } from '../so.service';
+import { SoDto } from '../dto/so.dto';
+import { So } from '../../entities/Setup/Associations/So';
 import { SetupService } from '../../setup/setup.service';
 import { SetupDto } from '../../setup/dto/setup.dto';
 
 describe('SetupGoService', () => {
-  let setupGoService: SgGoService;
-  let setupGoRepository: Repository<Sg_Go>;
+  let setupGoService: SoService;
+  let setupGoRepository: Repository<So>;
   let setupService: SetupService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SgGoService,
+        SoService,
         {
-          provide: getRepositoryToken(Sg_Go),
+          provide: getRepositoryToken(So),
           useClass: Repository,
         },
         {
@@ -27,10 +27,8 @@ describe('SetupGoService', () => {
       ],
     }).compile();
 
-    setupGoService = module.get<SgGoService>(SgGoService);
-    setupGoRepository = module.get<Repository<Sg_Go>>(
-      getRepositoryToken(Sg_Go),
-    );
+    setupGoService = module.get<SoService>(SoService);
+    setupGoRepository = module.get<Repository<So>>(getRepositoryToken(So));
     setupService = module.get<SetupService>(SetupService);
   });
 
@@ -40,8 +38,8 @@ describe('SetupGoService', () => {
 
   describe('create', () => {
     it('should create a new setupGo', async () => {
-      const mockSetupGoDto = new Sg_GoDto();
-      const mockCreatedSetupGo = new Sg_Go();
+      const mockSetupGoDto = new SoDto();
+      const mockCreatedSetupGo = new So();
       jest
         .spyOn(setupGoRepository, 'create')
         .mockReturnValueOnce(mockCreatedSetupGo);
@@ -56,7 +54,7 @@ describe('SetupGoService', () => {
 
   describe('findAll', () => {
     it('should return an array of setups', async () => {
-      const mockSetups: Sg_Go[] = [new Sg_Go()];
+      const mockSetups: So[] = [new So()];
       jest.spyOn(setupGoRepository, 'find').mockResolvedValueOnce(mockSetups);
 
       const result = await setupGoService.findAll();
@@ -67,15 +65,14 @@ describe('SetupGoService', () => {
   describe('findAllByGlobalOrderId', () => {
     it('should return setups by global order id', async () => {
       const globalOrderId = 1;
-      const mockSetups: Sg_Go[] = [new Sg_Go()];
+      const mockSetups: So[] = [new So()];
       const mockSetupDtos: SetupDto[] = [new SetupDto()];
       jest.spyOn(setupGoRepository, 'find').mockResolvedValueOnce(mockSetups);
       jest
         .spyOn(setupService, 'findOne')
         .mockResolvedValueOnce(mockSetupDtos[0]);
 
-      const result =
-        await setupGoService.findAllSetupByGlobalOrderId(globalOrderId);
+      const result = await setupGoService.findAllSetupByOrderId(globalOrderId);
       expect(result).toEqual(mockSetupDtos);
       expect(setupService.findOne).toHaveBeenCalledWith(
         mockSetups[0].setup_go_setup_id,
@@ -85,7 +82,7 @@ describe('SetupGoService', () => {
 
   describe('findOne', () => {
     it('should return a single setupGo', async () => {
-      const mockSetupGo = new Sg_Go();
+      const mockSetupGo = new So();
       jest
         .spyOn(setupGoRepository, 'findOneBy')
         .mockResolvedValueOnce(mockSetupGo);
@@ -107,7 +104,7 @@ describe('SetupGoService', () => {
         .spyOn(setupGoRepository, 'update')
         .mockResolvedValueOnce(mockUpdateResult);
 
-      const result = await setupGoService.update(mockSetupGoId, new Sg_GoDto());
+      const result = await setupGoService.update(mockSetupGoId, new SoDto());
       expect(result).toEqual(mockUpdateResult);
     });
   });

@@ -18,7 +18,7 @@ export class DecimalColumnTransformer {
 }
 
 @Entity()
-export class Global_Order {
+export class Order {
   @PrimaryGeneratedColumn()
   go_id: number;
 

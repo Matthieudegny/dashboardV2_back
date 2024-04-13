@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { SsSoService } from '../ss_so.service';
-import { Ss_SoDto } from '../dto/ss_so.dto';
-import { Ss_So } from '../../entities/Setup/Associations/Ss_so';
+import { SsoService } from '../sso.service';
+import { SsoDto } from '../dto/sso.dto';
+import { Ss_So } from '../../entities/Setup/Associations/Ss';
 import { SetupService } from '../../setup/setup.service';
 import { SetupDto } from '../../setup/dto/setup.dto';
 
 describe('SetupSoService', () => {
-  let setupSoService: SsSoService;
+  let setupSoService: SsoService;
   let setupSoRepository: Repository<Ss_So>;
   let setupService: SetupService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SsSoService,
+        SsoService,
         {
           provide: getRepositoryToken(Ss_So),
           useClass: Repository,
@@ -27,7 +27,7 @@ describe('SetupSoService', () => {
       ],
     }).compile();
 
-    setupSoService = module.get<SsSoService>(SsSoService);
+    setupSoService = module.get<SsoService>(SsoService);
     setupSoRepository = module.get<Repository<Ss_So>>(
       getRepositoryToken(Ss_So),
     );
@@ -40,7 +40,7 @@ describe('SetupSoService', () => {
 
   describe('create', () => {
     it('should create a new setupSo', async () => {
-      const mockSetupSoDto = new Ss_SoDto();
+      const mockSetupSoDto = new SsoDto();
       const mockCreatedSetupSo = new Ss_So();
       jest
         .spyOn(setupSoRepository, 'create')
@@ -106,7 +106,7 @@ describe('SetupSoService', () => {
         .spyOn(setupSoRepository, 'update')
         .mockResolvedValueOnce(mockUpdateResult);
 
-      const result = await setupSoService.update(mockSetupSoId, new Ss_SoDto());
+      const result = await setupSoService.update(mockSetupSoId, new SsoDto());
       expect(result).toEqual(mockUpdateResult);
     });
   });

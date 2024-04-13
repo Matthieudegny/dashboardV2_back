@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { GlobalOrderService } from '../global_order.service';
-import { Global_Order } from '../../entities/Global_Order';
-import { GlobalOrderDto } from '../dto/global_order.dto';
+import { OrderService } from '../order.service';
+import { Order } from '../../entities/Order';
+import { OrderDto } from '../dto/order.dto';
 
 import { EntityManager } from 'typeorm';
 import { createMock } from '@golevelup/ts-jest';
@@ -16,7 +16,7 @@ import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
 //others entities used
 import { Image_Go } from '../../entities/image/Image_go';
 import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
-import { Sg_Go } from '../../entities/Setup/Associations/Sg_go';
+import { So } from '../../entities/Setup/Associations/So';
 import { Sub_Order } from '../../entities/Sub_order';
 import { Image_So } from '../../entities/image/Image_so';
 
@@ -32,23 +32,23 @@ import { ImageGoDto } from '../../image_go/dto/image_go.dto';
 import { ImageGoModule } from '../../image_go/image_go.module';
 import { ImageSoDto } from 'src/image_so/dto/image_so.dto';
 
-const global_order = new Global_Order();
-const globalOrderFillWithDatas = new GlobalOrderDto();
+const global_order = new Order();
+const globalOrderFillWithDatas = new OrderDto();
 
 describe('GlobalOrderService', () => {
-  let globalOrderService: GlobalOrderService;
-  let globalOrderRepository: Repository<Global_Order>;
+  let globalOrderService: OrderService;
+  let globalOrderRepository: Repository<Order>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GlobalOrderService,
+        OrderService,
         {
           provide: SetupGoService,
           useValue: createMock<SetupGoService>(),
         },
         {
-          provide: getRepositoryToken(Global_Order),
+          provide: getRepositoryToken(Order),
           useClass: Repository,
         },
         {
@@ -66,9 +66,9 @@ describe('GlobalOrderService', () => {
       ],
     }).compile();
 
-    globalOrderService = module.get<GlobalOrderService>(GlobalOrderService);
-    globalOrderRepository = module.get<Repository<Global_Order>>(
-      getRepositoryToken(Global_Order),
+    globalOrderService = module.get<OrderService>(OrderService);
+    globalOrderRepository = module.get<Repository<Order>>(
+      getRepositoryToken(Order),
     );
   });
 
@@ -78,8 +78,8 @@ describe('GlobalOrderService', () => {
 
   describe('create', () => {
     it('should create a new global order', async () => {
-      const createGlobalOrderDto: GlobalOrderDto = global_order;
-      const mockCreatedGlobalOrder: Global_Order = global_order;
+      const createGlobalOrderDto: OrderDto = global_order;
+      const mockCreatedGlobalOrder: Order = global_order;
 
       jest
         .spyOn(globalOrderRepository, 'create')
@@ -96,7 +96,7 @@ describe('GlobalOrderService', () => {
 
   describe('findAll', () => {
     it('should return an array of global orders', async () => {
-      const mockGlobalOrders: Global_Order[] = [global_order];
+      const mockGlobalOrders: Order[] = [global_order];
 
       jest
         .spyOn(globalOrderRepository, 'find')
@@ -111,7 +111,7 @@ describe('GlobalOrderService', () => {
   describe('findAllByIdUser', () => {
     it('should return an array of global orders filtered by user id', async () => {
       const userId = 1;
-      const mockGlobalOrders: Global_Order[] = [global_order];
+      const mockGlobalOrders: Order[] = [global_order];
 
       jest
         .spyOn(globalOrderRepository, 'find')
@@ -126,7 +126,7 @@ describe('GlobalOrderService', () => {
   describe('findOne', () => {
     it('should return a global order by id', async () => {
       const id = 1;
-      const mockGlobalOrder: Global_Order = global_order;
+      const mockGlobalOrder: Order = global_order;
 
       jest
         .spyOn(globalOrderRepository, 'findOneBy')
@@ -146,7 +146,7 @@ describe('GlobalOrderService', () => {
         affected: 1,
         generatedMaps: [],
       };
-      const mockUpdatedResult: GlobalOrderDto = global_order;
+      const mockUpdatedResult: OrderDto = global_order;
 
       jest
         .spyOn(globalOrderRepository, 'update')
@@ -179,7 +179,7 @@ describe('GlobalOrderService', () => {
   describe('findAllGlobalOrdersByIdUserFilledWithData', () => {
     it('should return an array of global orders filled with related data for a given user id', async () => {
       const userId = 1;
-      const mockGlobalOrders: GlobalOrderDto[] = [global_order];
+      const mockGlobalOrders: OrderDto[] = [global_order];
       const failureGo: FailureDto[] = [new FailureDto()];
       const setupGo: SetupDto[] = [new SetupDto()];
       const imageGo: Image_Go[] = [new Image_Go()];
@@ -200,7 +200,7 @@ describe('GlobalOrderService', () => {
       globalOrderFillWithDatas.listSg_go = setupGo;
       globalOrderFillWithDatas.imageGo = imageGo;
 
-      const mockGlobalOrderFillWithData: GlobalOrderDto[] = [
+      const mockGlobalOrderFillWithData: OrderDto[] = [
         globalOrderFillWithDatas,
       ];
 
