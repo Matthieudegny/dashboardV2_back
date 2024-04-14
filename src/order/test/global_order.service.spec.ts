@@ -14,7 +14,7 @@ import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
 // import { Failure } from '../../entities/Failure/Failure';
 
 //others entities used
-import { Image_Go } from '../../entities/image/Image_go';
+import { Image_Go } from '../../entities/image/ImageOrder';
 import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
 import { So } from '../../entities/Setup/Associations/So';
 import { Sub_Order } from '../../entities/Sub_order';
@@ -22,14 +22,14 @@ import { Image_So } from '../../entities/image/Image_so';
 
 //other services used
 import { SetupGoService } from '../../setup_go/setup_go.service';
-import { ImageGoService } from '../../image_go/image_go.service';
+import { ImageOrderService } from '../../image_go/imageOrder.service';
 import { FailureGoService } from '../../failure_go/failure_go.service';
 import { SubOrderService } from '../../sub_order/sub_order.service';
 import { FailureDto } from '../../failure/dtos/failure.dto';
 import { SetupGoDto } from '../../setup_go/dto/setup_go.dto';
 import { SetupDto } from '../../setup/dto/setup.dto';
-import { ImageGoDto } from '../../image_go/dto/image_go.dto';
-import { ImageGoModule } from '../../image_go/image_go.module';
+import { ImageOrderDto } from '../../image_go/dto/imageOrder.dto';
+import { ImageOrderModule } from '../../image_go/imageOrder.module';
 import { ImageSoDto } from 'src/image_so/dto/image_so.dto';
 
 const global_order = new Order();
@@ -52,8 +52,8 @@ describe('GlobalOrderService', () => {
           useClass: Repository,
         },
         {
-          provide: ImageGoService,
-          useValue: createMock<ImageGoService>(),
+          provide: ImageOrderService,
+          useValue: createMock<ImageOrderService>(),
         },
         {
           provide: FailureGoService,

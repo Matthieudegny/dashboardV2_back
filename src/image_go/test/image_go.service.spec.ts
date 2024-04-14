@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { ImageGoService } from '../image_go.service';
-import { ImageGoDto } from '../dto/image_go.dto';
-import { Image_Go } from '../../entities/image/Image_go';
+import { ImageOrderService } from '../imageOrder.service';
+import { ImageOrderDto } from '../dto/imageOrder.dto';
+import { Image_Go } from '../../entities/image/ImageOrder';
 
 describe('ImageGoService', () => {
-  let imageGoService: ImageGoService;
+  let imageGoService: ImageOrderService;
   let imageGoRepository: Repository<Image_Go>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ImageGoService,
+        ImageOrderService,
         {
           provide: getRepositoryToken(Image_Go),
           useClass: Repository,
@@ -20,7 +20,7 @@ describe('ImageGoService', () => {
       ],
     }).compile();
 
-    imageGoService = module.get<ImageGoService>(ImageGoService);
+    imageGoService = module.get<ImageOrderService>(ImageOrderService);
     imageGoRepository = module.get<Repository<Image_Go>>(
       getRepositoryToken(Image_Go),
     );
@@ -32,7 +32,7 @@ describe('ImageGoService', () => {
 
   describe('create', () => {
     it('should create a new imageGo', async () => {
-      const mockImageGoDto = new ImageGoDto();
+      const mockImageGoDto = new ImageOrderDto();
       const mockCreatedImageGo = new Image_Go();
       jest
         .spyOn(imageGoRepository, 'create')
@@ -62,7 +62,7 @@ describe('ImageGoService', () => {
       const mockImageGos: Image_Go[] = [new Image_Go()];
       jest.spyOn(imageGoRepository, 'find').mockResolvedValueOnce(mockImageGos);
 
-      const result = await imageGoService.findAllByGlobalOrderId(globalOrderId);
+      const result = await imageGoService.findAllByOrderId(globalOrderId);
       expect(result).toEqual(mockImageGos);
     });
   });
@@ -93,7 +93,7 @@ describe('ImageGoService', () => {
 
       const result = await imageGoService.update(
         mockImageGoId,
-        new ImageGoDto(),
+        new ImageOrderDto(),
       );
       expect(result).toEqual(mockUpdateResult);
     });

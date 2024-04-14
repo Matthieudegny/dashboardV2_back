@@ -20,23 +20,23 @@ export class DecimalColumnTransformer {
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
-  go_id: number;
+  order_id: number;
 
   @Column()
-  go_user_id: number;
+  order_user_id: number;
 
   @ManyToOne(() => User, (user) => user.idUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'go_user_id' })
+  @JoinColumn({ name: 'order_user_id' })
   user?: User;
 
   @Column({ type: 'datetime' })
-  go_openDate: Date;
+  order_openDate: Date;
 
   @Column({ type: 'datetime', nullable: true })
-  go_closeDate: Date | null;
+  order_closeDate: Date | null;
 
   @Column({ type: 'varchar', length: 45 })
-  go_asset: string;
+  order_asset: string;
 
   @Column({
     type: 'decimal',
@@ -44,7 +44,7 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_quantity: number;
+  order_quantity: number;
 
   @Column({
     type: 'decimal',
@@ -52,7 +52,7 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_entryPrice: number;
+  order_entryPrice: number;
 
   @Column({
     type: 'decimal',
@@ -61,7 +61,7 @@ export class Order {
     nullable: true,
     transformer: new DecimalColumnTransformer(),
   })
-  go_exitPrice: number | null;
+  order_exitPrice: number | null;
 
   @Column({
     type: 'decimal',
@@ -69,7 +69,7 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_percentageEngaged: number;
+  order_percentageEngaged: number;
 
   @Column({
     type: 'decimal',
@@ -77,7 +77,7 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_amountEngaged: number;
+  order_amountEngaged: number;
 
   @Column({
     type: 'decimal',
@@ -85,10 +85,10 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_percentageStopLoss: number;
+  order_percentageStopLoss: number;
 
   @Column({ type: 'boolean' })
-  go_status: boolean;
+  order_status: boolean;
 
   @Column({
     type: 'decimal',
@@ -96,11 +96,11 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  go_result: number;
+  order_result: number;
 
   @Column({ type: 'text' })
-  go_comment: string;
+  order_comment: string;
 
   @Column()
-  go_direction: string;
+  order_direction: string;
 }

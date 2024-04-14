@@ -23,12 +23,12 @@ export class Sub_Order {
   so_id: number;
 
   @Column()
-  so_go_id: number;
+  so_order_id: number;
 
-  @ManyToOne(() => Order, (Global_Order) => Global_Order.go_id, {
+  @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'so_go_id' })
+  @JoinColumn({ name: 'so_order_id' })
   Global_Order?: Order;
 
   @Column({ type: 'datetime' })

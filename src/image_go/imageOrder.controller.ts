@@ -8,18 +8,18 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ImageGoService } from './image_go.service';
-import { ImageGoDto } from './dto/image_go.dto';
+import { ImageOrderService } from './imageOrder.service';
+import { ImageOrderDto } from './dto/imageOrder.dto';
 
 @ApiTags('Image_Go')
-@ApiExtraModels(ImageGoDto)
+@ApiExtraModels(ImageOrderDto)
 @Controller('image_go')
-export class ImageGoController {
-  constructor(private readonly imageGoService: ImageGoService) {}
+export class ImageOrderController {
+  constructor(private readonly imageGoService: ImageOrderService) {}
 
   @Post('create')
-  @ApiBody({ type: [ImageGoDto] })
-  create(@Body() imageGoDto: ImageGoDto): Promise<ImageGoDto> {
+  @ApiBody({ type: [ImageOrderDto] })
+  create(@Body() imageGoDto: ImageOrderDto): Promise<ImageOrderDto> {
     return this.imageGoService.create(imageGoDto);
   }
 
@@ -34,7 +34,7 @@ export class ImageGoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateImageGoDto: ImageGoDto) {
+  update(@Param('id') id: string, @Body() updateImageGoDto: ImageOrderDto) {
     return this.imageGoService.update(+id, updateImageGoDto);
   }
 

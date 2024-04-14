@@ -6,7 +6,7 @@ import { Order } from '../entities/Order';
 
 //module used
 import { SubOrderModule } from '../sub_order/sub_order.module';
-import { ImageGoModule } from '../image_go/image_go.module';
+import { ImageOrderModule } from '../image_go/imageOrder.module';
 
 import { Fg_Go_Module } from '../fg_go/fg_Go.module';
 
@@ -17,7 +17,7 @@ import { So_Module } from '../so/so.module';
     TypeOrmModule.forFeature([Order]),
     SubOrderModule,
     So_Module,
-    ImageGoModule,
+    ImageOrderModule,
     Fg_Go_Module,
   ],
   controllers: [OrderController],

@@ -12,7 +12,7 @@ import { Fg_Go } from './entities/Failure/Associations/Fg_go';
 import { Failure_so } from './entities/Failure/Failure_so';
 import { Fs_So } from './entities/Failure/Associations/Fs_So';
 import { User } from './entities/User';
-import { Image_Go } from './entities/image/Image_go';
+import { Image_Go } from './entities/image/ImageOrder';
 import { Image_So } from './entities/image/Image_so';
 import { Order } from './entities/Order';
 import { So } from './entities/Setup/Associations/So';
@@ -29,7 +29,7 @@ import { Fs_So_Module } from './fs_so/fs_So.module';
 import { Fg_Go_Module } from './fg_go/fg_Go.module';
 //images
 import { ImageSoModule } from './image_so/image_so.module';
-import { ImageGoModule } from './image_go/image_go.module';
+import { ImageOrderModule } from './image_go/imageOrder.module';
 //setup
 import { SetupGoModule } from './setup_go/setupGo.module';
 import { SetupSoModule } from './setup_so/setupSo.module';
@@ -91,7 +91,7 @@ import { Setup_so } from './entities/Setup/Setup_so';
     Fs_So_Module,
     //image
     ImageSoModule,
-    ImageGoModule,
+    ImageOrderModule,
     //setup
     SetupGoModule,
     SetupSoModule,

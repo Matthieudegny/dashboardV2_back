@@ -25,7 +25,7 @@ export class Fg_Go {
   @JoinColumn({ name: 'fg_go_failure_go_id' })
   Failure_go?: Failure_go;
 
-  @ManyToOne(() => Order, (Global_Order) => Global_Order.go_id, {
+  @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'fg_go_go_id' })

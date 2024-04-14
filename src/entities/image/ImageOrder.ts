@@ -10,23 +10,23 @@ import { Order } from '../Order';
 @Entity()
 export class Image_Go {
   @PrimaryGeneratedColumn()
-  image_go_id: number;
+  imageOrder_id: number;
 
   @Column()
-  image_go_go_id: number;
+  imageOrder_order_id: number;
 
-  @ManyToOne(() => Order, (Global_Order) => Global_Order.go_id, {
+  @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'image_go_go_id' })
+  @JoinColumn({ name: 'imageOrder_order_id' })
   Global_Order: Order;
 
   @Column({ type: 'text' })
-  image_go_title: string;
+  imageOrder_title: string;
 
   @Column({ type: 'text' })
-  image_go_description: string;
+  imageOrder_description: string;
 
   @Column({ type: 'mediumtext' })
-  image_go_contentImage: string;
+  imageOrder_contentImage: string;
 }

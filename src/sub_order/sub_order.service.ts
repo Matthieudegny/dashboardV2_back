@@ -31,7 +31,7 @@ export class SubOrderService {
 
   findAllByGlobalOrderId(globalOrderId: number) {
     return this.subOrderRepository.find({
-      where: { so_go_id: globalOrderId },
+      where: { so_order_id: globalOrderId },
     });
   }
 

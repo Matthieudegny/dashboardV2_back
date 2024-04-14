@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ImageGoController } from '../image_go.controller';
-import { ImageGoService } from '../image_go.service';
-import { ImageGoDto } from '../dto/image_go.dto';
-import { Image_Go } from '../../entities/image/Image_go';
+import { ImageOrderController } from '../imageOrder.controller';
+import { ImageOrderService } from '../imageOrder.service';
+import { ImageOrderDto } from '../dto/imageOrder.dto';
+import { Image_Go } from '../../entities/image/ImageOrder';
 import { UpdateResult, DeleteResult } from 'typeorm';
 
-const imageGoDto = new ImageGoDto();
+const imageGoDto = new ImageOrderDto();
 
 describe('ImageGoController', () => {
-  let controller: ImageGoController;
-  let service: ImageGoService;
+  let controller: ImageOrderController;
+  let service: ImageOrderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ImageGoController],
+      controllers: [ImageOrderController],
       providers: [
         {
-          provide: ImageGoService,
+          provide: ImageOrderService,
           useValue: {
             create: jest.fn(),
             findAll: jest.fn(),
@@ -28,8 +28,8 @@ describe('ImageGoController', () => {
       ],
     }).compile();
 
-    controller = module.get<ImageGoController>(ImageGoController);
-    service = module.get<ImageGoService>(ImageGoService);
+    controller = module.get<ImageOrderController>(ImageOrderController);
+    service = module.get<ImageOrderService>(ImageOrderService);
   });
 
   it('should be defined', () => {

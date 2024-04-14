@@ -3,7 +3,7 @@ export class SubOrderDto {
   @ApiProperty({ example: 1, description: 'suborder id' })
   so_id: number;
   @ApiProperty({ example: 1, description: 'Id of the global order' })
-  so_go_id: number;
+  so_order_id: number;
   @ApiProperty({ example: new Date(), description: 'Close Date' })
   so_closeDate: Date;
   @ApiProperty({ example: '10', description: 'QuantityAsset' })

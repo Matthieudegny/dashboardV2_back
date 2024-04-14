@@ -22,7 +22,7 @@ export class So {
 
   @Column()
   so_go_id: number;
-  @ManyToOne(() => Order, (Global_Order) => Global_Order.go_id, {
+  @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'so_go_id' })

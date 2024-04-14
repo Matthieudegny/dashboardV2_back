@@ -9,7 +9,7 @@ import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
 import { SoService } from 'src/so/so.service';
-import { ImageGoService } from '../image_go/image_go.service';
+import { ImageOrderService } from '../image_go/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrderService } from '../sub_order/sub_order.service';
 
@@ -19,7 +19,7 @@ export class OrderService {
     @InjectRepository(Order)
     private orderRepository: Repository<Order>,
     private sgGoService: SoService,
-    private imageGoService: ImageGoService,
+    private imageGoService: ImageOrderService,
     private fg_GoService: Fg_GoService,
     private subOrderService: SubOrderService,
   ) {}
@@ -71,13 +71,13 @@ export class OrderService {
 
   async findAllByIdUser(idUser: number) {
     const result = await this.orderRepository.find({
-      where: { go_user_id: idUser },
+      where: { order_user_id: idUser },
     });
     return result;
   }
 
   findOneOrderById(id: number) {
-    return this.orderRepository.findOneBy({ go_id: id });
+    return this.orderRepository.findOneBy({ order_id: id });
   }
 
   async update(id: number, updateOrderDto: OrderDto): Promise<OrderDto> {
@@ -118,20 +118,20 @@ export class OrderService {
       let globalOrderFillWithData: GlobalOrderFillWithDatasDto =
         new GlobalOrderFillWithDatasDto();
       //2.1. fill the global order with its datas
-      globalOrderFillWithData.globalOrder = globalOrder;
+      globalOrderFillWithData.order = globalOrder;
       //2.2. fill the setup used
       globalOrderFillWithData.setupGo =
-        await this.sgGoService.findAllSetupByOrderId(globalOrder.go_id);
+        await this.sgGoService.findAllSetupByOrderId(globalOrder.order_id);
       //2.3. fill the image_go
       globalOrderFillWithData.imageGo =
-        await this.imageGoService.findAllByGlobalOrderId(globalOrder.go_id);
+        await this.imageGoService.findAllByOrderId(globalOrder.order_id);
       //2.4. fill the failure used
       globalOrderFillWithData.failureGo =
-        await this.fg_GoService.findAllByGlobalOrderId(globalOrder.go_id);
+        await this.fg_GoService.findAllByGlobalOrderId(globalOrder.order_id);
       //2.5. get the list sub orders and fill them
       globalOrderFillWithData.globalSubOrderList =
         await this.subOrderService.findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
-          globalOrder.go_id,
+          globalOrder.order_id,
         );
 
       //2.6. add the global order to the list
