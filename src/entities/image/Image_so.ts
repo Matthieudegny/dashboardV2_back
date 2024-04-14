@@ -25,5 +25,8 @@ export class Image_So {
   image_so_title: string;
 
   @Column({ type: 'text' })
-  image_so_content: string;
+  image_so_description: string;
+
+  @Column({ type: 'mediumtext' })
+  image_so_contentImage: string;
 }

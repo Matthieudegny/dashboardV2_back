@@ -12,11 +12,6 @@ export class ImageGoService {
   ) {}
   async create(imageGoDto: ImageGoDto): Promise<ImageGoDto> {
     try {
-      // for (const imageGo of listImageGoDto) {
-      //   const newImageGo = this.imageGoRepository.create(imageGo);
-      //   await this.imageGoRepository.save(newImageGo);
-      //   imagesCreated = newImageGo;
-      // }
       const newImageGo = this.imageGoRepository.create(imageGoDto);
       return this.imageGoRepository.save(newImageGo);
     } catch (error) {

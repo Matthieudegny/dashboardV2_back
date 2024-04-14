@@ -10,19 +10,34 @@ export class ImageSoService {
     @InjectRepository(Image_So)
     private imageSoRepository: Repository<Image_So>,
   ) {}
-  create(createImageSoDto: ImageSoDto) {
-    const newImageSo = this.imageSoRepository.create(createImageSoDto);
-    return this.imageSoRepository.save(newImageSo);
+  create(createImageSoDto: ImageSoDto): Promise<ImageSoDto> {
+    try {
+      const newImageSo = this.imageSoRepository.create(createImageSoDto);
+      return this.imageSoRepository.save(newImageSo);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   findAll() {
     return this.imageSoRepository.find();
   }
 
-  findAllBySubOrderId(globalOrderId: number) {
-    return this.imageSoRepository.find({
-      where: { image_so_id: globalOrderId },
-    });
+  async findAllBySubOrderId(globalOrderId: number) {
+    console.log('globalSubOrderId', globalOrderId);
+    try {
+      const result = await this.imageSoRepository.find({
+        where: { image_so_so_id: globalOrderId },
+      });
+      if (result) {
+        return result;
+      } else {
+        throw new Error('No image found');
+      }
+    } catch (error) {
+      throw new Error('No image found');
+      console.log('error', error);
+    }
   }
 
   findOne(id: number) {
@@ -33,7 +48,16 @@ export class ImageSoService {
     return this.imageSoRepository.update(id, updateImageSoDto);
   }
 
-  remove(id: number) {
-    return this.imageSoRepository.delete(id);
+  async remove(id: number): Promise<boolean> {
+    try {
+      const imgaeIsdelete = await this.imageSoRepository.delete(id);
+      if (imgaeIsdelete.affected === 0) {
+        throw new Error('Image is not found');
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

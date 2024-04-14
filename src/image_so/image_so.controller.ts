@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -12,12 +12,14 @@ import { ImageSoService } from './image_so.service';
 import { ImageSoDto } from './dto/image_so.dto';
 
 @ApiTags('Image_So')
-@Controller('image-so')
+@ApiExtraModels(ImageSoDto)
+@Controller('image_so')
 export class ImageSoController {
   constructor(private readonly imageSoService: ImageSoService) {}
 
-  @Post()
-  create(@Body() createImageSoDto: ImageSoDto) {
+  @Post('create')
+  @ApiBody({ type: [ImageSoDto] })
+  create(@Body() createImageSoDto: ImageSoDto): Promise<ImageSoDto> {
     return this.imageSoService.create(createImageSoDto);
   }
 
@@ -36,7 +38,7 @@ export class ImageSoController {
     return this.imageSoService.update(+id, updateImageSoDto);
   }
 
-  @Delete(':id')
+  @Delete('deleteImageGso/:id')
   remove(@Param('id') id: string) {
     return this.imageSoService.remove(+id);
   }
