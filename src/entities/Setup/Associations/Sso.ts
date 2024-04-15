@@ -14,7 +14,7 @@ export class Sso {
   sso_id: number;
 
   @Column()
-  sso_setup_so_id: number;
+  sso_setupSubOrder_id: number;
 
   @ManyToOne(() => SetupSubOrder, (Setup_so) => Setup_so.setupSubOrder_id, {
     onDelete: 'CASCADE',
@@ -23,7 +23,7 @@ export class Sso {
   Setup_so?: SetupSubOrder;
 
   @Column()
-  sso_so_id: number;
+  sso_subOrder_id: number;
 
   @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.subOrder_id, {
     onDelete: 'CASCADE',

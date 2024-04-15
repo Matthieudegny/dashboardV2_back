@@ -12,14 +12,14 @@ import { SoService } from './so.service';
 import { SoDto } from './dto/so.dto';
 import { SetupOrderDto } from '../setupOrder/dto/setup_go.dto';
 
-@ApiTags('Sg_Go')
+@ApiTags('So')
 @ApiExtraModels(SoDto)
-@Controller('sg_go')
+@Controller('so')
 export class SoController {
   constructor(private readonly soService: SoService) {}
 
   //create SgGoList and return the list of the setup used
-  @Post('createSgGoList')
+  @Post('createSoList')
   @ApiBody({ type: [SoDto] })
   create(@Body() createSgGosDto: SoDto[]): Promise<SetupOrderDto[]> {
     return this.soService.create(createSgGosDto);
@@ -48,5 +48,10 @@ export class SoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.soService.remove(+id);
+  }
+
+  @Delete('deleteAll/:id')
+  removeAllByGlobalOrderId(@Param('id') id: string): Promise<boolean> {
+    return this.soService.removeAllByOrderId(+id);
   }
 }

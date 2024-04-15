@@ -13,13 +13,13 @@ import { SsoService } from './sso.service';
 import { SsoDto } from './dto/sso.dto';
 import { SetupSoDto } from '../setupSubOrder/dto/setupSubOrder.dto';
 
-@ApiTags('Ss_So')
+@ApiTags('Sso')
 @ApiExtraModels(SsoDto)
-@Controller('ss_so')
+@Controller('sso')
 export class SsoController {
   constructor(private readonly ssoService: SsoService) {}
 
-  @Post('createSsSoList')
+  @Post('createSsoList')
   @ApiBody({ type: [SsoDto] })
   create(@Body() createSsDto: SsoDto[]): Promise<SetupSoDto[]> {
     return this.ssoService.create(createSsDto);
@@ -43,5 +43,10 @@ export class SsoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ssoService.remove(+id);
+  }
+
+  @Delete('deleteAll/:id')
+  removeAllByGlobalOrderId(@Param('id') id: string): Promise<boolean> {
+    return this.ssoService.removeAllBySubOrderId(+id);
   }
 }

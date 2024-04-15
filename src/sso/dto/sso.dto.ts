@@ -3,7 +3,7 @@ export class SsoDto {
   @ApiProperty()
   sso_id: number;
   @ApiProperty()
-  sso_setup_so_id: number;
+  sso_setupSubOrder_id: number;
   @ApiProperty()
-  sso_so_id: number;
+  sso_subOrder_id: number;
 }

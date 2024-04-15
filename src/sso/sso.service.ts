@@ -17,17 +17,15 @@ export class SsoService {
   ) {}
   create(createSsDto: SsoDto[]): Promise<SetupSoDto[]> {
     try {
-      //first i delete all the sg_Go with the same sub global order id
+      //first i delete all the Sso with the same sub order id
       const listIsReset = this.deleteAllSsBySubOrderId(
-        createSsDto[0].sso_so_id,
+        createSsDto[0].sso_subOrder_id,
       );
       if (!listIsReset)
-        throw new Error(
-          'Error while deleting the sg_Go with the same global order id',
-        );
+        throw new Error('Error while deleting the Sso with the same order id');
       // Wait for all save operations to complete before returning the list of setups used
       if (createSsDto.length > 0) {
-        let subOrderId = createSsDto[0].sso_so_id;
+        let subOrderId = createSsDto[0].sso_subOrder_id;
         return Promise.all(
           createSsDto.map((ss_So) => {
             const newSgGo = this.ssoRepository.create(ss_So);
@@ -48,11 +46,11 @@ export class SsoService {
     try {
       const listSg_GoBySubOrderId: Array<SsoDto> =
         await this.ssoRepository.find({
-          where: { sso_so_id: subOrderId },
+          where: { sso_subOrder_id: subOrderId },
         });
       if (listSg_GoBySubOrderId.length > 0) {
         listSg_GoBySubOrderId.forEach((ss_So) => {
-          this.ssoRepository.delete(ss_So.sso_so_id);
+          this.ssoRepository.delete(ss_So.sso_subOrder_id);
         });
       }
       return true;
@@ -99,14 +97,14 @@ export class SsoService {
 
   public async findAllBySubOrderId(globalOrderId: number) {
     const listSsBySubOrderId = await this.ssoRepository.find({
-      where: { sso_so_id: globalOrderId },
+      where: { sso_subOrder_id: globalOrderId },
     });
     let listSetupSoBySubOrder: Array<SetupSoDto> = [];
     if (listSsBySubOrderId.length > 0) {
       //for each ss i get the setupso data
       for (const ss of listSsBySubOrderId) {
         const setupData: SetupSoDto = await this.setupSoService.findOne(
-          ss.sso_setup_so_id,
+          ss.sso_setupSubOrder_id,
         );
         //if listSetupCategoriesBySubOrder doesnt contain the setup category, i add it
         if (
@@ -130,5 +128,20 @@ export class SsoService {
 
   remove(id: number) {
     return this.ssoRepository.delete(id);
+  }
+
+  async removeAllBySubOrderId(subOrderId: number): Promise<boolean> {
+    try {
+      const allSsoAreRemoved = await this.ssoRepository.delete({
+        sso_subOrder_id: subOrderId,
+      });
+      if (allSsoAreRemoved.affected > 0) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error(error);
+    }
   }
 }

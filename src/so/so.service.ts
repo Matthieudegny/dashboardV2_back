@@ -102,4 +102,19 @@ export class SoService {
   remove(id: number) {
     return this.soRepository.delete(id);
   }
+
+  async removeAllByOrderId(orderId: number): Promise<boolean> {
+    try {
+      const allSoAreRemoved = await this.soRepository.delete({
+        so_order_id: orderId,
+      });
+      if (allSoAreRemoved.affected > 0) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error(error);
+    }
+  }
 }
