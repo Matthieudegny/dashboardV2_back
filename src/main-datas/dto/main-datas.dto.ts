@@ -1,61 +1,61 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../entities/Order';
 import { Sub_Order } from '../../entities/Sub_Order';
-import { Image_Go } from '../../entities/image/ImageOrder';
-import { Image_So } from '../../entities/Image/Image_so';
+import { Image_Order } from '../../entities/image/ImageOrder';
+import { Image_SubOrder } from '../../entities/image/ImageSubOrder';
 //dto
 import { OrderDto } from '../../order/dto/order.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
-import { ImageOrderDto } from '../../image_go/dto/imageOrder.dto';
-import { SetupGoDto } from '../../setup_go/dto/setup_go.dto';
+import { ImageOrderDto } from '../../imageOrder/dto/imageOrder.dto';
+import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
 import { SubOrderDto } from '../../sub_order/dto/sub_order.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';
 //setup
-import { Setup_go } from '../../entities/Setup/Setup_go';
-import { Setup_so } from '../../entities/Setup/Setup_so';
+import { SetupOrder } from '../../entities/Setup/SetupOrder';
+import { SetupSubOrder } from '../../entities/Setup/SetupSubOrder';
 
 export class MainDatasDto {
-  globalOrderList: Array<GlobalOrderFillWithDatasDto>;
-  setupGoList: Array<Setup_go>;
-  setupSoList: Array<Setup_so>;
-  failureGoList: Array<Failure_go>;
-  failureSoList: Array<Failure_so>;
+  globalOrderList: Array<GlobalOrderDto>;
+  setupOrderList: Array<SetupOrder>;
+  setupSubOrderList: Array<SetupSubOrder>;
+  failureOrderList: Array<Failure_go>;
+  failureSubOrderList: Array<Failure_so>;
 }
 
-export class GlobalOrderFillWithDatasDto {
+export class GlobalOrderDto {
   @ApiProperty({ description: 'Global order', type: OrderDto })
   order: Order;
   @ApiProperty({
-    description: 'list failureGo',
+    description: 'list failureOrder',
     type: FailureGoDto,
     isArray: true,
   })
-  failureGo: Array<Failure_go>;
+  failureOrderList: Array<Failure_go>;
   @ApiProperty({
-    description: 'list setupGo',
-    type: SetupGoDto,
+    description: 'list setupOrder',
+    type: SetupOrderDto,
     isArray: true,
   })
-  setupGo: Array<Setup_go>;
+  setupOrderList: Array<SetupOrder>;
   @ApiProperty({
-    description: 'list imageGo',
+    description: 'list imageOrder',
     type: ImageOrderDto,
     isArray: true,
   })
-  imageGo: Array<Image_Go>;
+  imageOrderList: Array<Image_Order>;
   @ApiProperty({
     description: 'list subOrder',
     type: SubOrderDto,
     isArray: true,
   })
-  globalSubOrderList: Array<SubOrderFillWithDatasDto>;
+  globalSubOrderList: Array<GlobalSubOrderDto>;
 }
 
-export class SubOrderFillWithDatasDto {
+export class GlobalSubOrderDto {
   subOrder: Sub_Order;
-  failureSo: Array<Failure_so>;
-  setupSo: Array<Setup_so>;
-  imageSo: Array<Image_So>;
+  failureSubOrderList: Array<Failure_so>;
+  setupSubOrderList: Array<SetupSubOrder>;
+  imageSubOrderList: Array<Image_SubOrder>;
 }

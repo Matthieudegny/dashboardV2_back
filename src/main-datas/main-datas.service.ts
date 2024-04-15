@@ -3,8 +3,8 @@ import { MainDatasDto } from './dto/main-datas.dto';
 
 //Services
 import { OrderService } from '../order/order.service';
-import { SetupSoService } from 'src/setup_so/setupSo.service';
-import { SetupGoService } from 'src/setup_go/setupGo.service';
+import { SetupSubOrderService } from 'src/setupSubOrder/setupSubOrder.service';
+import { SetupOrderService } from 'src/setupOrder/setupOrder.service';
 import { FailureGoService } from 'src/failure_go/failure_go.service';
 import { FailureSoService } from 'src/failure_so/failure_so.service';
 
@@ -12,8 +12,8 @@ import { FailureSoService } from 'src/failure_so/failure_so.service';
 export class MainDatasService {
   constructor(
     private readonly globalOrderService: OrderService,
-    private readonly setupSoService: SetupSoService,
-    private readonly setupGoService: SetupGoService,
+    private readonly setupSoService: SetupSubOrderService,
+    private readonly setupGoService: SetupOrderService,
     private readonly failureGoService: FailureGoService,
     private readonly failureSoService: FailureSoService,
   ) {}
@@ -22,13 +22,13 @@ export class MainDatasService {
     const mainDatas = new MainDatasDto();
     try {
       //1. first the categories data
-      mainDatas.setupGoList =
+      mainDatas.setupOrderList =
         await this.setupGoService.findAllSetupGoByIdUser(idUser);
-      mainDatas.setupSoList =
+      mainDatas.setupSubOrderList =
         await this.setupSoService.findAllSetupSoByIdUser(idUser);
-      mainDatas.failureGoList =
+      mainDatas.failureOrderList =
         await this.failureGoService.findAllFailureByIdUSer(idUser);
-      mainDatas.failureSoList =
+      mainDatas.failureSubOrderList =
         await this.failureSoService.findAllFailureByIdUser(idUser);
 
       //2 then the global orders data (filles with images, setups, failures, and the list of suborders)

@@ -6,7 +6,7 @@ import { Order } from '../entities/Order';
 
 //module used
 import { SubOrderModule } from '../sub_order/sub_order.module';
-import { ImageOrderModule } from '../image_go/imageOrder.module';
+import { ImageOrderModule } from '../imageOrder/imageOrder.module';
 
 import { Fg_Go_Module } from '../fg_go/fg_Go.module';
 

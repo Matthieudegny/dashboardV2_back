@@ -4,7 +4,7 @@ export class SoDto {
   @ApiProperty()
   so_id: number;
   @ApiProperty()
-  so_setup_go_id: number;
+  so_setupOrder_id: number;
   @ApiProperty()
-  so_go_id: number;
+  so_order_id: number;
 }

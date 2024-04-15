@@ -8,7 +8,7 @@ import {
 import { Order } from '../Order';
 
 @Entity()
-export class Image_Go {
+export class Image_Order {
   @PrimaryGeneratedColumn()
   imageOrder_id: number;
 

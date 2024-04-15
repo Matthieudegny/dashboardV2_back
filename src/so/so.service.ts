@@ -5,21 +5,22 @@ import { Repository } from 'typeorm';
 import { SoDto } from './dto/so.dto';
 import { So } from '../entities/Setup/Associations/So';
 
-import { SetupGoDto } from '../setup_go/dto/setup_go.dto';
-import { SetupGoService } from '../setup_go/setupGo.service';
+import { SetupOrderDto } from '../setupOrder/dto/setup_go.dto';
+import { SetupOrderService } from '../setupOrder/setupOrder.service';
 
 @Injectable()
 export class SoService {
   constructor(
     @InjectRepository(So)
     private soRepository: Repository<So>,
-    private setupGoService: SetupGoService,
+    private setupOrderService: SetupOrderService,
   ) {}
-  create(createSoDto: SoDto[]): Promise<SetupGoDto[]> {
+  create(createSoDto: SoDto[]): Promise<SetupOrderDto[]> {
+    console.log('createSoDto', createSoDto);
     try {
       //first i delete all the sg_Go with the same global order id
       const listIsReset = this.deleteAllSgGoByGlobalOrderId(
-        createSoDto[0].so_go_id,
+        createSoDto[0].so_order_id,
       );
 
       if (!listIsReset)
@@ -28,7 +29,7 @@ export class SoService {
         );
       // Wait for all save operations to complete before returning the list of setups used
       if (createSoDto.length > 0) {
-        let globalOrderID = createSoDto[0].so_go_id;
+        let globalOrderID = createSoDto[0].so_order_id;
 
         return Promise.all(
           createSoDto.map((sg_Go) => {
@@ -44,7 +45,6 @@ export class SoService {
       throw new Error(error);
     }
   }
-
   findAll() {
     return this.soRepository.find();
   }
@@ -52,7 +52,7 @@ export class SoService {
   async deleteAllSgGoByGlobalOrderId(globalOrderId: number): Promise<boolean> {
     try {
       const listSoByOrderId: Array<SoDto> = await this.soRepository.find({
-        where: { so_go_id: globalOrderId },
+        where: { so_order_id: globalOrderId },
       });
       if (listSoByOrderId.length > 0) {
         listSoByOrderId.forEach((sg_Go) => {
@@ -68,20 +68,20 @@ export class SoService {
 
   async findAllSetupByOrderId(globalOrderId: number) {
     const listSoByOrderId: Array<SoDto> = await this.soRepository.find({
-      where: { so_go_id: globalOrderId },
+      where: { so_order_id: globalOrderId },
     });
 
-    let listSetupGoByOrder: Array<SetupGoDto> = [];
+    let listSetupGoByOrder: Array<SetupOrderDto> = [];
     if (listSoByOrderId.length > 0) {
       //for each sg_Go i get the setup category data
       for (const sg_Go of listSoByOrderId) {
-        const setupData: SetupGoDto = await this.setupGoService.findOne(
-          sg_Go.so_setup_go_id,
+        const setupData: SetupOrderDto = await this.setupOrderService.findOne(
+          sg_Go.so_setupOrder_id,
         );
         //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
         if (
           !listSetupGoByOrder.some(
-            (setup) => setup.setup_go_id === setupData.setup_go_id,
+            (setup) => setup.setupOrder_id === setupData.setupOrder_id,
           )
         )
           listSetupGoByOrder.push(setupData);

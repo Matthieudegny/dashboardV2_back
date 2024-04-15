@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { SoService } from './so.service';
 import { SoDto } from './dto/so.dto';
-import { SetupGoDto } from '../setup_go/dto/setup_go.dto';
+import { SetupOrderDto } from '../setupOrder/dto/setup_go.dto';
 
 @ApiTags('Sg_Go')
 @ApiExtraModels(SoDto)
@@ -21,7 +21,7 @@ export class SoController {
   //create SgGoList and return the list of the setup used
   @Post('createSgGoList')
   @ApiBody({ type: [SoDto] })
-  create(@Body() createSgGosDto: SoDto[]): Promise<SetupGoDto[]> {
+  create(@Body() createSgGosDto: SoDto[]): Promise<SetupOrderDto[]> {
     return this.soService.create(createSgGosDto);
   }
 

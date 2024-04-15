@@ -5,21 +5,21 @@ import { SubOrderDto } from '../dto/sub_order.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Sub_Order } from '../../entities/Sub_Order';
-import { SetupSoService } from '../../setup_so/setupSo.service';
-import { ImageSoService } from '../../image_so/image_so.service';
+import { SetupSubOrderService } from '../../setup_so/setupSubOrder.service';
+import { ImageSubOrderService } from '../../image_so/imageSubOrder.service';
 import { FailureSoService } from '../../failure_so/failure_so.service';
 import { Fs_SoService } from '../../fs_so/fs_so.service';
-import { SubOrderFillWithDatasDto } from '../../main-datas/dto/main-datas.dto';
+import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 import { SetupDto } from '../../setup/dto/setup.dto';
-import { Image_So } from '../../entities/image/Image_so';
+import { Image_SubOrder } from '../../entities/image/ImageSubOrder';
 import { FailureDto } from '../../failure/dtos/failure.dto';
 import { create } from 'domain';
 
 describe('SubOrderService', () => {
   let service: SubOrderService;
   let repository: Repository<Sub_Order>;
-  let setupSoService: SetupSoService;
-  let imageSoService: ImageSoService;
+  let setupSoService: SetupSubOrderService;
+  let imageSoService: ImageSubOrderService;
   let fsSoService: Fs_SoService;
 
   beforeEach(async () => {
@@ -31,12 +31,12 @@ describe('SubOrderService', () => {
           useClass: Repository,
         },
         {
-          provide: ImageSoService,
-          useValue: createMock<ImageSoService>(),
+          provide: ImageSubOrderService,
+          useValue: createMock<ImageSubOrderService>(),
         },
         {
-          provide: SetupSoService,
-          useValue: createMock<SetupSoService>(),
+          provide: SetupSubOrderService,
+          useValue: createMock<SetupSubOrderService>(),
         },
         {
           provide: Fs_SoService,
@@ -49,8 +49,8 @@ describe('SubOrderService', () => {
     repository = module.get<Repository<Sub_Order>>(
       getRepositoryToken(Sub_Order),
     );
-    setupSoService = module.get<SetupSoService>(SetupSoService);
-    imageSoService = module.get<ImageSoService>(ImageSoService);
+    setupSoService = module.get<SetupSubOrderService>(SetupSubOrderService);
+    imageSoService = module.get<ImageSubOrderService>(ImageSubOrderService);
     fsSoService = module.get<Fs_SoService>(Fs_SoService);
   });
 
@@ -143,10 +143,10 @@ describe('SubOrderService', () => {
       const globalOrderId = 1;
       const mockSubOrders: SubOrderDto[] = [new SubOrderDto()];
       const mockSetupSoList: SetupDto[] = [new SetupDto()];
-      const mockImageSoList: Image_So[] = [new Image_So()];
+      const mockImageSoList: Image_SubOrder[] = [new Image_SubOrder()];
       const mockFailureSoList: FailureDto[] = [new FailureDto()];
-      const mockSubOrderFillWithDatas: SubOrderFillWithDatasDto =
-        new SubOrderFillWithDatasDto();
+      const mockSubOrderFillWithDatas: GlobalSubOrderDto =
+        new GlobalSubOrderDto();
 
       jest
         .spyOn(service, 'findAllByGlobalOrderId')
@@ -167,9 +167,9 @@ describe('SubOrderService', () => {
         );
 
       mockSubOrderFillWithDatas.subOrder = mockSubOrders[0];
-      mockSubOrderFillWithDatas.setupSo = mockSetupSoList;
-      mockSubOrderFillWithDatas.imageSo = mockImageSoList;
-      mockSubOrderFillWithDatas.failureSo = mockFailureSoList;
+      mockSubOrderFillWithDatas.setupSubOrderList = mockSetupSoList;
+      mockSubOrderFillWithDatas.imageSubOrderList = mockImageSoList;
+      mockSubOrderFillWithDatas.failureSubOrderList = mockFailureSoList;
 
       expect(result).toEqual([mockSubOrderFillWithDatas]);
     });

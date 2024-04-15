@@ -20,19 +20,18 @@ export class DecimalColumnTransformer {
 @Entity()
 export class Sub_Order {
   @PrimaryGeneratedColumn()
-  so_id: number;
-
+  subOrder_id: number;
   @Column()
-  so_order_id: number;
+  subOrder_order_id: number;
 
   @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'so_order_id' })
+  @JoinColumn({ name: 'subOrder_order_id' })
   Global_Order?: Order;
 
   @Column({ type: 'datetime' })
-  so_closeDate: Date;
+  subOrder_closeDate: Date;
 
   @Column({
     type: 'decimal',
@@ -40,30 +39,29 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_quantityAsset_sold: number;
+  subOrder_quantityAsset_sold: number;
   @Column({
     type: 'decimal',
     precision: 10,
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_quantityAsset_sold_Perc: number;
+  subOrder_quantityAsset_sold_Perc: number;
   @Column({
     type: 'decimal',
     precision: 10,
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_exitPrice: number;
-
+  subOrder_exitPrice: number;
   @Column({
     type: 'decimal',
     precision: 10,
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  so_result: number;
+  subOrder_result: number;
 
   @Column({ type: 'text' })
-  so_comment: string;
+  subOrder_comment: string;
 }

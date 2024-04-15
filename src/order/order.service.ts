@@ -5,11 +5,11 @@ import { Repository, UpdateResult } from 'typeorm';
 import { Order } from '../entities/Order';
 
 //others dto used
-import { GlobalOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
+import { GlobalOrderDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
 import { SoService } from 'src/so/so.service';
-import { ImageOrderService } from '../image_go/imageOrder.service';
+import { ImageOrderService } from '../imageOrder/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrderService } from '../sub_order/sub_order.service';
 
@@ -107,7 +107,7 @@ export class OrderService {
   }
 
   async findAllGlobalOrdersByIdUserFilledWithData(idUser: number) {
-    let orderList = new Array<GlobalOrderFillWithDatasDto>();
+    let orderList = new Array<GlobalOrderDto>();
 
     //1. first the list of global orders
     const listOrders: Array<OrderDto> = await this.findAllByIdUser(idUser);
@@ -115,18 +115,17 @@ export class OrderService {
     //2. then i fill each global order with its datas
     for (const globalOrder of listOrders) {
       //2.0. create the object to fill
-      let globalOrderFillWithData: GlobalOrderFillWithDatasDto =
-        new GlobalOrderFillWithDatasDto();
+      let globalOrderFillWithData: GlobalOrderDto = new GlobalOrderDto();
       //2.1. fill the global order with its datas
       globalOrderFillWithData.order = globalOrder;
       //2.2. fill the setup used
-      globalOrderFillWithData.setupGo =
+      globalOrderFillWithData.setupOrderList =
         await this.sgGoService.findAllSetupByOrderId(globalOrder.order_id);
       //2.3. fill the image_go
-      globalOrderFillWithData.imageGo =
+      globalOrderFillWithData.imageOrderList =
         await this.imageGoService.findAllByOrderId(globalOrder.order_id);
       //2.4. fill the failure used
-      globalOrderFillWithData.failureGo =
+      globalOrderFillWithData.failureOrderList =
         await this.fg_GoService.findAllByGlobalOrderId(globalOrder.order_id);
       //2.5. get the list sub orders and fill them
       globalOrderFillWithData.globalSubOrderList =

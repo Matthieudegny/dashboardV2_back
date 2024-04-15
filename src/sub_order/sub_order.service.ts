@@ -4,11 +4,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sub_Order } from '../entities/Sub_Order';
 //other dtos used
-import { SubOrderFillWithDatasDto } from '../main-datas/dto/main-datas.dto';
+import { GlobalSubOrderDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsoService } from '../ss/sso.service';
-import { ImageSoService } from '../image_so/image_so.service';
+import { SsoService } from '../sso/sso.service';
+import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
 import { Fs_SoService } from '../fs_so/fs_so.service';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class SubOrderService {
     @InjectRepository(Sub_Order)
     private subOrderRepository: Repository<Sub_Order>,
     private readonly ssSoService: SsoService,
-    private readonly imageSoService: ImageSoService,
+    private readonly imageSoService: ImageSubOrderService,
     private readonly fs_So_Service: Fs_SoService,
   ) {}
   create(createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
@@ -31,12 +31,12 @@ export class SubOrderService {
 
   findAllByGlobalOrderId(globalOrderId: number) {
     return this.subOrderRepository.find({
-      where: { so_order_id: globalOrderId },
+      where: { subOrder_order_id: globalOrderId },
     });
   }
 
   findOneOrderById(id: number) {
-    return this.subOrderRepository.findOneBy({ so_id: id });
+    return this.subOrderRepository.findOneBy({ subOrder_id: id });
   }
 
   async update(
@@ -70,7 +70,7 @@ export class SubOrderService {
   async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
     globalOrderId: number,
   ) {
-    let subOrderList = new Array<SubOrderFillWithDatasDto>();
+    let subOrderList = new Array<GlobalSubOrderDto>();
 
     //1. first the list of sub orders
     const listSubOrders: Array<SubOrderDto> =
@@ -78,20 +78,18 @@ export class SubOrderService {
 
     //2. then i fill each sub order with its datas
     for (const subOrder of listSubOrders) {
-      let subOrderFillWithData: SubOrderFillWithDatasDto =
-        new SubOrderFillWithDatasDto();
+      let subOrderFillWithData: GlobalSubOrderDto = new GlobalSubOrderDto();
       //2.1. fill the sub order with its datas
       subOrderFillWithData.subOrder = subOrder;
       //2.2. fill the setup_so used
-      subOrderFillWithData.setupSo = await this.ssSoService.findAllBySubOrderId(
-        subOrder.so_id,
-      );
+      subOrderFillWithData.setupSubOrderList =
+        await this.ssSoService.findAllBySubOrderId(subOrder.subOrder_id);
       //2.3. fill the image_so
-      subOrderFillWithData.imageSo =
-        await this.imageSoService.findAllBySubOrderId(subOrder.so_id);
+      subOrderFillWithData.imageSubOrderList =
+        await this.imageSoService.findAllBySubOrderId(subOrder.subOrder_id);
       //2.4. fill the failure_so used
-      subOrderFillWithData.failureSo =
-        await this.fs_So_Service.findAllBySubOrderId(subOrder.so_id);
+      subOrderFillWithData.failureSubOrderList =
+        await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_id);
 
       //2.5. add the sub order to the list
       subOrderList.push(subOrderFillWithData);

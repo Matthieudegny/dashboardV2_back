@@ -1,7 +1,5 @@
-import { SetupGoDto } from 'src/setup_go/dto/setup_go.dto';
-import { ImageOrderDto } from 'src/image_go/dto/imageOrder.dto';
-
 import { ApiProperty } from '@nestjs/swagger';
+
 export class OrderDto {
   order_id: number;
   @ApiProperty({ description: 'User ID' })
