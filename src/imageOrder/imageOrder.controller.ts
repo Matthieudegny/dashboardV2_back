@@ -30,12 +30,12 @@ export class ImageOrderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.imageGoService.findOne(+id);
+    return this.imageGoService.findImageOrderById(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateImageGoDto: ImageOrderDto) {
-    return this.imageGoService.update(+id, updateImageGoDto);
+  @Patch('update')
+  update(@Body() updateImageGoDto: ImageOrderDto): Promise<boolean> {
+    return this.imageGoService.update(updateImageGoDto);
   }
 
   @Delete('deleteImageGo/:id')

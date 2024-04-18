@@ -35,9 +35,9 @@ export class ImageSubOrderController {
     return this.imageSoService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateImageSoDto: ImageSubOrderDto) {
-    return this.imageSoService.update(+id, updateImageSoDto);
+  @Patch('update')
+  update(@Body() updateImageSoDto: ImageSubOrderDto): Promise<boolean> {
+    return this.imageSoService.update(updateImageSoDto);
   }
 
   @Delete('deleteImageGso/:id')

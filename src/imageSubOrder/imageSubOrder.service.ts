@@ -43,9 +43,22 @@ export class ImageSubOrderService {
     return this.imageSubOrderRepository.findOneBy({ imageSubOrder_id: id });
   }
 
-  update(id: number, updateImageSoDto: ImageSubOrderDto) {
-    return this.imageSubOrderRepository.update(id, updateImageSoDto);
+  async update(updateImageGoDto: ImageSubOrderDto): Promise<boolean> {
+    try {
+      const response = await this.imageSubOrderRepository.update(
+        updateImageGoDto.imageSubOrder_id,
+        updateImageGoDto,
+      );
+      if (response.affected === 0) {
+        throw new Error('Image is not found');
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
+
   async remove(id: number): Promise<boolean> {
     try {
       const imgaeIsdelete = await this.imageSubOrderRepository.delete(id);

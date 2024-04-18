@@ -74,7 +74,7 @@ describe('ImageGoService', () => {
         .spyOn(imageGoRepository, 'findOneBy')
         .mockResolvedValueOnce(mockImageGo);
 
-      const result = await imageGoService.findOne(1);
+      const result = await imageGoService.findImageOrderById(1);
       expect(result).toEqual(mockImageGo);
     });
   });

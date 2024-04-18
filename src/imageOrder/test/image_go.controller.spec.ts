@@ -56,7 +56,7 @@ describe('ImageGoController', () => {
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
     expect(await controller.findOne(id)).toBe(expectedResult);
-    expect(service.findOne).toHaveBeenCalledWith(+id);
+    expect(service.findImageOrderById).toHaveBeenCalledWith(+id);
   });
 
   it('should update an imageGo', async () => {

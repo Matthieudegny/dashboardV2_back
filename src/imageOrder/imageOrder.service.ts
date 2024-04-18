@@ -29,12 +29,24 @@ export class ImageOrderService {
     });
   }
 
-  findOne(id: number) {
+  findImageOrderById(id: number) {
     return this.imageOrderRepository.findOneBy({ imageOrder_id: id });
   }
 
-  update(id: number, updateImageGoDto: ImageOrderDto) {
-    return this.imageOrderRepository.update(id, updateImageGoDto);
+  async update(updateImageGoDto: ImageOrderDto): Promise<boolean> {
+    try {
+      const response = await this.imageOrderRepository.update(
+        updateImageGoDto.imageOrder_id,
+        updateImageGoDto,
+      );
+      if (response.affected === 0) {
+        throw new Error('Image is not found');
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async remove(id: number): Promise<boolean> {
