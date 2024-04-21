@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { SubOrderService } from './sub_order.service';
 import { SubOrderDto } from './dto/sub_order.dto';
+import { OrderDto } from 'src/order/dto/order.dto';
 
 @ApiTags('Sub_Order')
 @Controller('sub-order')
@@ -36,7 +37,7 @@ export class SubOrderController {
   update(
     @Param('id') id: string,
     @Body() updateSubOrderDto: SubOrderDto,
-  ): Promise<SubOrderDto> {
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     return this.subOrderService.update(+id, updateSubOrderDto);
   }
 

@@ -143,16 +143,18 @@ export class OrderService {
     return orderList;
   }
 
-  async updateResultOrder(idOrder: number): Promise<boolean> {
+  async updateResultOrder(idOrder: number): Promise<OrderDto> {
     try {
-      const listUborderByOrder =
+      const listSubOrder =
         await this.subOrderService.findAllByGlobalOrderId(idOrder);
 
-      if (listUborderByOrder.length > 0) {
+      if (listSubOrder.length > 0) {
         let result = 0;
-        for (const subOrder of listUborderByOrder) {
-          result += subOrder.subOrder_quantityAsset_sold;
+        for (const subOrder of listSubOrder) {
+          result += subOrder.subOrder_result;
         }
+        console.log('listSubOrder', listSubOrder);
+        console.log('result', result);
 
         const orderToUpdate = await this.findOneOrderById(idOrder);
         orderToUpdate.order_result = result;
@@ -162,12 +164,12 @@ export class OrderService {
           orderToUpdate,
         );
         if (orderResultIsUpdated.affected > 0) {
-          return true;
+          return orderToUpdate;
         } else {
           throw new Error('Failed to update the result of the global order');
         }
       }
-      return false;
+      throw new Error('Failed to update the result of the global order');
     } catch (error) {
       console.log('error', error);
       throw new Error('Failed to update the result of the global order');

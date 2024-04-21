@@ -11,6 +11,7 @@ import { SsoService } from '../sso/sso.service';
 import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
 import { Fs_SoService } from '../fs_so/fs_so.service';
 import { OrderService } from '../order/order.service';
+import { OrderDto } from 'src/order/dto/order.dto';
 
 @Injectable()
 export class SubOrderService {
@@ -61,7 +62,7 @@ export class SubOrderService {
   async update(
     id: number,
     updateSubOrderDto: SubOrderDto,
-  ): Promise<SubOrderDto> {
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     try {
       const subOrderIsUpdated = await this.subOrderRepository.update(
         id,
@@ -69,13 +70,22 @@ export class SubOrderService {
       );
       if (subOrderIsUpdated.affected > 0) {
         const subOrderUpdated = await this.findOneOrderById(id);
-        const orderResultIsUpdated = await this.orderService.updateResultOrder(
-          updateSubOrderDto.subOrder_order_id,
-        );
-        if (!orderResultIsUpdated) {
-          throw new Error('Failed to update the order result');
+        if (subOrderUpdated) {
+          const orderResultIsUpdated =
+            await this.orderService.updateResultOrder(
+              updateSubOrderDto.subOrder_order_id,
+            );
+          if (!orderResultIsUpdated) {
+            throw new Error('Failed to update the order result');
+          }
+
+          console.log('orderResultIsUpdated', orderResultIsUpdated);
+          return {
+            suborder: subOrderUpdated,
+            order: orderResultIsUpdated,
+          };
         }
-        return subOrderUpdated;
+        throw new Error('Failed to update the sub order');
       } else {
         throw new Error('Failed to update the sub order');
       }
