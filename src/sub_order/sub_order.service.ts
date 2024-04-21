@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { SubOrderDto } from './dto/sub_order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,6 +10,7 @@ import { GlobalSubOrderDto } from '../main-datas/dto/main-datas.dto';
 import { SsoService } from '../sso/sso.service';
 import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
 import { Fs_SoService } from '../fs_so/fs_so.service';
+import { OrderService } from '../order/order.service';
 
 @Injectable()
 export class SubOrderService {
@@ -19,10 +20,28 @@ export class SubOrderService {
     private readonly ssSoService: SsoService,
     private readonly imageSoService: ImageSubOrderService,
     private readonly fs_So_Service: Fs_SoService,
+    @Inject(forwardRef(() => OrderService))
+    private orderService: OrderService,
   ) {}
-  create(createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
-    const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
-    return this.subOrderRepository.save(newSubOrder);
+
+  async create(createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
+    try {
+      const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
+      const result = await this.subOrderRepository.save(newSubOrder);
+      if (result) {
+        const orderResultIsUpdated = await this.orderService.updateResultOrder(
+          result.subOrder_order_id,
+        );
+        if (!orderResultIsUpdated) {
+          throw new Error('Failed to update the order result');
+        }
+        return result;
+      } else {
+        throw new Error('Failed to create sub order.');
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   findAll() {
@@ -50,6 +69,12 @@ export class SubOrderService {
       );
       if (subOrderIsUpdated.affected > 0) {
         const subOrderUpdated = await this.findOneOrderById(id);
+        const orderResultIsUpdated = await this.orderService.updateResultOrder(
+          updateSubOrderDto.subOrder_order_id,
+        );
+        if (!orderResultIsUpdated) {
+          throw new Error('Failed to update the order result');
+        }
         return subOrderUpdated;
       } else {
         throw new Error('Failed to update the sub order');

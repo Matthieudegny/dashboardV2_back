@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { OrderDto } from './dto/order.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
@@ -21,6 +21,8 @@ export class OrderService {
     private sgGoService: SoService,
     private imageGoService: ImageOrderService,
     private fg_GoService: Fg_GoService,
+    // private subOrderService: SubOrderService,
+    @Inject(forwardRef(() => SubOrderService))
     private subOrderService: SubOrderService,
   ) {}
   async create(createOrderDto: OrderDto) {
@@ -139,5 +141,36 @@ export class OrderService {
 
     //3. return the list of global orders
     return orderList;
+  }
+
+  async updateResultOrder(idOrder: number): Promise<boolean> {
+    try {
+      const listUborderByOrder =
+        await this.subOrderService.findAllByGlobalOrderId(idOrder);
+
+      if (listUborderByOrder.length > 0) {
+        let result = 0;
+        for (const subOrder of listUborderByOrder) {
+          result += subOrder.subOrder_quantityAsset_sold;
+        }
+
+        const orderToUpdate = await this.findOneOrderById(idOrder);
+        orderToUpdate.order_result = result;
+
+        const orderResultIsUpdated = await this.orderRepository.update(
+          idOrder,
+          orderToUpdate,
+        );
+        if (orderResultIsUpdated.affected > 0) {
+          return true;
+        } else {
+          throw new Error('Failed to update the result of the global order');
+        }
+      }
+      return false;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Failed to update the result of the global order');
+    }
   }
 }
