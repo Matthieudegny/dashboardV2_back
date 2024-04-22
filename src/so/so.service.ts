@@ -19,21 +19,23 @@ export class SoService {
     console.log('createSoDto', createSoDto);
     try {
       //first i delete all the sg_Go with the same global order id
-      const listIsReset = this.deleteAllSgGoByGlobalOrderId(
-        createSoDto[0].so_order_id,
-      );
-
-      if (!listIsReset)
-        throw new Error(
-          'Error while deleting the sg_Go with the same global order id',
-        );
-      // Wait for all save operations to complete before returning the list of setups used
       if (createSoDto.length > 0) {
+        const listIsReset = this.deleteAllSgGoByGlobalOrderId(
+          createSoDto[0].so_order_id,
+        );
+
+        if (!listIsReset)
+          throw new Error(
+            'Error while deleting the sg_Go with the same global order id',
+          );
+        // Wait for all save operations to complete before returning the list of setups used
         let globalOrderID = createSoDto[0].so_order_id;
+        console.log('globalOrderID', globalOrderID);
 
         return Promise.all(
           createSoDto.map((sg_Go) => {
             const newSgGo = this.soRepository.create(sg_Go);
+            console.log('newSgGo', newSgGo);
             return this.soRepository.save(newSgGo);
           }),
         ).then(() => {

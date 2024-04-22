@@ -13,6 +13,7 @@ export class So {
   @PrimaryGeneratedColumn()
   so_id: number;
 
+  @Column()
   so_setupOrder_id: number;
   @ManyToOne(() => SetupOrder, (Setup) => Setup.setupOrder_id, {
     onDelete: 'CASCADE',

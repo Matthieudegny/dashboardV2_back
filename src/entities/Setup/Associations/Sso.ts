@@ -24,10 +24,9 @@ export class Sso {
 
   @Column()
   sso_subOrder_id: number;
-
   @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.subOrder_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'sso_so_id' })
+  @JoinColumn({ name: 'sso_subOrder_id' })
   Sub_Order?: Sub_Order;
 }
