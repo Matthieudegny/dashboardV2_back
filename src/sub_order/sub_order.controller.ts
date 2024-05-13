@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { SubOrderService } from './sub_order.service';
 import { SubOrderDto } from './dto/sub_order.dto';
+import { OrderDto } from 'src/order/dto/order.dto';
 
 @ApiTags('Sub_Order')
 @Controller('sub-order')
@@ -17,7 +18,9 @@ export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
 
   @Post()
-  create(@Body() createSubOrderDto: SubOrderDto) {
+  create(
+    @Body() createSubOrderDto: SubOrderDto,
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     return this.subOrderService.create(createSubOrderDto);
   }
 
@@ -28,16 +31,21 @@ export class SubOrderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.subOrderService.findOne(+id);
+    return this.subOrderService.findOneOrderById(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubOrderDto: SubOrderDto) {
+  @ApiTags('Global_SubOrder')
+  @Patch('update/:id')
+  update(
+    @Param('id') id: string,
+    @Body() updateSubOrderDto: SubOrderDto,
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     return this.subOrderService.update(+id, updateSubOrderDto);
   }
 
-  @Delete(':id')
+  @Delete('deleteSubOrder/:id')
   remove(@Param('id') id: string) {
+    console.log('id', id);
     return this.subOrderService.remove(+id);
   }
 }

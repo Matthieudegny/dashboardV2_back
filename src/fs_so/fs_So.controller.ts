@@ -8,7 +8,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { Fs_SoService } from './fs_So.service';
+import { Fs_SoService } from './fs_so.service';
 import { Fs_So_Dto } from './dto/fs_So.dto';
 
 @ApiTags('Fs_So')

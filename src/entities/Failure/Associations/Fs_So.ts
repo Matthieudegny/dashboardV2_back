@@ -25,7 +25,7 @@ export class Fs_So {
   @JoinColumn({ name: 'fs_so_failure_so_id' })
   Failure_so: Failure_so;
 
-  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.so_id, {
+  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.subOrder_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'fs_so_sub_order_id' })

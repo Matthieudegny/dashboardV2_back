@@ -13,6 +13,11 @@ export class FailureGoService {
   findAllFailure() {
     return this.failureRepository.find();
   }
+  findAllFailureByIdUSer(idUser: number) {
+    return this.failureRepository.find({
+      where: { failure_go_idUser: idUser },
+    });
+  }
 
   findOne(id: number) {
     return this.failureRepository.findOneBy({ failure_go_id: id });
