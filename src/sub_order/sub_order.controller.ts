@@ -18,7 +18,9 @@ export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
 
   @Post()
-  create(@Body() createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
+  create(
+    @Body() createSubOrderDto: SubOrderDto,
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     return this.subOrderService.create(createSubOrderDto);
   }
 

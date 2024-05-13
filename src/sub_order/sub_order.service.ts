@@ -25,18 +25,24 @@ export class SubOrderService {
     private orderService: OrderService,
   ) {}
 
-  async create(createSubOrderDto: SubOrderDto): Promise<SubOrderDto> {
+  async create(
+    createSubOrderDto: SubOrderDto,
+  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     try {
       const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
       const result = await this.subOrderRepository.save(newSubOrder);
       if (result) {
+        //update the order  with the new suborder (result, status)
         const orderResultIsUpdated = await this.orderService.updateResultOrder(
           result.subOrder_order_id,
         );
         if (!orderResultIsUpdated) {
           throw new Error('Failed to update the order result');
         }
-        return result;
+        return {
+          suborder: result,
+          order: orderResultIsUpdated,
+        };
       } else {
         throw new Error('Failed to create sub order.');
       }
@@ -64,13 +70,16 @@ export class SubOrderService {
     updateSubOrderDto: SubOrderDto,
   ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
     try {
+      //update the suborder
       const subOrderIsUpdated = await this.subOrderRepository.update(
         id,
         updateSubOrderDto,
       );
       if (subOrderIsUpdated.affected > 0) {
+        //get the updated suborder
         const subOrderUpdated = await this.findOneOrderById(id);
         if (subOrderUpdated) {
+          //update the order  with the new suborder (result, status)
           const orderResultIsUpdated =
             await this.orderService.updateResultOrder(
               updateSubOrderDto.subOrder_order_id,

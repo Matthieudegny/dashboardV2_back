@@ -88,12 +88,13 @@ export class OrderService {
         id,
         updateOrderDto,
       );
-      if (orderIsUpdated.affected > 0) {
-        const OrderUpdated = await this.findOneOrderById(id);
-        return OrderUpdated;
-      } else {
+
+      if (orderIsUpdated.affected === 0)
         throw new Error('Failed to update global order.');
-      }
+
+      const OrderUpdated = await this.findOneOrderById(id);
+      if (!OrderUpdated) throw new Error('Failed to update global order.');
+      return OrderUpdated;
     } catch (error) {
       console.log('error', error);
       throw new Error('Failed to update global order.');
@@ -145,24 +146,39 @@ export class OrderService {
 
   async updateResultOrder(idOrder: number): Promise<OrderDto> {
     try {
+      //get the list of sub orders
       const listSubOrder =
         await this.subOrderService.findAllByGlobalOrderId(idOrder);
 
+      console.log('listSubOrder', listSubOrder);
+
       if (listSubOrder.length > 0) {
+        //calculate the result of the global order
         let result = 0;
+        let assetSold = 0;
         for (const subOrder of listSubOrder) {
           result += subOrder.subOrder_result;
+          assetSold += subOrder.subOrder_quantityAsset_sold;
         }
         console.log('listSubOrder', listSubOrder);
         console.log('result', result);
 
+        //update the result of the global order
         const orderToUpdate = await this.findOneOrderById(idOrder);
         orderToUpdate.order_result = result;
-
+        console.log('orderToUpdate', orderToUpdate);
+        console.log(
+          'orderToUpdate.order_quantity',
+          orderToUpdate.order_quantity,
+        );
+        console.log('assetSold', assetSold);
+        if (assetSold === orderToUpdate.order_quantity)
+          orderToUpdate.order_status = false;
         const orderResultIsUpdated = await this.orderRepository.update(
           idOrder,
           orderToUpdate,
         );
+
         if (orderResultIsUpdated.affected > 0) {
           return orderToUpdate;
         } else {

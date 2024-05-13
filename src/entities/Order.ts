@@ -32,9 +32,6 @@ export class Order {
   @Column({ type: 'datetime' })
   order_openDate: Date;
 
-  @Column({ type: 'datetime', nullable: true })
-  order_closeDate: Date | null;
-
   @Column({ type: 'varchar', length: 45 })
   order_asset: string;
 
@@ -53,15 +50,6 @@ export class Order {
     transformer: new DecimalColumnTransformer(),
   })
   order_entryPrice: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    nullable: true,
-    transformer: new DecimalColumnTransformer(),
-  })
-  order_exitPrice: number | null;
 
   @Column({
     type: 'decimal',

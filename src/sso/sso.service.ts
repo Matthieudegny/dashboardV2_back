@@ -18,13 +18,15 @@ export class SsoService {
   create(createSsDto: SsoDto[]): Promise<SetupSoDto[]> {
     try {
       //first i delete all the Sso with the same sub order id
+      console.log('createSsDto', createSsDto);
       const listIsReset = this.deleteAllSsBySubOrderId(
         createSsDto[0].sso_subOrder_id,
       );
       if (!listIsReset)
         throw new Error('Error while deleting the Sso with the same order id');
-      // Wait for all save operations to complete before returning the list of setups used
       if (createSsDto.length > 0) {
+        //creation of the new Sso
+        // Wait for all save operations to complete before returning the list of setups used
         let subOrderId = createSsDto[0].sso_subOrder_id;
         return Promise.all(
           createSsDto.map((ss_So) => {
@@ -33,6 +35,7 @@ export class SsoService {
             return this.ssoRepository.save(newSgGo);
           }),
         ).then(() => {
+          //return the list created
           return this.findAllBySubOrderId(subOrderId);
         });
       }
@@ -44,13 +47,12 @@ export class SsoService {
 
   async deleteAllSsBySubOrderId(subOrderId: number): Promise<boolean> {
     try {
-      const listSg_GoBySubOrderId: Array<SsoDto> =
-        await this.ssoRepository.find({
-          where: { sso_subOrder_id: subOrderId },
-        });
-      if (listSg_GoBySubOrderId.length > 0) {
-        listSg_GoBySubOrderId.forEach((ss_So) => {
-          this.ssoRepository.delete(ss_So.sso_subOrder_id);
+      const listSsoBySubOrderId: Array<SsoDto> = await this.ssoRepository.find({
+        where: { sso_subOrder_id: subOrderId },
+      });
+      if (listSsoBySubOrderId.length > 0) {
+        listSsoBySubOrderId.forEach((ss_So) => {
+          this.ssoRepository.delete(ss_So.sso_id);
         });
       }
       return true;

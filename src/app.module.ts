@@ -50,11 +50,11 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
     ConfigModule.forRoot({
       isGlobal: true, // Rend les variables d'environnement disponibles globalement
     }),
-    ServeStaticModule.forRoot({
-      rootPath:
-        'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
-      serveRoot: '/images/',
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath:
+    //     'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
+    //   serveRoot: '/images/',
+    // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
