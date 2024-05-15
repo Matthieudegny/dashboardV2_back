@@ -24,7 +24,7 @@ export class AuthService {
     }
 
     const payload = {
-      sub: user.idUser,
+      sub: 'MyDashBoard2024',
       firstName: user.firstName,
       lastName: user.lastName,
       login: user.login,

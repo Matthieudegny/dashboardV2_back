@@ -8,6 +8,7 @@ import { SetupSubOrderModule } from 'src/setupSubOrder/setupSubOrder.module';
 import { SetupOrderModule } from 'src/setupOrder/setupOrder.module';
 import { FailureGoModule } from 'src/failure_go/failure_go.module';
 import { FailureSoModule } from 'src/failure_so/failure_so.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { FailureSoModule } from 'src/failure_so/failure_so.module';
     SetupOrderModule,
     FailureGoModule,
     FailureSoModule,
+    UserModule,
   ],
   controllers: [MainDatasController],
   providers: [MainDatasService],
