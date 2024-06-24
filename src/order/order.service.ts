@@ -85,6 +85,10 @@ export class OrderService {
 
     //1. first the list of global orders
     const listOrders: Array<OrderDto> = await this.findAllByIdUser(idUser);
+    //sort the list of global orders by date
+    listOrders.sort((a, b) => {
+      return a.order_openDate < b.order_openDate ? 1 : -1;
+    });
 
     //2. then i fill each global order with its datas
     for (const globalOrder of listOrders) {
@@ -121,8 +125,6 @@ export class OrderService {
       const listSubOrder =
         await this.subOrderService.findAllByGlobalOrderId(idOrder);
 
-      console.log('listSubOrder', listSubOrder);
-
       if (listSubOrder.length > 0) {
         //calculate the result of the global order
         let result = 0;
@@ -131,18 +133,11 @@ export class OrderService {
           result += subOrder.subOrder_result;
           assetSold += subOrder.subOrder_quantityAsset_sold;
         }
-        console.log('listSubOrder', listSubOrder);
-        console.log('result', result);
 
         //update the result of the global order
         const orderToUpdate = await this.findOneOrderById(idOrder);
         orderToUpdate.order_result = result;
-        console.log('orderToUpdate', orderToUpdate);
-        console.log(
-          'orderToUpdate.order_quantity',
-          orderToUpdate.order_quantity,
-        );
-        console.log('assetSold', assetSold);
+
         if (assetSold === orderToUpdate.order_quantity)
           orderToUpdate.order_status = false;
         const orderResultIsUpdated = await this.orderRepository.update(
