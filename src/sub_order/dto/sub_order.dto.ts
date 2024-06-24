@@ -14,6 +14,8 @@ export class SubOrderDto {
   subOrder_exitPrice: number;
   @ApiProperty({ example: 10, description: 'Result' })
   subOrder_result: number;
+  @ApiProperty({ example: 10, description: 'Amount Sold' })
+  subOrder_amountSold: number;
   @ApiProperty({ example: 'Comment', description: 'Comment' })
   subOrder_comment: string;
 }

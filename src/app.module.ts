@@ -59,7 +59,8 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: process.env.DB_USERNAME,
+      /* username: process.env.DB_USERNAME, */
+      username: 'root',
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [

@@ -25,6 +25,7 @@ export class OrderService {
     @Inject(forwardRef(() => SubOrderService))
     private subOrderService: SubOrderService,
   ) {}
+
   async create(createOrderDto: OrderDto) {
     try {
       const newGlobalOrder = this.orderRepository.create(createOrderDto);
@@ -36,36 +37,6 @@ export class OrderService {
       throw new Error('Failed to create global order.');
     }
   }
-
-  // async createGlobalOrderWithDatas(
-  //   createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
-  // ) {
-  //   //1. create the global order and take the id
-  //   const newGlobaOrder = await this.create(
-  //     createGlobalOrderWithDatasDto.globalOrder,
-  //   );
-
-  //   if (!newGlobaOrder) {
-  //     throw new Error('Failed to create global order.');
-  //   }
-
-  //   const newGlobaOrderId = newGlobaOrder.go_id;
-
-  //   //i get the global order id, so now i can create the datas related to this global order = images and setups
-
-  //   //2. create the setupsGo associations between the global order and the setupsGo
-  //   await this.sgGoService.create(createGlobalOrderWithDatasDto.setupGo);
-
-  //   //3. create the imagesGo
-  //   for (const imageGo of createGlobalOrderWithDatasDto.imageGo) {
-  //     await this.imageGoService.create({
-  //       image_go_id: 0,
-  //       image_go_go_id: newGlobaOrderId,
-  //       image_go_title: imageGo.image_go_title,
-  //       image_go_content: imageGo.image_go_content,
-  //     });
-  //   }
-  // }
 
   findAll() {
     return this.orderRepository.find();

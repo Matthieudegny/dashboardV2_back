@@ -40,6 +40,7 @@ export class Sub_Order {
     transformer: new DecimalColumnTransformer(),
   })
   subOrder_quantityAsset_sold: number;
+
   @Column({
     type: 'decimal',
     precision: 10,
@@ -47,6 +48,7 @@ export class Sub_Order {
     transformer: new DecimalColumnTransformer(),
   })
   subOrder_quantityAsset_sold_Perc: number;
+
   @Column({
     type: 'decimal',
     precision: 10,
@@ -54,6 +56,7 @@ export class Sub_Order {
     transformer: new DecimalColumnTransformer(),
   })
   subOrder_exitPrice: number;
+
   @Column({
     type: 'decimal',
     precision: 10,
@@ -61,6 +64,14 @@ export class Sub_Order {
     transformer: new DecimalColumnTransformer(),
   })
   subOrder_result: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 0,
+    transformer: new DecimalColumnTransformer(),
+  })
+  subOrder_amountSold: number;
 
   @Column({ type: 'text' })
   subOrder_comment: string;
