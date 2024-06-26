@@ -45,7 +45,6 @@ export class SubOrderController {
 
   @Delete('deleteSubOrder/:id')
   remove(@Param('id') id: string) {
-    console.log('id', id);
     return this.subOrderService.remove(+id);
   }
 }

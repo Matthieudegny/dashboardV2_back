@@ -139,6 +139,13 @@ export class SubOrderService {
       subOrderList.push(subOrderFillWithData);
     }
 
+    // 3. return the list of sub orders sorted by date
+    subOrderList.sort((a, b) => {
+      return a.subOrder.subOrder_closeDate < b.subOrder.subOrder_closeDate
+        ? -1
+        : 1;
+    });
+
     return subOrderList;
   }
 }
