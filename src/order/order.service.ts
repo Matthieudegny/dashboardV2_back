@@ -30,7 +30,6 @@ export class OrderService {
     try {
       const newGlobalOrder = this.orderRepository.create(createOrderDto);
       const result = await this.orderRepository.save(newGlobalOrder);
-      console.log('result', result);
       return result;
     } catch (error) {
       console.log('error', error);
@@ -119,14 +118,23 @@ export class OrderService {
     return orderList;
   }
 
-  async updateResultOrder(idOrder: number): Promise<OrderDto> {
+  // after some changes in the sub order list, we need to update the global order
+  // method usualy called after a sub order is created, updated or deleted
+  async updateOrder(idOrder: number): Promise<OrderDto> {
     try {
       //get the list of sub orders
       const listSubOrder =
         await this.subOrderService.findAllByGlobalOrderId(idOrder);
 
+      //get the order
+      const orderToUpdate = await this.findOneOrderById(idOrder);
+      if (!orderToUpdate)
+        throw new Error('Failed to update the result of the global order');
+
+      // i got some sub orders
       if (listSubOrder.length > 0) {
         //calculate the result of the global order
+        // check if the order is closed or not (remind close  === status false)
         let result = 0;
         let assetSold = 0;
         for (const subOrder of listSubOrder) {
@@ -134,10 +142,10 @@ export class OrderService {
           assetSold += subOrder.subOrder_quantityAsset_sold;
         }
 
-        //update the result of the global order
-        const orderToUpdate = await this.findOneOrderById(idOrder);
+        // update the result of the global order
         orderToUpdate.order_result = result;
 
+        // check if the order is closed or not (remind close  === status false)
         if (assetSold === orderToUpdate.order_quantity)
           orderToUpdate.order_status = false;
         const orderResultIsUpdated = await this.orderRepository.update(
@@ -151,7 +159,21 @@ export class OrderService {
           throw new Error('Failed to update the result of the global order');
         }
       }
-      throw new Error('Failed to update the result of the global order');
+      // no sub orders so result is directly set to 0, and status to true
+      else {
+        orderToUpdate.order_result = 0;
+        orderToUpdate.order_status = true;
+        const orderResultIsUpdated = await this.orderRepository.update(
+          idOrder,
+          orderToUpdate,
+        );
+
+        if (orderResultIsUpdated.affected > 0) {
+          return orderToUpdate;
+        } else {
+          throw new Error('Failed to update the result of the global order');
+        }
+      }
     } catch (error) {
       console.log('error', error);
       throw new Error('Failed to update the result of the global order');

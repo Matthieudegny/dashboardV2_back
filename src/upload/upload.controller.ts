@@ -77,7 +77,6 @@ export class UploadController {
 
   @Delete(':fileName')
   deleteImage(@Param('fileName') fileName: string): string {
-    console.log('delete image');
     const filePath = `C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images/Images/${fileName}`; // Chemin vers le dossier où se trouve l'image à supprimer
     console.log('filePath', filePath);
     try {

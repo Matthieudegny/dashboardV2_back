@@ -24,7 +24,6 @@ export class MainDatasService {
     //check if user is present in DBB
     const userIsAllowed = await this.userService.findOne(idUser);
     if (!userIsAllowed) {
-      console.log('User not found');
       throw new Error('User not found');
     }
 

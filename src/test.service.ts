@@ -16,8 +16,6 @@ export class TestService {
       // Exécution d'une requête SELECT
       const results = await this.dataSource.query('SELECT * FROM failure');
 
-      console.log('Results:', results);
-
       return 'Connexion à la base de données réussie !';
     } catch (error) {
       console.error('Erreur de connexion à la base de données MySQL:', error);

@@ -33,7 +33,7 @@ export class SubOrderService {
       const result = await this.subOrderRepository.save(newSubOrder);
       if (result) {
         //update the order  with the new suborder (result, status)
-        const orderResultIsUpdated = await this.orderService.updateResultOrder(
+        const orderResultIsUpdated = await this.orderService.updateOrder(
           result.subOrder_order_id,
         );
         if (!orderResultIsUpdated) {
@@ -80,15 +80,13 @@ export class SubOrderService {
         const subOrderUpdated = await this.findOneOrderById(id);
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
-          const orderResultIsUpdated =
-            await this.orderService.updateResultOrder(
-              updateSubOrderDto.subOrder_order_id,
-            );
+          const orderResultIsUpdated = await this.orderService.updateOrder(
+            updateSubOrderDto.subOrder_order_id,
+          );
           if (!orderResultIsUpdated) {
             throw new Error('Failed to update the order result');
           }
 
-          console.log('orderResultIsUpdated', orderResultIsUpdated);
           return {
             suborder: subOrderUpdated,
             order: orderResultIsUpdated,
@@ -103,9 +101,28 @@ export class SubOrderService {
     }
   }
 
-  remove(id: number) {
+  async remove(idSubOrder: number) {
     try {
-      return this.subOrderRepository.delete(id);
+      // find the sub order to delete
+      const subOrderToDelete = await this.findOneOrderById(idSubOrder);
+      if (!subOrderToDelete) {
+        throw new Error('Sub order not found');
+      }
+
+      const subOrderisDeleted =
+        await this.subOrderRepository.delete(idSubOrder);
+
+      if (subOrderisDeleted.affected > 0) {
+        //update the order, the fact to remove a sub order can change the status and result of the order
+        const orderResultIsUpdated = await this.orderService.updateOrder(
+          subOrderToDelete.subOrder_order_id,
+        );
+
+        if (!orderResultIsUpdated) {
+          throw new Error('Failed to update the order result');
+        }
+      }
+      return subOrderisDeleted;
     } catch (error) {
       throw new Error(error.message);
     }

@@ -16,7 +16,6 @@ export class SoService {
     private setupOrderService: SetupOrderService,
   ) {}
   create(createSoDto: SoDto[]): Promise<SetupOrderDto[]> {
-    console.log('createSoDto', createSoDto);
     try {
       //first i delete all the sg_Go with the same global order id
       if (createSoDto.length > 0) {
@@ -30,7 +29,6 @@ export class SoService {
           );
         // Wait for all save operations to complete before returning the list of setups used
         let globalOrderID = createSoDto[0].so_order_id;
-        console.log('globalOrderID', globalOrderID);
 
         return Promise.all(
           createSoDto.map((sg_Go) => {

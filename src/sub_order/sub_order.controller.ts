@@ -7,6 +7,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { SubOrderService } from './sub_order.service';
 import { SubOrderDto } from './dto/sub_order.dto';
@@ -18,10 +20,18 @@ export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
 
   @Post()
-  create(
+  async create(
     @Body() createSubOrderDto: SubOrderDto,
   ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
-    return this.subOrderService.create(createSubOrderDto);
+    try {
+      return await this.subOrderService.create(createSubOrderDto);
+    } catch (error) {
+      // Log the error here if needed
+      throw new HttpException(
+        'Failed to create suborder',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()
@@ -36,15 +46,30 @@ export class SubOrderController {
 
   @ApiTags('Global_SubOrder')
   @Patch('update/:id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateSubOrderDto: SubOrderDto,
   ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
-    return this.subOrderService.update(+id, updateSubOrderDto);
+    try {
+      return await this.subOrderService.update(+id, updateSubOrderDto);
+    } catch (error) {
+      // Log the error here if needed
+      throw new HttpException(
+        'Failed to update suborder',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Delete('deleteSubOrder/:id')
-  remove(@Param('id') id: string) {
-    return this.subOrderService.remove(+id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.subOrderService.remove(+id);
+    } catch (error) {
+      throw new HttpException(
+        'Failed to delete suborder',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
