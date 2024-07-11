@@ -5,9 +5,6 @@ import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/User';
 import { JwtModule } from '@nestjs/jwt';
-import { Controller, Get } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { jwtConstants } from './constants';
 
 @Module({
   imports: [
