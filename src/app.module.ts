@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 
+// controller test
+import { AppController } from './app.controller';
+
 //guards
 import { AuthGuard } from './auth/auth.guard';
 
@@ -106,7 +109,7 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
     AuthModule,
     MainDatasModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     Logger,
     {
