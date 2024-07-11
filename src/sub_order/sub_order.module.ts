@@ -7,7 +7,7 @@ import { Sub_Order } from '../entities/Sub_Order';
 //others modules used
 import { Sso_Module } from '../sso/sso.module';
 import { ImageSubOrderModule } from '../imageSubOrder/imageSubOrder.module';
-import { Fs_So_Module } from '../fs_so/fs_so.module';
+import { Fs_So_Module } from '../fs_so/fs_So.module';
 import { OrderModule } from '../order/order.module';
 
 @Module({

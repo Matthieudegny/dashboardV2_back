@@ -11,7 +11,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { Public } from '../public.decorator';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
-import { LoginDto, AccessTokenResponseDto } from './dto/Login.dto';
+import { LoginDto, AccessTokenResponseDto } from './dto/login.dto';
 import { UnauthorizedException } from '@nestjs/common';
 import { UserDto } from '../user/dto/user.dto';
 
