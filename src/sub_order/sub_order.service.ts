@@ -9,7 +9,7 @@ import { GlobalSubOrderDto } from '../main-datas/dto/main-datas.dto';
 //services used
 import { SsoService } from '../sso/sso.service';
 import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
-import { Fs_SoService } from '../fs_so/fs_so.service';
+import { Fs_SoService } from '../fs_so/fs_So.service';
 import { OrderService } from '../order/order.service';
 import { OrderDto } from 'src/order/dto/order.dto';
 

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { Fs_SoService } from './fs_so.service';
+import { Fs_SoService } from './fs_So.service';
 import { Fs_So_Controller } from './fs_So.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Fs_So } from '../entities/Failure/Associations/Fs_So';
