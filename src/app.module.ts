@@ -60,8 +60,8 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
     // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
       /* username: process.env.DB_USERNAME, */
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
