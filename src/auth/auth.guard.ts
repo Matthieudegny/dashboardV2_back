@@ -24,14 +24,16 @@ export class AuthGuard implements CanActivate {
     );
 
     if (isPublic || !isPublic) {
-      return true; // Ne pas exiger d'authentification pour les routes publiques
+      // no restriction for public routes
+      return true;
     }
 
     const request = context.switchToHttp().getRequest();
     const headers = request.headers as IncomingHttpHeaders;
 
     if (headers.referer && headers.referer.includes('/api')) {
-      return true; // Autorise l'accès sans authentification pour swagger
+      // no restriction for swagger
+      return true;
     }
 
     const token = this.extractTokenFromHeader(headers);
@@ -40,7 +42,7 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: jwtConstants.secret,
+        secret: process.env.DB_CONSTANTS,
       });
       request['user'] = payload;
     } catch {

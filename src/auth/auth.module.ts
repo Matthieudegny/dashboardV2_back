@@ -14,7 +14,7 @@ import { jwtConstants } from './constants';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: process.env.DB_CONSTANTS,
       signOptions: { expiresIn: '7d' },
     }),
   ],
