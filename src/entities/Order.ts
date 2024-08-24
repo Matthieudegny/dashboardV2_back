@@ -38,7 +38,7 @@ export class Order {
   @Column({
     type: 'decimal',
     precision: 10,
-    scale: 0,
+    scale: 2,
     transformer: new DecimalColumnTransformer(),
   })
   order_quantity: number;

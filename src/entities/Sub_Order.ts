@@ -36,7 +36,7 @@ export class Sub_Order {
   @Column({
     type: 'decimal',
     precision: 10,
-    scale: 0,
+    scale: 2,
     transformer: new DecimalColumnTransformer(),
   })
   subOrder_quantityAsset_sold: number;

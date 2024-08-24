@@ -48,6 +48,8 @@ import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
 import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
 
+console.log('DB_CONSTANTS:', process.env.DB_CONSTANTS);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -61,7 +63,7 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT, 10),
+      port: parseInt(process.env.DB_PORT, 10) || 3306,
       /* username: process.env.DB_USERNAME, */
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
