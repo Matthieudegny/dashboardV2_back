@@ -7,6 +7,9 @@ import {
 } from 'typeorm';
 import { User } from './User';
 
+// model
+import { order_directionType } from '../order/model/model-order';
+
 export class DecimalColumnTransformer {
   to(data: number): number {
     return data;
@@ -89,6 +92,12 @@ export class Order {
   @Column({ type: 'text' })
   order_comment: string;
 
+  @Column({
+    type: 'boolean',
+    default: true,
+  })
+  order_isTypeOrder: boolean;
+
   @Column()
-  order_direction: string;
+  order_direction: order_directionType;
 }

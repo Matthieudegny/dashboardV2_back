@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { order_directionType } from '../model/model-order';
 
 export class OrderDto {
   order_id: number;
@@ -24,7 +25,8 @@ export class OrderDto {
   order_result: number;
   @ApiProperty({ description: 'Comment' })
   order_comment: string;
-
+  @ApiProperty({ description: 'is type order' })
+  order_isTypeOrder: boolean;
   @ApiProperty({ description: 'Direction' })
-  order_direction: string;
+  order_direction: order_directionType;
 }
