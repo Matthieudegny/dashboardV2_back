@@ -18,7 +18,6 @@ export class SsoService {
   create(createSsDto: SsoDto[]): Promise<SetupSoDto[]> {
     try {
       //first i delete all the Sso with the same sub order id
-      console.log('createSsDto', createSsDto);
       const listIsReset = this.deleteAllSsBySubOrderId(
         createSsDto[0].sso_subOrder_id,
       );

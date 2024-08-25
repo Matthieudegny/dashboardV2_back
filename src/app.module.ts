@@ -48,8 +48,6 @@ import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
 import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
 
-console.log('DB_CONSTANTS:', process.env.DB_CONSTANTS);
-
 @Module({
   imports: [
     ConfigModule.forRoot({

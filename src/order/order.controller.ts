@@ -46,11 +46,17 @@ export class OrderController {
 
   @ApiTags('Global_Order')
   @Patch('update/:id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateOrderDto: OrderDto,
   ): Promise<OrderDto> {
-    return this.orderService.update(+id, updateOrderDto);
+    const response = await this.orderService.update(+id, updateOrderDto);
+    try {
+      return response;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Failed to update global order.');
+    }
   }
 
   @Delete('deleteOrder/:id')

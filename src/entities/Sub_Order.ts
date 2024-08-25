@@ -30,7 +30,7 @@ export class Sub_Order {
   @JoinColumn({ name: 'subOrder_order_id' })
   Global_Order?: Order;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'datetime' })
   subOrder_closeDate: Date;
 
   @Column({

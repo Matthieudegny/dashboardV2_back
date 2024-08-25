@@ -33,7 +33,6 @@ export class SoService {
         return Promise.all(
           createSoDto.map((sg_Go) => {
             const newSgGo = this.soRepository.create(sg_Go);
-            console.log('newSgGo', newSgGo);
             return this.soRepository.save(newSgGo);
           }),
         ).then(() => {

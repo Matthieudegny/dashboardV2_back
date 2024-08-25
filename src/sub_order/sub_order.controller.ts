@@ -1,4 +1,4 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -20,6 +20,7 @@ export class SubOrderController {
   constructor(private readonly subOrderService: SubOrderService) {}
 
   @Post()
+  @ApiBody({ type: SubOrderDto })
   async create(
     @Body() createSubOrderDto: SubOrderDto,
   ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
