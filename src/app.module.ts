@@ -47,7 +47,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
 import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
-import { GlobalOrderModule } from './global_order/global_order.module';
 
 @Module({
   imports: [
@@ -109,7 +108,6 @@ import { GlobalOrderModule } from './global_order/global_order.module';
     UploadModule,
     AuthModule,
     MainDatasModule,
-    GlobalOrderModule,
   ],
   controllers: [AppController],
   providers: [

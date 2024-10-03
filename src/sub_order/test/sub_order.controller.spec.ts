@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SubOrderController } from '../sub_order.controller';
 import { SubOrderService } from '../sub_order.service';
-import { SubOrderDto } from '../dto/sub_order.dto';
+import { SubOrderDto } from '../dto/suborder.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
 const subOrderDto = new SubOrderDto();

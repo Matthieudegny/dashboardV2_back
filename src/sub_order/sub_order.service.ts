@@ -1,5 +1,5 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
-import { SubOrderDto } from './dto/sub_order.dto';
+import { SubOrderDto } from './dto/suborder.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sub_Order } from '../entities/Sub_Order';

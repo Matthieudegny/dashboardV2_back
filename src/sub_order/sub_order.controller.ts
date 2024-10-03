@@ -11,7 +11,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { SubOrderService } from './sub_order.service';
-import { SubOrderDto } from './dto/sub_order.dto';
+import { SubOrderDto } from './dto/suborder.dto';
 import { OrderDto } from 'src/order/dto/order.dto';
 
 @ApiTags('Sub_Order')

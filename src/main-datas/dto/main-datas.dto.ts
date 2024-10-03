@@ -8,7 +8,7 @@ import { OrderDto } from '../../order/dto/order.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { ImageOrderDto } from '../../imageOrder/dto/imageOrder.dto';
 import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
-import { SubOrderDto } from '../../sub_order/dto/sub_order.dto';
+import { SubOrderDto } from '../../sub_order/dto/suborder.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';

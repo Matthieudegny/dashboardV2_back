@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { createMock } from '@golevelup/ts-jest';
 import { SubOrderService } from '../sub_order.service';
-import { SubOrderDto } from '../dto/sub_order.dto';
+import { SubOrderDto } from '../dto/suborder.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Sub_Order } from '../../entities/Sub_Order';

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { order_directionType } from '../model/model-order';
+import { order_directionType } from '../model/model-order_direction';
 
 export class OrderDto {
   order_id: number;

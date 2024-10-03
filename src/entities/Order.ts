@@ -8,7 +8,7 @@ import {
 import { User } from './User';
 
 // model
-import { order_directionType } from '../order/model/model-order';
+import { order_directionType } from '../order/model/model-order_direction';
 
 export class DecimalColumnTransformer {
   to(data: number): number {

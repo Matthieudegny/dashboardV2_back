@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { Order } from './Order';
 
+import { suborder_directionType } from 'src/sub_order/model/model-suborder_direction';
+
 export class DecimalColumnTransformer {
   to(data: number): number {
     return data;
@@ -75,4 +77,7 @@ export class Sub_Order {
 
   @Column({ type: 'text' })
   subOrder_comment: string;
+
+  @Column({ type: 'enum', enum: suborder_directionType })
+  subOrder_direction: suborder_directionType;
 }
