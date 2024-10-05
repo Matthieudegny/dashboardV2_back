@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { createMock } from '@golevelup/ts-jest';
-import { SubOrderService } from '../sub_order.service';
-import { SubOrderDto } from '../dto/suborder.dto';
+import { SubOrder_Add_Service } from '../sub_order_add.service';
+import { Sub_Order_Add_Dto } from '../dto/sub_order_add.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Sub_Order } from '../../entities/Sub_Order';
@@ -16,7 +16,7 @@ import { FailureDto } from '../../failure/dtos/failure.dto';
 import { create } from 'domain';
 
 describe('SubOrderService', () => {
-  let service: SubOrderService;
+  let service: SubOrder_Add_Service;
   let repository: Repository<Sub_Order>;
   let setupSoService: SetupSubOrderService;
   let imageSoService: ImageSubOrderService;
@@ -25,7 +25,7 @@ describe('SubOrderService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SubOrderService,
+        SubOrder_Add_Service,
         {
           provide: getRepositoryToken(Sub_Order),
           useClass: Repository,
@@ -45,7 +45,7 @@ describe('SubOrderService', () => {
       ],
     }).compile();
 
-    service = module.get<SubOrderService>(SubOrderService);
+    service = module.get<SubOrder_Add_Service>(SubOrder_Add_Service);
     repository = module.get<Repository<Sub_Order>>(
       getRepositoryToken(Sub_Order),
     );
@@ -60,7 +60,7 @@ describe('SubOrderService', () => {
 
   describe('create', () => {
     it('should create a new sub order', async () => {
-      const createSubOrderDto: SubOrderDto = new SubOrderDto();
+      const createSubOrderDto: Sub_Order_Add_Dto = new Sub_Order_Add_Dto();
       const mockCreatedSubOrder: Sub_Order = new Sub_Order();
       jest.spyOn(repository, 'create').mockReturnValueOnce(mockCreatedSubOrder);
       jest.spyOn(repository, 'save').mockResolvedValueOnce(mockCreatedSubOrder);
@@ -109,7 +109,7 @@ describe('SubOrderService', () => {
   describe('update', () => {
     it('should update a sub order by id', async () => {
       const id = 1;
-      const updateSubOrderDto: SubOrderDto = new SubOrderDto();
+      const updateSubOrderDto: Sub_Order_Add_Dto = new Sub_Order_Add_Dto();
       const mockUpdatedResult: UpdateResult = {
         affected: 1,
         raw: {},
@@ -141,7 +141,7 @@ describe('SubOrderService', () => {
   describe('findAndFillSubOrdersByIdGlobalOrderFilledWithDatas', () => {
     it('should return an array of sub orders filled with data for a given global order id', async () => {
       const globalOrderId = 1;
-      const mockSubOrders: SubOrderDto[] = [new SubOrderDto()];
+      const mockSubOrders: Sub_Order_Add_Dto[] = [new Sub_Order_Add_Dto()];
       const mockSetupSoList: SetupDto[] = [new SetupDto()];
       const mockImageSoList: Image_SubOrder[] = [new Image_SubOrder()];
       const mockFailureSoList: FailureDto[] = [new FailureDto()];

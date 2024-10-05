@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { SubOrderService } from './sub_order.service';
-import { SubOrderController } from './sub_order.controller';
+import { SubOrder_Reduce_Service } from './sub_order_reduce.service';
+import { SubOrder_Reduce_Controller } from './sub_order_reduce.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sub_Order } from '../entities/Sub_Order';
 
@@ -18,8 +18,8 @@ import { OrderModule } from '../order/order.module';
     Fs_So_Module,
     forwardRef(() => OrderModule),
   ],
-  controllers: [SubOrderController],
-  providers: [SubOrderService],
-  exports: [SubOrderService],
+  controllers: [SubOrder_Reduce_Controller],
+  providers: [SubOrder_Reduce_Service],
+  exports: [SubOrder_Reduce_Service],
 })
-export class SubOrderModule {}
+export class SubOrder_Reduce_Module {}

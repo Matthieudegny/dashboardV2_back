@@ -1,5 +1,5 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
-import { SubOrderDto } from './dto/suborder.dto';
+import { Sub_Order_Reduce_Dto } from './dto/sub_order_reduce.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sub_Order } from '../entities/Sub_Order';
@@ -14,7 +14,7 @@ import { OrderService } from '../order/order.service';
 import { OrderDto } from 'src/order/dto/order.dto';
 
 @Injectable()
-export class SubOrderService {
+export class SubOrder_Reduce_Service {
   constructor(
     @InjectRepository(Sub_Order)
     private subOrderRepository: Repository<Sub_Order>,
@@ -26,8 +26,8 @@ export class SubOrderService {
   ) {}
 
   async create(
-    createSubOrderDto: SubOrderDto,
-  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
+    createSubOrderDto: Sub_Order_Reduce_Dto,
+  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
       const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
       const result = await this.subOrderRepository.save(newSubOrder);
@@ -67,8 +67,8 @@ export class SubOrderService {
 
   async update(
     id: number,
-    updateSubOrderDto: SubOrderDto,
-  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
+    updateSubOrderDto: Sub_Order_Reduce_Dto,
+  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
       //update the suborder
       const subOrderIsUpdated = await this.subOrderRepository.update(
@@ -134,7 +134,7 @@ export class SubOrderService {
     let subOrderList = new Array<GlobalSubOrderDto>();
 
     //1. first the list of sub orders
-    const listSubOrders: Array<SubOrderDto> =
+    const listSubOrders: Array<Sub_Order_Reduce_Dto> =
       await this.findAllByGlobalOrderId(globalOrderId);
 
     //2. then i fill each sub order with its datas
@@ -157,11 +157,11 @@ export class SubOrderService {
     }
 
     // 3. return the list of sub orders sorted by date
-    subOrderList.sort((a, b) => {
-      return a.subOrder.subOrder_closeDate < b.subOrder.subOrder_closeDate
-        ? -1
-        : 1;
-    });
+    // subOrderList.sort((a, b) => {
+    //   return a.subOrder.subOrder_closeDate < b.subOrder.subOrder_closeDate
+    //     ? -1
+    //     : 1;
+    // });
 
     return subOrderList;
   }

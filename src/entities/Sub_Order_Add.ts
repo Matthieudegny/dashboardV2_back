@@ -19,8 +19,7 @@ export class DecimalColumnTransformer {
   }
 }
 
-@Entity()
-export class Sub_Order {
+export class Sub_Order_Add {
   @PrimaryGeneratedColumn()
   subOrder_id: number;
   @Column()
@@ -33,7 +32,7 @@ export class Sub_Order {
   Global_Order?: Order;
 
   @Column({ type: 'datetime' })
-  subOrder_closeDate: Date;
+  subOrder_openDate: Date;
 
   @Column({
     type: 'decimal',
@@ -41,7 +40,7 @@ export class Sub_Order {
     scale: 2,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_quantityAsset_sold: number;
+  subOrder_quantityAsset_bought: number;
 
   @Column({
     type: 'decimal',
@@ -49,7 +48,7 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_quantityAsset_sold_Perc: number;
+  subOrder_quantityAsset_bought_Perc: number;
 
   @Column({
     type: 'decimal',
@@ -57,7 +56,7 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_exitPrice: number;
+  subOrder_entryPrice: number;
 
   @Column({
     type: 'decimal',
@@ -65,15 +64,7 @@ export class Sub_Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_result: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
-  subOrder_amountSold: number;
+  subOrder_amountBought: number;
 
   @Column({ type: 'text' })
   subOrder_comment: string;

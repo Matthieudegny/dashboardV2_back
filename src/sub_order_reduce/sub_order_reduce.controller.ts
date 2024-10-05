@@ -10,20 +10,20 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { SubOrderService } from './sub_order.service';
-import { SubOrderDto } from './dto/suborder.dto';
+import { SubOrder_Reduce_Service } from './sub_order_reduce.service';
+import { Sub_Order_Reduce_Dto } from './dto/sub_order_reduce.dto';
 import { OrderDto } from 'src/order/dto/order.dto';
 
-@ApiTags('Sub_Order')
-@Controller('sub-order')
-export class SubOrderController {
-  constructor(private readonly subOrderService: SubOrderService) {}
+@ApiTags('Sub_Order_Reduce')
+@Controller('sub-order-reduce')
+export class SubOrder_Reduce_Controller {
+  constructor(private readonly subOrderService: SubOrder_Reduce_Service) {}
 
   @Post()
-  @ApiBody({ type: SubOrderDto })
+  @ApiBody({ type: Sub_Order_Reduce_Dto })
   async create(
-    @Body() createSubOrderDto: SubOrderDto,
-  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
+    @Body() createSubOrderDto: Sub_Order_Reduce_Dto,
+  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
       return await this.subOrderService.create(createSubOrderDto);
     } catch (error) {
@@ -49,8 +49,8 @@ export class SubOrderController {
   @Patch('update/:id')
   async update(
     @Param('id') id: string,
-    @Body() updateSubOrderDto: SubOrderDto,
-  ): Promise<{ suborder: SubOrderDto; order: OrderDto }> {
+    @Body() updateSubOrderDto: Sub_Order_Reduce_Dto,
+  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
       return await this.subOrderService.update(+id, updateSubOrderDto);
     } catch (error) {
