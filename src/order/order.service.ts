@@ -11,8 +11,8 @@ import { GlobalOrderDto } from '../main-datas/dto/main-datas.dto';
 import { S_o_Service } from 'src/s_o/s_o.service';
 import { ImageOrderService } from '../imageOrder/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
-import { SubOrder_Add_Service } from '../sub_order/sub_order_add/sub_order_add.service';
-import { SubOrder_Reduce_Service } from '../sub_order/sub_order_reduce/sub_order_reduce.service';
+import { SubOrder_Add_Service } from '../sub_order/sub_order_add/suborder_Add.service';
+import { SubOrder_Reduce_Service } from '../sub_order/sub_order_reduce/suborder_Reduce.service';
 
 @Injectable()
 export class OrderService {

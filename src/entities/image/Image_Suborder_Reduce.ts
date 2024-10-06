@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Sub_Order_Reduce } from '../Sub_Order_Reduce';
+import { Suborder_Reduce } from '../Suborder_Reduce';
 
 @Entity()
 export class Image_Suborder_Reduce {

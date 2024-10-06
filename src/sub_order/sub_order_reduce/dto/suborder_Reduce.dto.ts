@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { suborder_directionType } from '../model/model-suborder_direction';
 
-export class Sub_Order_Reduce_Dto {
+export class Suborder_Reduce_Dto {
   subOrder_reduce_id: number;
   @ApiProperty({ example: 1, description: 'Id of the global order' })
   subOrder_reduce_order_id: number;

@@ -1,8 +1,8 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
-import { Sub_Order_Add_Dto } from './dto/sub_order_add.dto';
+import { Sub_Order_Add_Dto } from './dto/suborder_Add.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Sub_Order_Add } from '../../entities/Sub_Order_Add';
+import { Suborder_Add } from '../../entities/Suborder_Add';
 //other dtos used
 import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
@@ -16,8 +16,8 @@ import { OrderDto } from '../../order/dto/order.dto';
 @Injectable()
 export class SubOrder_Add_Service {
   constructor(
-    @InjectRepository(Sub_Order_Add)
-    private subOrderRepository: Repository<Sub_Order_Add>,
+    @InjectRepository(Suborder_Add)
+    private subOrderRepository: Repository<Suborder_Add>,
     private readonly s_Soa_Service: S_Soa_Service,
     private readonly Image_Suborder_Add_Service: Image_Suborder_Add_Service,
     private readonly fs_So_Service: Fs_SoService,

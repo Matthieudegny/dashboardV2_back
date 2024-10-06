@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { createMock } from '@golevelup/ts-jest';
-import { SubOrder_Reduce_Service } from '../sub_order_reduce.service';
-import { Sub_Order_Reduce_Dto } from '../dto/sub_order_reduce.dto';
+import { SubOrder_Reduce_Service } from '../suborder_Reduce.service';
+import { Suborder_Reduce_Dto } from '../dto/suborder_Reduce.dto';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Sub_Order } from '../../entities/Sub_Order';
@@ -60,8 +60,7 @@ describe('SubOrderService', () => {
 
   describe('create', () => {
     it('should create a new sub order', async () => {
-      const createSubOrderDto: Sub_Order_Reduce_Dto =
-        new Sub_Order_Reduce_Dto();
+      const createSubOrderDto: Suborder_Reduce_Dto = new Suborder_Reduce_Dto();
       const mockCreatedSubOrder: Sub_Order = new Sub_Order();
       jest.spyOn(repository, 'create').mockReturnValueOnce(mockCreatedSubOrder);
       jest.spyOn(repository, 'save').mockResolvedValueOnce(mockCreatedSubOrder);
@@ -111,8 +110,7 @@ describe('SubOrderService', () => {
   describe('update', () => {
     it('should update a sub order by id', async () => {
       const id = 1;
-      const updateSubOrderDto: Sub_Order_Reduce_Dto =
-        new Sub_Order_Reduce_Dto();
+      const updateSubOrderDto: Suborder_Reduce_Dto = new Suborder_Reduce_Dto();
       const mockUpdatedResult: UpdateResult = {
         affected: 1,
         raw: {},
@@ -144,9 +142,7 @@ describe('SubOrderService', () => {
   describe('findAndFillSubOrdersByIdGlobalOrderFilledWithDatas', () => {
     it('should return an array of sub orders filled with data for a given global order id', async () => {
       const globalOrderId = 1;
-      const mockSubOrders: Sub_Order_Reduce_Dto[] = [
-        new Sub_Order_Reduce_Dto(),
-      ];
+      const mockSubOrders: Suborder_Reduce_Dto[] = [new Suborder_Reduce_Dto()];
       const mockSetupSoList: SetupDto[] = [new SetupDto()];
       const mockImageSoList: Image_SubOrder[] = [new Image_SubOrder()];
       const mockFailureSoList: FailureDto[] = [new FailureDto()];

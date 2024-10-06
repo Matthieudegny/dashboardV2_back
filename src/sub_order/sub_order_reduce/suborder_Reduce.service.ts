@@ -1,8 +1,8 @@
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
-import { Sub_Order_Reduce_Dto } from './dto/sub_order_reduce.dto';
+import { Suborder_Reduce_Dto } from './dto/suborder_Reduce.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
+import { Suborder_Reduce } from '../../entities/Suborder_Reduce';
 //other dtos used
 import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
@@ -16,8 +16,8 @@ import { OrderDto } from '../../order/dto/order.dto';
 @Injectable()
 export class SubOrder_Reduce_Service {
   constructor(
-    @InjectRepository(Sub_Order_Reduce)
-    private subOrderRepository: Repository<Sub_Order_Reduce>,
+    @InjectRepository(Suborder_Reduce)
+    private subOrderRepository: Repository<Suborder_Reduce>,
     private readonly s_Sor_Service: S_sor_Service,
     private readonly Image_Suborder_Reduce_Service: Image_Suborder_Reduce_Service,
     private readonly fs_So_Service: Fs_SoService,
@@ -26,8 +26,8 @@ export class SubOrder_Reduce_Service {
   ) {}
 
   async createSubOrderReduce(
-    createSubOrderDto: Sub_Order_Reduce_Dto,
-  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
+    createSubOrderDto: Suborder_Reduce_Dto,
+  ): Promise<{ suborder: Suborder_Reduce_Dto; order: OrderDto }> {
     try {
       const newSubOrder = this.subOrderRepository.create(createSubOrderDto);
       const result = await this.subOrderRepository.save(newSubOrder);
@@ -68,8 +68,8 @@ export class SubOrder_Reduce_Service {
   // update the suborderReduce and in the same time update the order (result, status)
   async updateSubOrderReduce(
     id: number,
-    updateSubOrderDto: Sub_Order_Reduce_Dto,
-  ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
+    updateSubOrderDto: Suborder_Reduce_Dto,
+  ): Promise<{ suborder: Suborder_Reduce_Dto; order: OrderDto }> {
     try {
       //update the suborder
       const subOrderIsUpdated = await this.subOrderRepository.update(
@@ -136,7 +136,7 @@ export class SubOrder_Reduce_Service {
     let subOrderList = new Array<GlobalSubOrderDto>();
 
     //1. first the list of sub orders
-    const listSubOrders: Array<Sub_Order_Reduce_Dto> =
+    const listSubOrders: Array<Suborder_Reduce_Dto> =
       await this.findAllSubOrderReduceByOrderId(globalOrderId);
 
     //2. then i fill each sub order with its datas

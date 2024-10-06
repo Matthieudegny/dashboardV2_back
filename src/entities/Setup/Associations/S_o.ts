@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Order } from '../../Order';
-import { SetupOrder } from '../SetupOrder';
+import { Setup_Order } from '../SetupOrder';
 
 @Entity({ name: 's_o' })
 export class S_o {
@@ -15,11 +15,11 @@ export class S_o {
 
   @Column()
   s_o_setupOrder_id: number;
-  @ManyToOne(() => SetupOrder, (Setup) => Setup.setupOrder_id, {
+  @ManyToOne(() => Setup_Order, (Setup) => Setup.setupOrder_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 's_o_setupOrder_id' })
-  Setup?: SetupOrder;
+  Setup?: Setup_Order;
 
   @Column()
   s_o_order_id: number;

@@ -20,11 +20,13 @@ import { Image_Suborder_Reduce } from './entities/image/Image_Suborder_Reduce';
 import { Image_Suborder_Add } from './entities/image/Image_Suborder_Add';
 import { Order } from './entities/Order';
 import { S_o } from './entities/Setup/Associations/S_o';
+import { S_soa } from './entities/Setup/Associations/S_soa';
 import { S_sor } from './entities/Setup/Associations/S_sor';
-import { SetupOrder } from './entities/Setup/SetupOrder';
-import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
-import { Sub_Order_Reduce } from './entities/Sub_Order_Reduce';
-import { Sub_Order_Add } from './entities/Sub_Order_Add';
+import { Setup_SubOrder_Reduce } from './entities/Setup/Setup_SubOrder_Reduce';
+import { Setup_SubOrder_Add } from './entities/Setup/Setup_SubOrder_Add';
+import { Setup_Order } from './entities/Setup/SetupOrder';
+import { Suborder_Reduce } from './entities/Suborder_Reduce';
+import { Suborder_Add } from './entities/Suborder_Add';
 
 //modules
 import { UserModule } from './user/user.module';
@@ -39,14 +41,16 @@ import { Image_Suborder_Add_Module } from './image_Suborder_Add/image_Sub_Order_
 import { ImageOrderModule } from './imageOrder/imageOrder.module';
 //setup
 import { SetupOrderModule } from './setupOrder/setupOrder.module';
-import { SetupSubOrderModule } from './setupSubOrder/setupSubOrder.module';
+import { Setup_SubOrder_Reduce_Module } from './setup_SubOrder_Reduce/setup_SubOrder_Reduce.module';
+import { Setup_SubOrder_Add_Module } from './setup_SubOrder_Add/setup_SubOrder_Add.module';
 import { S_sor_Module } from './s_sor/s_sor.module';
 import { S_o_Module } from './s_o/s_o.module';
+import { S_soa_Module } from './s_soa/s_soa.module';
 //order
 import { OrderModule } from './order/order.module';
 // sub order
-import { SubOrder_Add_Module } from './sub_order/sub_order_add/sub_order_add.module';
-import { SubOrder_Reduce_Module } from './sub_order/sub_order_reduce/sub_order_reduce.module';
+import { SubOrder_Add_Module } from './sub_order/sub_order_add/suborder_Add.module';
+import { SubOrder_Reduce_Module } from './sub_order/sub_order_reduce/suborder_Reduce.module';
 
 //others
 import { UploadModule } from './upload/upload.module';
@@ -80,12 +84,14 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         //setups
         S_o,
         S_sor,
-        SetupSubOrder,
-        SetupOrder,
+        Setup_SubOrder_Reduce,
+        Setup_SubOrder_Add,
+        Setup_Order,
+        S_soa,
         //order
         Order,
-        Sub_Order_Reduce,
-        Sub_Order_Add,
+        Suborder_Reduce,
+        Suborder_Add,
       ],
       synchronize: true,
     }),
@@ -101,9 +107,11 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     ImageOrderModule,
     //setup
     SetupOrderModule,
-    SetupSubOrderModule,
+    Setup_SubOrder_Reduce_Module,
+    Setup_SubOrder_Add_Module,
     S_sor_Module,
     S_o_Module,
+    S_soa_Module,
     //order
     OrderModule,
     //sub order

@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Sub_Order_Add } from 'src/entities/Sub_Order_Add';
-import { SetupOrder } from '../SetupOrder';
+import { Suborder_Add } from 'src/entities/Suborder_Add';
+import { Setup_SubOrder_Add } from '../Setup_SubOrder_Add';
 
 @Entity({ name: 's_soa' })
 export class S_soa {
@@ -14,18 +14,18 @@ export class S_soa {
   s_soa_id: number;
 
   @Column()
-  s_soa_setupOrder_id: number;
-  @ManyToOne(() => SetupOrder, (Setup) => Setup.setupOrder_id, {
+  s_soa_setup_SubOrder_Add_id: number;
+  @ManyToOne(() => Setup_SubOrder_Add, (Setup) => Setup.setup_SubOrder_Add_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 's_soa_setupOrder_id' })
-  Setup?: SetupOrder;
+  @JoinColumn({ name: 's_soa_setup_SubOrder_Add_id' })
+  Setup?: Setup_SubOrder_Add;
 
   @Column()
-  s_soa_subOrder_id: number;
-  @ManyToOne(() => Sub_Order_Add, (Suborder) => Suborder.subOrder_add_id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 's_soa_subOrder_id' })
-  Suborder?: Sub_Order_Add;
+  s_soa_subOrder_Add_id: number;
+  // @ManyToOne(() => Sub_Order_Add, (Suborder) => Suborder.subOrder_add_id, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 's_soa_subOrder_id' })
+  // Suborder?: Sub_Order_Add;
 }

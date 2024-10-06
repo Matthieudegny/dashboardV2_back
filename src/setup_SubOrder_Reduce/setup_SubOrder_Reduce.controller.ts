@@ -8,16 +8,16 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { SetupSubOrderService } from './setupSubOrder.service';
-import { SetupSoDto } from './dto/setupSubOrder.dto';
+import { Setup_SubOrder_Reduce_Service } from './setup_SubOrder_Reduce.service';
+import { Setup_SubOrder_ReduceDto } from './dto/setup_SubOrder_Reduce.dto';
 
-@ApiTags('Setup_So')
-@Controller('setup_so')
-export class SetupSubOrderController {
-  constructor(private setupSubOrderService: SetupSubOrderService) {}
+@ApiTags('Setup_SubOrder_Reduce')
+@Controller('setup_SubOrder_Reduce')
+export class Setup_SubOrder_Reduce_Controller {
+  constructor(private setupSubOrderService: Setup_SubOrder_Reduce_Service) {}
 
   @Post('createSetupSo')
-  create(@Body() createSetupDto: SetupSoDto) {
+  create(@Body() createSetupDto: Setup_SubOrder_ReduceDto) {
     return this.setupSubOrderService.create(createSetupDto);
   }
 
@@ -37,7 +37,10 @@ export class SetupSubOrderController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSetupDto: SetupSoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateSetupDto: Setup_SubOrder_ReduceDto,
+  ) {
     return this.setupSubOrderService.update(+id, updateSetupDto);
   }
 

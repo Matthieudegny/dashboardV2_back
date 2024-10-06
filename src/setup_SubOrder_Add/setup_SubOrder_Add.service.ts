@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SetupSubOrder } from '../entities/Setup/SetupSubOrder';
-import { SetupSoDto } from './dto/setupSubOrder.dto';
+import { Setup_SubOrder_Add } from '../entities/Setup/Setup_SubOrder_Add';
+import { Setup_SubOrder_Add_Dto } from './dto/setup_SubOrder_Add.dto';
 
 @Injectable()
-export class SetupSubOrderService {
+export class Setup_SubOrder_Add_Service {
   constructor(
-    @InjectRepository(SetupSubOrder)
-    private setupSubOrderRepository: Repository<SetupSubOrder>,
+    @InjectRepository(Setup_SubOrder_Add)
+    private setupSubOrderRepository: Repository<Setup_SubOrder_Add>,
   ) {}
-  create(createSetupSubOrderDto: SetupSoDto) {
+  create(createSetupSubOrderDto: Setup_SubOrder_Add_Dto) {
     const newSetup = this.setupSubOrderRepository.create(
       createSetupSubOrderDto,
     );
@@ -23,15 +23,17 @@ export class SetupSubOrderService {
 
   findAllSetupSoByIdUser(idUser: number) {
     return this.setupSubOrderRepository.find({
-      where: { setupSubOrder_idUser: idUser },
+      where: { setup_SubOrder_Add_idUser: idUser },
     });
   }
 
   findOne(id: number) {
-    return this.setupSubOrderRepository.findOneBy({ setupSubOrder_id: id });
+    return this.setupSubOrderRepository.findOneBy({
+      setup_SubOrder_Add_id: id,
+    });
   }
 
-  update(id: number, updateSetupDto: SetupSoDto) {
+  update(id: number, updateSetupDto: Setup_SubOrder_Add_Dto) {
     return this.setupSubOrderRepository.update(id, updateSetupDto);
   }
 

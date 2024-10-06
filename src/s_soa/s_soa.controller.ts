@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { S_Soa_Service } from './s_soa.service';
 import { S_soa_Dto } from './dto/s_soa.dto';
-import { SetupOrderDto } from '../setupOrder/dto/setup_go.dto';
+import { Setup_SubOrder_Add_Dto } from '../setup_SubOrder_Add/dto/setup_SubOrder_Add.dto';
 
 @ApiTags('S_soa')
 @ApiExtraModels(S_soa_Dto)
@@ -21,7 +21,9 @@ export class S_Soa_Controller {
   //create SgGoList and return the list of the setup used
   @Post('createSoList')
   @ApiBody({ type: [S_soa_Dto] })
-  create(@Body() createSgGosDto: S_soa_Dto[]): Promise<SetupOrderDto[]> {
+  create(
+    @Body() createSgGosDto: S_soa_Dto[],
+  ): Promise<Setup_SubOrder_Add_Dto[]> {
     return this.ssoaService.create(createSgGosDto);
   }
 

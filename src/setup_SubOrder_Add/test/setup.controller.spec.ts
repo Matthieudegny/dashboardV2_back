@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SetupSubOrderController } from '../setupSubOrder.controller';
-import { SetupSubOrderService } from '../setupSubOrder.service';
-import { SetupSoDto } from '../dto/setupSubOrder.dto';
+import { SetupSubOrderController } from '../setup_SubOrder_Add.controller';
+import { SetupSubOrderService } from '../setup_SubOrder_Add.service';
+import { SetupSoDto } from '../dto/setup_SubOrder_Add.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
 describe('SetupController', () => {

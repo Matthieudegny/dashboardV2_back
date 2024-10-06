@@ -5,17 +5,18 @@ import { Repository } from 'typeorm';
 import { S_sor_Dto } from './dto/s_sor.dto';
 import { S_sor } from '../entities/Setup/Associations/S_sor';
 
-import { SetupSoDto } from '../setupSubOrder/dto/setupSubOrder.dto';
-import { SetupSubOrderService } from '../setupSubOrder/setupSubOrder.service';
+import { Suborder_Reduce_Dto } from '../sub_order/sub_order_reduce/dto/suborder_Reduce.dto';
+import { Setup_SubOrder_Reduce_Service } from '../setup_SubOrder_Reduce/setup_SubOrder_Reduce.service';
+import { Setup_SubOrder_ReduceDto } from '../setup_SubOrder_Reduce/dto/setup_SubOrder_Reduce.dto';
 
 @Injectable()
 export class S_sor_Service {
   constructor(
     @InjectRepository(S_sor)
     private ssorRepository: Repository<S_sor>,
-    private setupSoService: SetupSubOrderService,
+    private setupSoService: Setup_SubOrder_Reduce_Service,
   ) {}
-  create(createSsDto: S_sor_Dto[]): Promise<SetupSoDto[]> {
+  create(createSsDto: S_sor_Dto[]): Promise<Setup_SubOrder_ReduceDto[]> {
     try {
       //first i delete all the Sso with the same sub order id
       const listIsReset = this.deleteAllSsBySubOrderId(
@@ -27,6 +28,7 @@ export class S_sor_Service {
         //creation of the new Sso
         // Wait for all save operations to complete before returning the list of setups used
         let subOrderId = createSsDto[0].s_sor_subOrder_id;
+
         return Promise.all(
           createSsDto.map((ss_So) => {
             const newSgGo = this.ssorRepository.create(ss_So);
@@ -101,17 +103,18 @@ export class S_sor_Service {
     const listSsBySubOrderId = await this.ssorRepository.find({
       where: { s_sor_subOrder_id: globalOrderId },
     });
-    let listSetupSoBySubOrder: Array<SetupSoDto> = [];
+    let listSetupSoBySubOrder: Array<Setup_SubOrder_ReduceDto> = [];
     if (listSsBySubOrderId.length > 0) {
       //for each ss i get the setupso data
       for (const ss of listSsBySubOrderId) {
-        const setupData: SetupSoDto = await this.setupSoService.findOne(
-          ss.s_sor_setupSubOrder_id,
-        );
+        const setupData: Setup_SubOrder_ReduceDto =
+          await this.setupSoService.findOne(ss.s_sor_setupSubOrder_id);
         //if listSetupCategoriesBySubOrder doesnt contain the setup category, i add it
         if (
           !listSetupSoBySubOrder.some(
-            (setup) => setup.setupSubOrder_id === setupData.setupSubOrder_id,
+            (setup) =>
+              setup.setup_SubOrder_Reduce_id ===
+              setupData.setup_SubOrder_Reduce_id,
           )
         )
           listSetupSoBySubOrder.push(setupData);

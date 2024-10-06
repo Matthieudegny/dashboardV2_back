@@ -1,26 +1,28 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../entities/Order';
-import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
 import { Image_Order } from '../../entities/image/ImageOrder';
-import { Image_SubOrder } from '../../entities/image/Image_Suborder_Reduce';
+import { Image_Suborder_Reduce } from '../../entities/image/Image_Suborder_Reduce';
+import { Image_Suborder_Add } from '../../entities/image/Image_Suborder_Add';
 //dto
 import { OrderDto } from '../../order/dto/order.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { ImageOrderDto } from '../../imageOrder/dto/imageOrder.dto';
 import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
-import { Sub_Order_Reduce_Dto } from '../../sub_order/sub_order_reduce/dto/sub_order_reduce.dto';
+import { Suborder_Reduce_Dto } from '../../sub_order/sub_order_reduce/dto/suborder_Reduce.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';
 //setup
-import { SetupOrder } from '../../entities/Setup/SetupOrder';
-import { SetupSubOrder } from '../../entities/Setup/SetupSubOrder';
-import { Sub_Order_Add } from 'src/entities/Sub_Order_Add';
+import { Setup_Order } from '../../entities/Setup/SetupOrder';
+import { Setup_SubOrder_Add } from 'src/entities/Setup/Setup_SubOrder_Add';
+import { Setup_SubOrder_Reduce } from 'src/entities/Setup/Setup_SubOrder_Reduce';
+import { Suborder_Add } from 'src/entities/Suborder_Add';
+import { Suborder_Reduce } from 'src/entities/Suborder_Reduce';
 
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderDto>;
-  setupOrderList: Array<SetupOrder>;
-  setupSubOrderList: Array<SetupSubOrder>;
+  setupOrderList: Array<Setup_Order>;
+  setupSubOrderList: Array<Setup_SubOrder_Add | Setup_SubOrder_Reduce>;
   failureOrderList: Array<Failure_go>;
   failureSubOrderList: Array<Failure_so>;
 }
@@ -39,7 +41,7 @@ export class GlobalOrderDto {
     type: SetupOrderDto,
     isArray: true,
   })
-  setupOrderList: Array<SetupOrder>;
+  setupOrderList: Array<Setup_Order>;
   @ApiProperty({
     description: 'list imageOrder',
     type: ImageOrderDto,
@@ -48,15 +50,15 @@ export class GlobalOrderDto {
   imageOrderList: Array<Image_Order>;
   @ApiProperty({
     description: 'list subOrder',
-    type: Sub_Order_Reduce_Dto,
+    type: Suborder_Reduce_Dto,
     isArray: true,
   })
   globalSubOrderList: Array<GlobalSubOrderDto>;
 }
 
 export class GlobalSubOrderDto {
-  subOrder: Sub_Order_Reduce | Sub_Order_Add;
+  subOrder: Suborder_Reduce | Suborder_Add;
   failureSubOrderList: Array<Failure_so>;
-  setupSubOrderList: Array<SetupSubOrder | SetupOrder>;
-  imageSubOrderList: Array<Image_SubOrder>;
+  setupSubOrderList: Array<Setup_SubOrder_Add | Setup_SubOrder_Reduce>;
+  imageSubOrderList: Array<Image_Suborder_Reduce | Image_Suborder_Add>;
 }

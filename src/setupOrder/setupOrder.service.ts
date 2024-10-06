@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { SetupOrder } from '../entities/Setup/SetupOrder';
+import { Setup_Order } from '../entities/Setup/SetupOrder';
 import { SetupOrderDto } from './dto/setup_go.dto';
 
 @Injectable()
 export class SetupOrderService {
   constructor(
-    @InjectRepository(SetupOrder)
-    private setupOrderRepository: Repository<SetupOrder>,
+    @InjectRepository(Setup_Order)
+    private setupOrderRepository: Repository<Setup_Order>,
   ) {}
   create(createSetupDto: SetupOrderDto) {
     const newSetup = this.setupOrderRepository.create(createSetupDto);

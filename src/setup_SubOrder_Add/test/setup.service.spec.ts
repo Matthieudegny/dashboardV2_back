@@ -1,28 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { SetupSubOrderService } from '../setupSubOrder.service';
-import { SetupSoDto } from '../dto/setupSubOrder.dto';
-import { SetupOrder } from '../../entities/Setup/SetupOrder';
+import { SetupSubOrderService } from '../setup_SubOrder_Add.service';
+import { SetupSoDto } from '../dto/setup_SubOrder_Add.dto';
+import { Setup_Order } from '../../entities/Setup/SetupOrder';
 
 describe('SetupService', () => {
   let setupService: SetupSubOrderService;
-  let setupRepository: Repository<SetupOrder>;
+  let setupRepository: Repository<Setup_Order>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SetupSubOrderService,
         {
-          provide: getRepositoryToken(SetupOrder),
+          provide: getRepositoryToken(Setup_Order),
           useClass: Repository,
         },
       ],
     }).compile();
 
     setupService = module.get<SetupSubOrderService>(SetupSubOrderService);
-    setupRepository = module.get<Repository<SetupOrder>>(
-      getRepositoryToken(SetupOrder),
+    setupRepository = module.get<Repository<Setup_Order>>(
+      getRepositoryToken(Setup_Order),
     );
   });
 
@@ -33,7 +33,7 @@ describe('SetupService', () => {
   describe('create', () => {
     it('should create a new setup', async () => {
       const mockSetupDto = new SetupSoDto();
-      const mockCreatedSetup = new SetupOrder();
+      const mockCreatedSetup = new Setup_Order();
       jest
         .spyOn(setupRepository, 'create')
         .mockReturnValueOnce(mockCreatedSetup);
@@ -48,7 +48,7 @@ describe('SetupService', () => {
 
   describe('findAll', () => {
     it('should return an array of setups', async () => {
-      const mockSetups: SetupOrder[] = [new SetupOrder()];
+      const mockSetups: Setup_Order[] = [new Setup_Order()];
       jest.spyOn(setupRepository, 'find').mockResolvedValueOnce(mockSetups);
 
       const result = await setupService.findAll();
@@ -58,7 +58,7 @@ describe('SetupService', () => {
 
   describe('findOne', () => {
     it('should return a single setup', async () => {
-      const mockSetup = new SetupOrder();
+      const mockSetup = new Setup_Order();
       jest.spyOn(setupRepository, 'findOneBy').mockResolvedValueOnce(mockSetup);
 
       const result = await setupService.findOne(1);

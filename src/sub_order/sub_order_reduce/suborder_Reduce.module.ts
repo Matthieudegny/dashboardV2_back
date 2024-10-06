@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { SubOrder_Reduce_Service } from './sub_order_reduce.service';
-import { SubOrder_Reduce_Controller } from './sub_order_reduce.controller';
+import { SubOrder_Reduce_Service } from './suborder_Reduce.service';
+import { SubOrder_Reduce_Controller } from './suborder_Reduce.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
+import { Suborder_Reduce } from '../../entities/Suborder_Reduce';
 
 //others modules used
 import { S_sor_Module } from '../../s_sor/s_sor.module';
@@ -12,7 +12,7 @@ import { OrderModule } from '../../order/order.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Sub_Order_Reduce]),
+    TypeOrmModule.forFeature([Suborder_Reduce]),
     S_sor_Module,
     Image_Suborder_Reduce_Module,
     Fs_So_Module,

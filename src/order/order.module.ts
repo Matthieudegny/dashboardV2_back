@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from '../entities/Order';
 
 //module used
-import { SubOrder_Add_Module } from '../sub_order/sub_order_add/sub_order_add.module';
-import { SubOrder_Reduce_Module } from '../sub_order/sub_order_reduce/sub_order_reduce.module';
+import { SubOrder_Add_Module } from '../sub_order/sub_order_add/suborder_Add.module';
+import { SubOrder_Reduce_Module } from '../sub_order/sub_order_reduce/suborder_Reduce.module';
 import { ImageOrderModule } from '../imageOrder/imageOrder.module';
 
 import { Fg_Go_Module } from '../fg_go/fg_Go.module';

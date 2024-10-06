@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Sub_Order_Add } from '../Sub_Order_Add';
+import { Suborder_Add } from '../Suborder_Add';
 
 @Entity()
 export class Image_Suborder_Add {

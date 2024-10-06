@@ -20,7 +20,7 @@ export class DecimalColumnTransformer {
 }
 
 @Entity()
-export class Sub_Order_Add {
+export class Suborder_Add {
   @PrimaryGeneratedColumn()
   subOrder_add_id: number;
   @Column()

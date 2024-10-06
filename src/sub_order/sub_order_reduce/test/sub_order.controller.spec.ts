@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SubOrder_Reduce_Controller } from '../sub_order_reduce.controller';
-import { SubOrder_Reduce_Service } from '../sub_order_reduce.service';
-import { Sub_Order_Reduce_Dto } from '../dto/sub_order_reduce.dto';
+import { SubOrder_Reduce_Controller } from '../suborder_Reduce.controller';
+import { SubOrder_Reduce_Service } from '../suborder_Reduce.service';
+import { Suborder_Reduce_Dto } from '../dto/suborder_Reduce.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
-const subOrderDto = new Sub_Order_Reduce_Dto();
+const subOrderDto = new Suborder_Reduce_Dto();
 
 describe('SubOrderController', () => {
   let controller: SubOrder_Reduce_Controller;
@@ -38,7 +38,7 @@ describe('SubOrderController', () => {
   });
 
   it('should create a sub order', async () => {
-    const expectedResult: Sub_Order_Reduce_Dto = new Sub_Order_Reduce_Dto();
+    const expectedResult: Suborder_Reduce_Dto = new Suborder_Reduce_Dto();
     jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
     expect(await controller.createSubOrderReduce(subOrderDto)).toBe(
@@ -47,14 +47,14 @@ describe('SubOrderController', () => {
   });
 
   it('should find all sub orders', async () => {
-    const expectedResult: Sub_Order_Reduce_Dto[] = [new Sub_Order_Reduce_Dto()];
+    const expectedResult: Suborder_Reduce_Dto[] = [new Suborder_Reduce_Dto()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
     expect(await controller.findAllSubOrderReduce()).toBe(expectedResult);
   });
 
   it('should find one sub order', async () => {
-    const expectedResult: Sub_Order_Reduce_Dto = new Sub_Order_Reduce_Dto();
+    const expectedResult: Suborder_Reduce_Dto = new Suborder_Reduce_Dto();
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 

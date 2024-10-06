@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { SetupOrderService } from '../setupOrder.service';
-import { SetupOrderDto } from '../dto/setup_go.dto';
+import { SetupSubOrderService } from '../setup_SubOrder_Reduce.service';
+import { SetupSoDto } from '../dto/setup_SubOrder_Reduce.dto';
 import { Setup_Order } from '../../entities/Setup/SetupOrder';
 
 describe('SetupService', () => {
-  let setupService: SetupOrderService;
+  let setupService: SetupSubOrderService;
   let setupRepository: Repository<Setup_Order>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SetupOrderService,
+        SetupSubOrderService,
         {
           provide: getRepositoryToken(Setup_Order),
           useClass: Repository,
@@ -20,7 +20,7 @@ describe('SetupService', () => {
       ],
     }).compile();
 
-    setupService = module.get<SetupOrderService>(SetupOrderService);
+    setupService = module.get<SetupSubOrderService>(SetupSubOrderService);
     setupRepository = module.get<Repository<Setup_Order>>(
       getRepositoryToken(Setup_Order),
     );
@@ -32,7 +32,7 @@ describe('SetupService', () => {
 
   describe('create', () => {
     it('should create a new setup', async () => {
-      const mockSetupDto = new SetupOrderDto();
+      const mockSetupDto = new SetupSoDto();
       const mockCreatedSetup = new Setup_Order();
       jest
         .spyOn(setupRepository, 'create')
@@ -78,10 +78,7 @@ describe('SetupService', () => {
         .spyOn(setupRepository, 'update')
         .mockResolvedValueOnce(mockUpdateResult);
 
-      const result = await setupService.update(
-        mockSetupId,
-        new SetupOrderDto(),
-      );
+      const result = await setupService.update(mockSetupId, new SetupSoDto());
       expect(result).toEqual(mockUpdateResult);
     });
   });

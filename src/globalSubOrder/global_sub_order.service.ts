@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { SubOrder_Add_Service } from 'src/sub_order/sub_order_add/sub_order_add.service';
-import { SubOrder_Reduce_Service } from 'src/sub_order/sub_order_reduce/sub_order_reduce.service';
+import { SubOrder_Add_Service } from 'src/sub_order/sub_order_add/suborder_Add.service';
+import { SubOrder_Reduce_Service } from 'src/sub_order/sub_order_reduce/suborder_Reduce.service';
 
 // model
-import { Sub_Order_Reduce_Dto } from 'src/sub_order/sub_order_reduce/dto/sub_order_reduce.dto';
-import { Sub_Order_Add_Dto } from 'src/sub_order/sub_order_add/dto/sub_order_add.dto';
+import { Suborder_Reduce_Dto } from 'src/sub_order/sub_order_reduce/dto/suborder_Reduce.dto';
+import { Sub_Order_Add_Dto } from 'src/sub_order/sub_order_add/dto/suborder_Add.dto';
 
 @Injectable()
 export class Global_SubOrder_Service {
@@ -22,7 +22,7 @@ export class Global_SubOrder_Service {
       await this.subOrderAddService.findAllSubOrderAddByOrderId(idOrder);
 
     // then i merge the two lists
-    const listSubOrder: Array<Sub_Order_Reduce_Dto | Sub_Order_Add_Dto> = [
+    const listSubOrder: Array<Suborder_Reduce_Dto | Sub_Order_Add_Dto> = [
       ...listSubOrderReduce,
       ...listSubOrderAdd,
     ];
