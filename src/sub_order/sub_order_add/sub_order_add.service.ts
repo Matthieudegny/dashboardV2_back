@@ -7,8 +7,8 @@ import { Sub_Order_Add } from '../../entities/Sub_Order_Add';
 import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsoService } from '../../sso/sso.service';
-import { ImageSubOrderService } from '../../imageSubOrder/imageSubOrder.service';
+import { S_Soa_Service } from '../../s_soa/s_soa.service';
+import { Image_Suborder_Add_Service } from '../../image_Suborder_Add/image_Sub_Order_Add.service';
 import { Fs_SoService } from '../../fs_so/fs_So.service';
 import { OrderService } from '../../order/order.service';
 import { OrderDto } from '../../order/dto/order.dto';
@@ -18,8 +18,8 @@ export class SubOrder_Add_Service {
   constructor(
     @InjectRepository(Sub_Order_Add)
     private subOrderRepository: Repository<Sub_Order_Add>,
-    private readonly ssSoService: SsoService,
-    private readonly imageSoService: ImageSubOrderService,
+    private readonly s_Soa_Service: S_Soa_Service,
+    private readonly Image_Suborder_Add_Service: Image_Suborder_Add_Service,
     private readonly fs_So_Service: Fs_SoService,
     @Inject(forwardRef(() => OrderService))
     private orderService: OrderService,
@@ -34,7 +34,7 @@ export class SubOrder_Add_Service {
       if (result) {
         //update the order  with the new suborder (result, status)
         const orderResultIsUpdated = await this.orderService.updateOrder(
-          result.subOrder_order_id,
+          result.subOrder_add_order_id,
         );
         if (!orderResultIsUpdated) {
           throw new Error('Failed to update the order result');
@@ -57,12 +57,12 @@ export class SubOrder_Add_Service {
 
   findAllSubOrderAddByOrderId(orderId: number) {
     return this.subOrderRepository.find({
-      where: { subOrder_order_id: orderId },
+      where: { subOrder_add_order_id: orderId },
     });
   }
 
   findOneSubOrderAddOrderById(id: number) {
-    return this.subOrderRepository.findOneBy({ subOrder_id: id });
+    return this.subOrderRepository.findOneBy({ subOrder_add_id: id });
   }
 
   // update the suborderAdd and in the same time update the order (result, status)
@@ -82,7 +82,7 @@ export class SubOrder_Add_Service {
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
           const orderResultIsUpdated = await this.orderService.updateOrder(
-            updateSubOrderDto.subOrder_order_id,
+            updateSubOrderDto.subOrder_add_order_id,
           );
           if (!orderResultIsUpdated) {
             throw new Error('Failed to update the order result');
@@ -118,7 +118,7 @@ export class SubOrder_Add_Service {
       if (subOrderisDeleted.affected > 0) {
         //update the order, the fact to remove a sub order can change the status and result of the order
         const orderResultIsUpdated = await this.orderService.updateOrder(
-          subOrderToDelete.subOrder_order_id,
+          subOrderToDelete.subOrder_add_order_id,
         );
 
         if (!orderResultIsUpdated) {
@@ -148,13 +148,17 @@ export class SubOrder_Add_Service {
       subOrderFillWithData.subOrder = subOrder;
       //2.2. fill the setup_so used
       subOrderFillWithData.setupSubOrderList =
-        await this.ssSoService.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.s_Soa_Service.findAllSetupByOrderId(
+          subOrder.subOrder_add_id,
+        );
       //2.3. fill the image_so
       subOrderFillWithData.imageSubOrderList =
-        await this.imageSoService.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.Image_Suborder_Add_Service.findAllBySubOrderId(
+          subOrder.subOrder_add_id,
+        );
       //2.4. fill the failure_so used
       subOrderFillWithData.failureSubOrderList =
-        await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_add_id);
 
       //2.5. add the sub order to the list
       subOrderList.push(subOrderFillWithData);

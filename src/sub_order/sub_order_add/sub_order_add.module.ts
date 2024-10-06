@@ -5,16 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sub_Order_Add } from '../../entities/Sub_Order_Add';
 
 //others modules used
-import { Sso_Module } from '../../sso/sso.module';
-import { ImageSubOrderModule } from '../../imageSubOrder/imageSubOrder.module';
+import { S_Soa_Module } from '../../s_soa/s_soa.module';
+import { Image_Suborder_Add_Module } from '../../image_Suborder_Add/image_Sub_Order_Add.module';
 import { Fs_So_Module } from '../../fs_so/fs_So.module';
 import { OrderModule } from '../../order/order.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Sub_Order_Add]),
-    Sso_Module,
-    ImageSubOrderModule,
+    S_Soa_Module,
+    Image_Suborder_Add_Module,
     Fs_So_Module,
     forwardRef(() => OrderModule),
   ],

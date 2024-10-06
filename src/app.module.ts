@@ -16,10 +16,11 @@ import { Failure_so } from './entities/Failure/Failure_so';
 import { Fs_So } from './entities/Failure/Associations/Fs_So';
 import { User } from './entities/User';
 import { Image_Order } from './entities/image/ImageOrder';
-import { Image_SubOrder } from './entities/image/ImageSubOrder';
+import { Image_Suborder_Reduce } from './entities/image/Image_Suborder_Reduce';
+import { Image_Suborder_Add } from './entities/image/Image_Suborder_Add';
 import { Order } from './entities/Order';
-import { So } from './entities/Setup/Associations/So';
-import { Sso } from './entities/Setup/Associations/Sso';
+import { S_o } from './entities/Setup/Associations/S_o';
+import { S_sor } from './entities/Setup/Associations/S_sor';
 import { SetupOrder } from './entities/Setup/SetupOrder';
 import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
 import { Sub_Order_Reduce } from './entities/Sub_Order_Reduce';
@@ -33,13 +34,14 @@ import { FailureSoModule } from './failure_so/failure_so.module';
 import { Fs_So_Module } from './fs_so/fs_So.module';
 import { Fg_Go_Module } from './fg_go/fg_Go.module';
 //images
-import { ImageSubOrderModule } from './imageSubOrder/imageSubOrder.module';
+import { Image_Suborder_Reduce_Module } from './image_Suborder_Reduce/image_Sub_Order_Reduce.module';
+import { Image_Suborder_Add_Module } from './image_Suborder_Add/image_Sub_Order_Add.module';
 import { ImageOrderModule } from './imageOrder/imageOrder.module';
 //setup
 import { SetupOrderModule } from './setupOrder/setupOrder.module';
 import { SetupSubOrderModule } from './setupSubOrder/setupSubOrder.module';
-import { Sso_Module } from './sso/sso.module';
-import { So_Module } from './so/so.module';
+import { S_sor_Module } from './s_sor/s_sor.module';
+import { S_o_Module } from './s_o/s_o.module';
 //order
 import { OrderModule } from './order/order.module';
 // sub order
@@ -73,10 +75,11 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         Fs_So,
         //image
         Image_Order,
-        Image_SubOrder,
+        Image_Suborder_Reduce,
+        Image_Suborder_Add,
         //setups
-        So,
-        Sso,
+        S_o,
+        S_sor,
         SetupSubOrder,
         SetupOrder,
         //order
@@ -93,13 +96,14 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     Fg_Go_Module,
     Fs_So_Module,
     //image
-    ImageSubOrderModule,
+    Image_Suborder_Reduce_Module,
+    Image_Suborder_Add_Module,
     ImageOrderModule,
     //setup
     SetupOrderModule,
     SetupSubOrderModule,
-    Sso_Module,
-    So_Module,
+    S_sor_Module,
+    S_o_Module,
     //order
     OrderModule,
     //sub order

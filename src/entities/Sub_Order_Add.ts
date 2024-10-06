@@ -19,20 +19,21 @@ export class DecimalColumnTransformer {
   }
 }
 
+@Entity()
 export class Sub_Order_Add {
   @PrimaryGeneratedColumn()
-  subOrder_id: number;
+  subOrder_add_id: number;
   @Column()
-  subOrder_order_id: number;
+  subOrder_add_order_id: number;
 
   @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'subOrder_order_id' })
+  @JoinColumn({ name: 'subOrder_add_order_id' })
   Global_Order?: Order;
 
   @Column({ type: 'datetime' })
-  subOrder_openDate: Date;
+  subOrder_add_openDate: Date;
 
   @Column({
     type: 'decimal',
@@ -40,7 +41,7 @@ export class Sub_Order_Add {
     scale: 2,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_quantityAsset_bought: number;
+  subOrder_add_quantityAsset_bought: number;
 
   @Column({
     type: 'decimal',
@@ -48,7 +49,7 @@ export class Sub_Order_Add {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_quantityAsset_bought_Perc: number;
+  subOrder_add_quantityAsset_bought_Perc: number;
 
   @Column({
     type: 'decimal',
@@ -56,7 +57,7 @@ export class Sub_Order_Add {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_entryPrice: number;
+  subOrder_add_entryPrice: number;
 
   @Column({
     type: 'decimal',
@@ -64,11 +65,11 @@ export class Sub_Order_Add {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  subOrder_amountBought: number;
+  subOrder_add_amountBought: number;
 
   @Column({ type: 'text' })
-  subOrder_comment: string;
+  subOrder_add_comment: string;
 
   @Column({ type: 'enum', enum: suborder_directionType })
-  subOrder_direction: suborder_directionType;
+  subOrder_add_direction: suborder_directionType;
 }

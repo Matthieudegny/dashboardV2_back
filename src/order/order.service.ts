@@ -8,7 +8,7 @@ import { Order } from '../entities/Order';
 import { GlobalOrderDto } from '../main-datas/dto/main-datas.dto';
 
 //services used
-import { SoService } from 'src/so/so.service';
+import { S_o_Service } from 'src/s_o/s_o.service';
 import { ImageOrderService } from '../imageOrder/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrder_Add_Service } from '../sub_order/sub_order_add/sub_order_add.service';
@@ -19,7 +19,7 @@ export class OrderService {
   constructor(
     @InjectRepository(Order)
     private orderRepository: Repository<Order>,
-    private sgGoService: SoService,
+    private sgGoService: S_o_Service,
     private imageGoService: ImageOrderService,
     private fg_GoService: Fg_GoService,
     // private subOrderService: SubOrderService,

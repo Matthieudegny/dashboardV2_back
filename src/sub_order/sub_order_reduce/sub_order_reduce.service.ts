@@ -7,8 +7,8 @@ import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
 import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsoService } from '../../sso/sso.service';
-import { ImageSubOrderService } from '../../imageSubOrder/imageSubOrder.service';
+import { S_sor_Service } from '../../s_sor/s_sor.service';
+import { Image_Suborder_Reduce_Service } from '../../image_Suborder_Reduce/image_Sub_Order_Reduce.service';
 import { Fs_SoService } from '../../fs_so/fs_So.service';
 import { OrderService } from '../../order/order.service';
 import { OrderDto } from '../../order/dto/order.dto';
@@ -18,8 +18,8 @@ export class SubOrder_Reduce_Service {
   constructor(
     @InjectRepository(Sub_Order_Reduce)
     private subOrderRepository: Repository<Sub_Order_Reduce>,
-    private readonly ssSoService: SsoService,
-    private readonly imageSoService: ImageSubOrderService,
+    private readonly s_Sor_Service: S_sor_Service,
+    private readonly Image_Suborder_Reduce_Service: Image_Suborder_Reduce_Service,
     private readonly fs_So_Service: Fs_SoService,
     @Inject(forwardRef(() => OrderService))
     private orderService: OrderService,
@@ -34,7 +34,7 @@ export class SubOrder_Reduce_Service {
       if (result) {
         //update the order  with the new suborder (result, status)
         const orderResultIsUpdated = await this.orderService.updateOrder(
-          result.subOrder_order_id,
+          result.subOrder_reduce_order_id,
         );
         if (!orderResultIsUpdated) {
           throw new Error('Failed to update the order result');
@@ -57,12 +57,12 @@ export class SubOrder_Reduce_Service {
 
   findAllSubOrderReduceByOrderId(orderId: number) {
     return this.subOrderRepository.find({
-      where: { subOrder_order_id: orderId },
+      where: { subOrder_reduce_order_id: orderId },
     });
   }
 
   findOneSubOrderReduceById(id: number) {
-    return this.subOrderRepository.findOneBy({ subOrder_id: id });
+    return this.subOrderRepository.findOneBy({ subOrder_reduce_id: id });
   }
 
   // update the suborderReduce and in the same time update the order (result, status)
@@ -82,7 +82,7 @@ export class SubOrder_Reduce_Service {
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
           const orderResultIsUpdated = await this.orderService.updateOrder(
-            updateSubOrderDto.subOrder_order_id,
+            updateSubOrderDto.subOrder_reduce_order_id,
           );
           if (!orderResultIsUpdated) {
             throw new Error('Failed to update the order result');
@@ -117,7 +117,7 @@ export class SubOrder_Reduce_Service {
       if (subOrderisDeleted.affected > 0) {
         //update the order, the fact to remove a sub order can change the status and result of the order
         const orderResultIsUpdated = await this.orderService.updateOrder(
-          subOrderToDelete.subOrder_order_id,
+          subOrderToDelete.subOrder_reduce_order_id,
         );
 
         if (!orderResultIsUpdated) {
@@ -146,13 +146,19 @@ export class SubOrder_Reduce_Service {
       subOrderFillWithData.subOrder = subOrder;
       //2.2. fill the setup_so used
       subOrderFillWithData.setupSubOrderList =
-        await this.ssSoService.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.s_Sor_Service.findAllBySubOrderId(
+          subOrder.subOrder_reduce_id,
+        );
       //2.3. fill the image_so
       subOrderFillWithData.imageSubOrderList =
-        await this.imageSoService.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.Image_Suborder_Reduce_Service.findAllBySubOrderId(
+          subOrder.subOrder_reduce_id,
+        );
       //2.4. fill the failure_so used
       subOrderFillWithData.failureSubOrderList =
-        await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_id);
+        await this.fs_So_Service.findAllBySubOrderId(
+          subOrder.subOrder_reduce_id,
+        );
 
       //2.5. add the sub order to the list
       subOrderList.push(subOrderFillWithData);

@@ -2,23 +2,23 @@ import { ApiProperty } from '@nestjs/swagger';
 import { suborder_directionType } from '../model/model-suborder_direction';
 
 export class Sub_Order_Reduce_Dto {
-  subOrder_id: number;
+  subOrder_reduce_id: number;
   @ApiProperty({ example: 1, description: 'Id of the global order' })
-  subOrder_order_id: number;
+  subOrder_reduce_order_id: number;
   @ApiProperty({ example: new Date(), description: 'Close Date' })
-  subOrder_closeDate: Date;
+  subOrder_reduce_closeDate: Date;
   @ApiProperty({ example: '10', description: 'QuantityAsset' })
-  subOrder_quantityAsset_sold: number;
+  subOrder_reduce_quantityAsset_sold: number;
   @ApiProperty({ example: '10', description: 'QuantityAsset' })
-  subOrder_quantityAsset_sold_Perc: number;
+  subOrder_reduce_quantityAsset_sold_Perc: number;
   @ApiProperty({ example: 10, description: 'Exit Price' })
-  subOrder_exitPrice: number;
+  subOrder_reduce_exitPrice: number;
   @ApiProperty({ example: 10, description: 'Result' })
-  subOrder_result: number;
+  subOrder_reduce_result: number;
   @ApiProperty({ example: 10, description: 'Amount Sold' })
-  subOrder_amountSold: number;
+  subOrder_reduce_amountSold: number;
   @ApiProperty({ example: 'Comment', description: 'Comment' })
-  subOrder_comment: string;
+  subOrder_reduce_comment: string;
   @ApiProperty({ example: 'REDUCE', description: 'Direction' })
-  subOrder_direction: suborder_directionType;
+  subOrder_reduce_direction: suborder_directionType;
 }

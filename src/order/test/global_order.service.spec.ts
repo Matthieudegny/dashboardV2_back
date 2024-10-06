@@ -16,9 +16,9 @@ import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 //others entities used
 import { Image_Order } from '../../entities/image/ImageOrder';
 import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
-import { So } from '../../entities/Setup/Associations/So';
+import { So } from '../../entities/Setup/Associations/S_o';
 import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
-import { Image_SubOrder } from '../../entities/image/ImageSubOrder';
+import { Image_SubOrder } from '../../entities/image/Image_Suborder_Reduce';
 
 //other services used
 import { SetupGoService } from '../../setup_go/setup_go.service';
