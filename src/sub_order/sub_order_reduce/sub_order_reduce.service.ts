@@ -2,22 +2,22 @@ import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { Sub_Order_Reduce_Dto } from './dto/sub_order_reduce.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Sub_Order } from '../entities/Sub_Order';
+import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
 //other dtos used
-import { GlobalSubOrderDto } from '../main-datas/dto/main-datas.dto';
+import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsoService } from '../sso/sso.service';
-import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
-import { Fs_SoService } from '../fs_so/fs_So.service';
-import { OrderService } from '../order/order.service';
-import { OrderDto } from 'src/order/dto/order.dto';
+import { SsoService } from '../../sso/sso.service';
+import { ImageSubOrderService } from '../../imageSubOrder/imageSubOrder.service';
+import { Fs_SoService } from '../../fs_so/fs_So.service';
+import { OrderService } from '../../order/order.service';
+import { OrderDto } from '../../order/dto/order.dto';
 
 @Injectable()
 export class SubOrder_Reduce_Service {
   constructor(
-    @InjectRepository(Sub_Order)
-    private subOrderRepository: Repository<Sub_Order>,
+    @InjectRepository(Sub_Order_Reduce)
+    private subOrderRepository: Repository<Sub_Order_Reduce>,
     private readonly ssSoService: SsoService,
     private readonly imageSoService: ImageSubOrderService,
     private readonly fs_So_Service: Fs_SoService,
@@ -25,7 +25,7 @@ export class SubOrder_Reduce_Service {
     private orderService: OrderService,
   ) {}
 
-  async create(
+  async createSubOrderReduce(
     createSubOrderDto: Sub_Order_Reduce_Dto,
   ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
@@ -51,21 +51,22 @@ export class SubOrder_Reduce_Service {
     }
   }
 
-  findAll() {
+  findAllSubOrderReduce() {
     return this.subOrderRepository.find();
   }
 
-  findAllByGlobalOrderId(globalOrderId: number) {
+  findAllSubOrderReduceByOrderId(orderId: number) {
     return this.subOrderRepository.find({
-      where: { subOrder_order_id: globalOrderId },
+      where: { subOrder_order_id: orderId },
     });
   }
 
-  findOneOrderById(id: number) {
+  findOneSubOrderReduceById(id: number) {
     return this.subOrderRepository.findOneBy({ subOrder_id: id });
   }
 
-  async update(
+  // update the suborderReduce and in the same time update the order (result, status)
+  async updateSubOrderReduce(
     id: number,
     updateSubOrderDto: Sub_Order_Reduce_Dto,
   ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
@@ -77,7 +78,7 @@ export class SubOrder_Reduce_Service {
       );
       if (subOrderIsUpdated.affected > 0) {
         //get the updated suborder
-        const subOrderUpdated = await this.findOneOrderById(id);
+        const subOrderUpdated = await this.findOneSubOrderReduceById(id);
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
           const orderResultIsUpdated = await this.orderService.updateOrder(
@@ -101,10 +102,11 @@ export class SubOrder_Reduce_Service {
     }
   }
 
-  async remove(idSubOrder: number) {
+  // remove the suborderReduce and in the same time update the order (result, status)
+  async removeSubOrderReduceById(idSubOrder: number) {
     try {
       // find the sub order to delete
-      const subOrderToDelete = await this.findOneOrderById(idSubOrder);
+      const subOrderToDelete = await this.findOneSubOrderReduceById(idSubOrder);
       if (!subOrderToDelete) {
         throw new Error('Sub order not found');
       }
@@ -135,7 +137,7 @@ export class SubOrder_Reduce_Service {
 
     //1. first the list of sub orders
     const listSubOrders: Array<Sub_Order_Reduce_Dto> =
-      await this.findAllByGlobalOrderId(globalOrderId);
+      await this.findAllSubOrderReduceByOrderId(globalOrderId);
 
     //2. then i fill each sub order with its datas
     for (const subOrder of listSubOrders) {

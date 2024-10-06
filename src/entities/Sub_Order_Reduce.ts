@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Order } from './Order';
 
-import { suborder_directionType } from 'src/sub_order_add/model/model-suborder_direction';
+import { suborder_directionType } from 'src/sub_order/sub_order_reduce/model/model-suborder_direction';
 
 export class DecimalColumnTransformer {
   to(data: number): number {
@@ -20,7 +20,7 @@ export class DecimalColumnTransformer {
 }
 
 @Entity()
-export class Sub_Order {
+export class Sub_Order_Reduce {
   @PrimaryGeneratedColumn()
   subOrder_id: number;
   @Column()

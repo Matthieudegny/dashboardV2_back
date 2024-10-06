@@ -66,7 +66,7 @@ describe('SubOrderService', () => {
       jest.spyOn(repository, 'create').mockReturnValueOnce(mockCreatedSubOrder);
       jest.spyOn(repository, 'save').mockResolvedValueOnce(mockCreatedSubOrder);
 
-      const result = await service.create(createSubOrderDto);
+      const result = await service.createSubOrderReduce(createSubOrderDto);
 
       expect(result).toEqual(mockCreatedSubOrder);
     });
@@ -77,7 +77,7 @@ describe('SubOrderService', () => {
       const mockSubOrders: Sub_Order[] = [new Sub_Order()];
       jest.spyOn(repository, 'find').mockResolvedValueOnce(mockSubOrders);
 
-      const result = await service.findAll();
+      const result = await service.findAllSubOrderReduce();
 
       expect(result).toEqual(mockSubOrders);
     });
@@ -89,7 +89,8 @@ describe('SubOrderService', () => {
       const mockSubOrders: Sub_Order[] = [new Sub_Order()];
       jest.spyOn(repository, 'find').mockResolvedValueOnce(mockSubOrders);
 
-      const result = await service.findAllByGlobalOrderId(globalOrderId);
+      const result =
+        await service.findAllSubOrderReduceByOrderId(globalOrderId);
 
       expect(result).toEqual(mockSubOrders);
     });
@@ -119,7 +120,7 @@ describe('SubOrderService', () => {
       };
       jest.spyOn(repository, 'update').mockResolvedValueOnce(mockUpdatedResult);
 
-      const result = await service.update(id, updateSubOrderDto);
+      const result = await service.updateSubOrderReduce(id, updateSubOrderDto);
 
       expect(result).toEqual(mockUpdatedResult);
     });

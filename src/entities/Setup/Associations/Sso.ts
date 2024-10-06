@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Sub_Order } from '../../Sub_Order';
+import { Sub_Order_Reduce } from '../../Sub_Order_Reduce';
 import { SetupSubOrder } from '../SetupSubOrder';
 
 @Entity({ name: 'sso' })
@@ -24,9 +24,9 @@ export class Sso {
 
   @Column()
   sso_subOrder_id: number;
-  @ManyToOne(() => Sub_Order, (Sub_Order) => Sub_Order.subOrder_id, {
+  @ManyToOne(() => Sub_Order_Reduce, (Sub_Order) => Sub_Order.subOrder_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'sso_subOrder_id' })
-  Sub_Order?: Sub_Order;
+  Sub_Order?: Sub_Order_Reduce;
 }

@@ -21,13 +21,12 @@ export class SubOrder_Add_Controller {
 
   @Post()
   @ApiBody({ type: Sub_Order_Add_Dto })
-  async create(
+  async createSubOrderAdd(
     @Body() createSubOrderDto: Sub_Order_Add_Dto,
   ): Promise<{ suborder: Sub_Order_Add_Dto; order: OrderDto }> {
     try {
-      return await this.subOrderService.create(createSubOrderDto);
+      return await this.subOrderService.createSubOrderAdd(createSubOrderDto);
     } catch (error) {
-      // Log the error here if needed
       throw new HttpException(
         'Failed to create suborder',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -36,23 +35,25 @@ export class SubOrder_Add_Controller {
   }
 
   @Get()
-  findAll() {
-    return this.subOrderService.findAll();
+  findAllSubOrderAdd() {
+    return this.subOrderService.findAllSubOrderAdd();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subOrderService.findOneOrderById(+id);
+  findOneSubOrderAdd(@Param('id') id: string) {
+    return this.subOrderService.findOneSubOrderAddOrderById(+id);
   }
 
-  @ApiTags('Global_SubOrder')
   @Patch('update/:id')
-  async update(
+  async updateSubOrderAdd(
     @Param('id') id: string,
     @Body() updateSubOrderDto: Sub_Order_Add_Dto,
   ): Promise<{ suborder: Sub_Order_Add_Dto; order: OrderDto }> {
     try {
-      return await this.subOrderService.update(+id, updateSubOrderDto);
+      return await this.subOrderService.updateSubOrderAdd(
+        +id,
+        updateSubOrderDto,
+      );
     } catch (error) {
       // Log the error here if needed
       throw new HttpException(
@@ -63,9 +64,9 @@ export class SubOrder_Add_Controller {
   }
 
   @Delete('deleteSubOrder/:id')
-  async remove(@Param('id') id: string) {
+  async removeSubOrderAdd(@Param('id') id: string) {
     try {
-      return await this.subOrderService.remove(+id);
+      return await this.subOrderService.removeSubOrderAddById(+id);
     } catch (error) {
       throw new HttpException(
         'Failed to delete suborder',

@@ -21,7 +21,9 @@ import { Order } from './entities/Order';
 import { So } from './entities/Setup/Associations/So';
 import { Sso } from './entities/Setup/Associations/Sso';
 import { SetupOrder } from './entities/Setup/SetupOrder';
-import { Sub_Order } from './entities/Sub_Order';
+import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
+import { Sub_Order_Reduce } from './entities/Sub_Order_Reduce';
+import { Sub_Order_Add } from './entities/Sub_Order_Add';
 
 //modules
 import { UserModule } from './user/user.module';
@@ -39,25 +41,21 @@ import { SetupSubOrderModule } from './setupSubOrder/setupSubOrder.module';
 import { Sso_Module } from './sso/sso.module';
 import { So_Module } from './so/so.module';
 //order
-import { SubOrderModule } from './sub_order/sub_order.module';
 import { OrderModule } from './order/order.module';
+// sub order
+import { SubOrder_Add_Module } from './sub_order/sub_order_add/sub_order_add.module';
+import { SubOrder_Reduce_Module } from './sub_order/sub_order_reduce/sub_order_reduce.module';
+
 //others
 import { UploadModule } from './upload/upload.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
 import { MainDatasModule } from './main-datas/main-datas.module';
-import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Rend les variables d'environnement disponibles globalement
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath:
-    //     'C:/Users/PC/Documents/code/code project/finance dashboard projet/dashboard/Images',
-    //   serveRoot: '/images/',
-    // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -83,7 +81,8 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
         SetupOrder,
         //order
         Order,
-        Sub_Order,
+        Sub_Order_Reduce,
+        Sub_Order_Add,
       ],
       synchronize: true,
     }),
@@ -102,8 +101,10 @@ import { SetupSubOrder } from './entities/Setup/SetupSubOrder';
     Sso_Module,
     So_Module,
     //order
-    SubOrderModule,
     OrderModule,
+    //sub order
+    SubOrder_Add_Module,
+    SubOrder_Reduce_Module,
     //others
     UploadModule,
     AuthModule,

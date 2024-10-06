@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../entities/Order';
-import { Sub_Order } from '../../entities/Sub_Order';
+import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
 import { Image_Order } from '../../entities/image/ImageOrder';
 import { Image_SubOrder } from '../../entities/image/ImageSubOrder';
 //dto
@@ -8,7 +8,7 @@ import { OrderDto } from '../../order/dto/order.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { ImageOrderDto } from '../../imageOrder/dto/imageOrder.dto';
 import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
-import { Sub_Order_Reduce_Dto } from '../../sub_order_reduce/dto/sub_order_reduce.dto';
+import { Sub_Order_Reduce_Dto } from '../../sub_order/sub_order_reduce/dto/sub_order_reduce.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';
@@ -55,7 +55,7 @@ export class GlobalOrderDto {
 }
 
 export class GlobalSubOrderDto {
-  subOrder: Sub_Order | Sub_Order_Add;
+  subOrder: Sub_Order_Reduce | Sub_Order_Add;
   failureSubOrderList: Array<Failure_so>;
   setupSubOrderList: Array<SetupSubOrder>;
   imageSubOrderList: Array<Image_SubOrder>;

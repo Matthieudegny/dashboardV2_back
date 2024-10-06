@@ -41,14 +41,16 @@ describe('SubOrderController', () => {
     const expectedResult: Sub_Order_Reduce_Dto = new Sub_Order_Reduce_Dto();
     jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
-    expect(await controller.create(subOrderDto)).toBe(expectedResult);
+    expect(await controller.createSubOrderReduce(subOrderDto)).toBe(
+      expectedResult,
+    );
   });
 
   it('should find all sub orders', async () => {
     const expectedResult: Sub_Order_Reduce_Dto[] = [new Sub_Order_Reduce_Dto()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
-    expect(await controller.findAll()).toBe(expectedResult);
+    expect(await controller.findAllSubOrderReduce()).toBe(expectedResult);
   });
 
   it('should find one sub order', async () => {
@@ -56,7 +58,7 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
-    expect(await controller.findOne(id)).toBe(expectedResult);
+    expect(await controller.findOneSubOrderReduce(id)).toBe(expectedResult);
     expect(service.findOne).toHaveBeenCalledWith(+id);
   });
 
@@ -69,8 +71,10 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'update').mockResolvedValue(expectedResult);
 
-    expect(await controller.update(id, subOrderDto)).toBe(expectedResult);
-    expect(service.update).toHaveBeenCalledWith(+id, subOrderDto);
+    expect(await controller.updateSubOrderReduce(id, subOrderDto)).toBe(
+      expectedResult,
+    );
+    expect(service.updateSubOrderReduce).toHaveBeenCalledWith(+id, subOrderDto);
   });
 
   it('should remove a sub order', async () => {
@@ -81,7 +85,7 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'remove').mockResolvedValue(expectedResult);
 
-    expect(await controller.remove(id)).toBe(expectedResult);
+    expect(await controller.removeSubOrderReduce(id)).toBe(expectedResult);
     expect(service.remove).toHaveBeenCalledWith(+id);
   });
 });

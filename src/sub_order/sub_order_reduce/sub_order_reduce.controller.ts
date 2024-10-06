@@ -21,11 +21,11 @@ export class SubOrder_Reduce_Controller {
 
   @Post()
   @ApiBody({ type: Sub_Order_Reduce_Dto })
-  async create(
+  async createSubOrderReduce(
     @Body() createSubOrderDto: Sub_Order_Reduce_Dto,
   ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
-      return await this.subOrderService.create(createSubOrderDto);
+      return await this.subOrderService.createSubOrderReduce(createSubOrderDto);
     } catch (error) {
       // Log the error here if needed
       throw new HttpException(
@@ -36,23 +36,25 @@ export class SubOrder_Reduce_Controller {
   }
 
   @Get()
-  findAll() {
-    return this.subOrderService.findAll();
+  findAllSubOrderReduce() {
+    return this.subOrderService.findAllSubOrderReduce();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subOrderService.findOneOrderById(+id);
+  findOneSubOrderReduce(@Param('id') id: string) {
+    return this.subOrderService.findOneSubOrderReduceById(+id);
   }
 
-  @ApiTags('Global_SubOrder')
   @Patch('update/:id')
-  async update(
+  async updateSubOrderReduce(
     @Param('id') id: string,
     @Body() updateSubOrderDto: Sub_Order_Reduce_Dto,
   ): Promise<{ suborder: Sub_Order_Reduce_Dto; order: OrderDto }> {
     try {
-      return await this.subOrderService.update(+id, updateSubOrderDto);
+      return await this.subOrderService.updateSubOrderReduce(
+        +id,
+        updateSubOrderDto,
+      );
     } catch (error) {
       // Log the error here if needed
       throw new HttpException(
@@ -63,9 +65,9 @@ export class SubOrder_Reduce_Controller {
   }
 
   @Delete('deleteSubOrder/:id')
-  async remove(@Param('id') id: string) {
+  async removeSubOrderReduce(@Param('id') id: string) {
     try {
-      return await this.subOrderService.remove(+id);
+      return await this.subOrderService.removeSubOrderReduceById(+id);
     } catch (error) {
       throw new HttpException(
         'Failed to delete suborder',

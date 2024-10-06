@@ -11,7 +11,8 @@ import { GlobalOrderDto } from '../main-datas/dto/main-datas.dto';
 import { SoService } from 'src/so/so.service';
 import { ImageOrderService } from '../imageOrder/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
-import { SubOrderService } from '../sub_order/sub_order.service';
+import { SubOrder_Add_Service } from '../sub_order/sub_order_add/sub_order_add.service';
+import { SubOrder_Reduce_Service } from '../sub_order/sub_order_reduce/sub_order_reduce.service';
 
 @Injectable()
 export class OrderService {
@@ -22,8 +23,10 @@ export class OrderService {
     private imageGoService: ImageOrderService,
     private fg_GoService: Fg_GoService,
     // private subOrderService: SubOrderService,
-    @Inject(forwardRef(() => SubOrderService))
-    private subOrderService: SubOrderService,
+    @Inject(forwardRef(() => SubOrder_Add_Service))
+    private subOrderService: SubOrder_Add_Service,
+    @Inject(forwardRef(() => SubOrder_Reduce_Service))
+    private subOrderReduceService: SubOrder_Reduce_Service,
   ) {}
 
   async create(createOrderDto: OrderDto) {
@@ -124,7 +127,7 @@ export class OrderService {
     try {
       //get the list of sub orders
       const listSubOrder =
-        await this.subOrderService.findAllByGlobalOrderId(idOrder);
+        await this.subOrderService.findAllSubOrderAddByOrderId(idOrder);
 
       //get the order
       const orderToUpdate = await this.findOneOrderById(idOrder);
@@ -137,10 +140,10 @@ export class OrderService {
         // check if the order is closed or not (remind close  === status false)
         let result = 0;
         let assetSold = 0;
-        for (const subOrder of listSubOrder) {
-          result += subOrder.subOrder_result;
-          assetSold += subOrder.subOrder_quantityAsset_sold;
-        }
+        // for (const subOrder of listSubOrder) {
+        //   result += subOrder.subOrder_result;
+        //   assetSold += subOrder.subOrder_quantityAsset_sold;
+        // }
 
         // update the result of the global order
         orderToUpdate.order_result = result;

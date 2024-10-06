@@ -2,16 +2,16 @@ import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { Sub_Order_Add_Dto } from './dto/sub_order_add.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Sub_Order_Add } from '../entities/Sub_Order_Add';
+import { Sub_Order_Add } from '../../entities/Sub_Order_Add';
 //other dtos used
-import { GlobalSubOrderDto } from '../main-datas/dto/main-datas.dto';
+import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
-import { SsoService } from '../sso/sso.service';
-import { ImageSubOrderService } from '../imageSubOrder/imageSubOrder.service';
-import { Fs_SoService } from '../fs_so/fs_So.service';
-import { OrderService } from '../order/order.service';
-import { OrderDto } from 'src/order/dto/order.dto';
+import { SsoService } from '../../sso/sso.service';
+import { ImageSubOrderService } from '../../imageSubOrder/imageSubOrder.service';
+import { Fs_SoService } from '../../fs_so/fs_So.service';
+import { OrderService } from '../../order/order.service';
+import { OrderDto } from '../../order/dto/order.dto';
 
 @Injectable()
 export class SubOrder_Add_Service {
@@ -25,7 +25,7 @@ export class SubOrder_Add_Service {
     private orderService: OrderService,
   ) {}
 
-  async create(
+  async createSubOrderAdd(
     createSubOrderDto: Sub_Order_Add_Dto,
   ): Promise<{ suborder: Sub_Order_Add_Dto; order: OrderDto }> {
     try {
@@ -51,21 +51,22 @@ export class SubOrder_Add_Service {
     }
   }
 
-  findAll() {
+  findAllSubOrderAdd() {
     return this.subOrderRepository.find();
   }
 
-  findAllByGlobalOrderId(globalOrderId: number) {
+  findAllSubOrderAddByOrderId(orderId: number) {
     return this.subOrderRepository.find({
-      where: { subOrder_order_id: globalOrderId },
+      where: { subOrder_order_id: orderId },
     });
   }
 
-  findOneOrderById(id: number) {
+  findOneSubOrderAddOrderById(id: number) {
     return this.subOrderRepository.findOneBy({ subOrder_id: id });
   }
 
-  async update(
+  // update the suborderAdd and in the same time update the order (result, status)
+  async updateSubOrderAdd(
     id: number,
     updateSubOrderDto: Sub_Order_Add_Dto,
   ): Promise<{ suborder: Sub_Order_Add_Dto; order: OrderDto }> {
@@ -77,7 +78,7 @@ export class SubOrder_Add_Service {
       );
       if (subOrderIsUpdated.affected > 0) {
         //get the updated suborder
-        const subOrderUpdated = await this.findOneOrderById(id);
+        const subOrderUpdated = await this.findOneSubOrderAddOrderById(id);
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
           const orderResultIsUpdated = await this.orderService.updateOrder(
@@ -101,10 +102,12 @@ export class SubOrder_Add_Service {
     }
   }
 
-  async remove(idSubOrder: number) {
+  // remove the suborderAdd and in the same time update the order (result, status)
+  async removeSubOrderAddById(idSubOrder: number) {
     try {
       // find the sub order to delete
-      const subOrderToDelete = await this.findOneOrderById(idSubOrder);
+      const subOrderToDelete =
+        await this.findOneSubOrderAddOrderById(idSubOrder);
       if (!subOrderToDelete) {
         throw new Error('Sub order not found');
       }
@@ -128,6 +131,7 @@ export class SubOrder_Add_Service {
     }
   }
 
+  // DEPLACER DANS UN MODULE DEDIE
   async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
     globalOrderId: number,
   ) {
@@ -135,7 +139,7 @@ export class SubOrder_Add_Service {
 
     //1. first the list of sub orders
     const listSubOrders: Array<Sub_Order_Add_Dto> =
-      await this.findAllByGlobalOrderId(globalOrderId);
+      await this.findAllSubOrderAddByOrderId(globalOrderId);
 
     //2. then i fill each sub order with its datas
     for (const subOrder of listSubOrders) {

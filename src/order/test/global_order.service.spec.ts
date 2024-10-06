@@ -17,7 +17,7 @@ import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 import { Image_Order } from '../../entities/image/ImageOrder';
 import { Fg_Go } from '../../entities/Failure/Associations/Fg_go';
 import { So } from '../../entities/Setup/Associations/So';
-import { Sub_Order } from '../../entities/Sub_order';
+import { Sub_Order_Reduce } from '../../entities/Sub_Order_Reduce';
 import { Image_SubOrder } from '../../entities/image/ImageSubOrder';
 
 //other services used
@@ -185,7 +185,7 @@ describe('GlobalOrderService', () => {
       const imageGo: Image_Order[] = [new Image_Order()];
 
       const subOrderFillWithDatas = new GlobalSubOrderDto();
-      const subOrder = new Sub_Order();
+      const subOrder = new Sub_Order_Reduce();
       const failureSo: FailureDto[] = [new FailureDto()];
       const setupSo: SetupDto[] = [new SetupDto()];
       const imageSo: Image_SubOrder[] = [new Image_SubOrder()];

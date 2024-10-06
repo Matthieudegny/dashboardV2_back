@@ -39,14 +39,16 @@ describe('SubOrderController', () => {
     const expectedResult: Sub_Order_Add_Dto = new Sub_Order_Add_Dto();
     jest.spyOn(service, 'create').mockResolvedValue(expectedResult);
 
-    expect(await controller.create(subOrderDto)).toBe(expectedResult);
+    expect(await controller.createSubOrderAdd(subOrderDto)).toBe(
+      expectedResult,
+    );
   });
 
   it('should find all sub orders', async () => {
     const expectedResult: Sub_Order_Add_Dto[] = [new Sub_Order_Add_Dto()];
     jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
 
-    expect(await controller.findAll()).toBe(expectedResult);
+    expect(await controller.findAllSubOrderAdd()).toBe(expectedResult);
   });
 
   it('should find one sub order', async () => {
@@ -54,7 +56,7 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'findOne').mockResolvedValue(expectedResult);
 
-    expect(await controller.findOne(id)).toBe(expectedResult);
+    expect(await controller.findOneSubOrderAdd(id)).toBe(expectedResult);
     expect(service.findOne).toHaveBeenCalledWith(+id);
   });
 
@@ -67,8 +69,10 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'update').mockResolvedValue(expectedResult);
 
-    expect(await controller.update(id, subOrderDto)).toBe(expectedResult);
-    expect(service.update).toHaveBeenCalledWith(+id, subOrderDto);
+    expect(await controller.updateSubOrderAdd(id, subOrderDto)).toBe(
+      expectedResult,
+    );
+    expect(service.updateSubOrderAdd).toHaveBeenCalledWith(+id, subOrderDto);
   });
 
   it('should remove a sub order', async () => {
@@ -79,7 +83,7 @@ describe('SubOrderController', () => {
     const id = '1';
     jest.spyOn(service, 'remove').mockResolvedValue(expectedResult);
 
-    expect(await controller.remove(id)).toBe(expectedResult);
-    expect(service.remove).toHaveBeenCalledWith(+id);
+    expect(await controller.removeSubOrderAdd(id)).toBe(expectedResult);
+    expect(service.removeSubOrderAddById).toHaveBeenCalledWith(+id);
   });
 });
