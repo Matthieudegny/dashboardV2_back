@@ -24,7 +24,7 @@ export class S_Soa_Controller {
   create(
     @Body() createSgGosDto: S_soa_Dto[],
   ): Promise<Setup_SubOrder_Add_Dto[]> {
-    return this.ssoaService.create(createSgGosDto);
+    return this.ssoaService.createAssociationSetupSubOrderAdd(createSgGosDto);
   }
 
   @Get()
@@ -34,7 +34,7 @@ export class S_Soa_Controller {
 
   @Get(':id')
   findAllByGlobalOrderId(@Param('id') id: string) {
-    return this.ssoaService.findAllSetupByOrderId(+id);
+    return this.ssoaService.findAllSetupAddBySubOrderId(+id);
   }
 
   @Get(':id')

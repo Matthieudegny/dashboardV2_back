@@ -28,13 +28,13 @@ export class S_sor {
 
   @Column()
   s_sor_subOrder_id: number;
-  // @ManyToOne(
-  //   () => Sub_Order_Reduce,
-  //   (Sub_Order_Reduce) => Sub_Order_Reduce.subOrder_reduce_id,
-  //   {
-  //     onDelete: 'CASCADE',
-  //   },
-  // )
-  // @JoinColumn({ name: 's_sor_subOrder_id' })
-  // Sub_Order_Reduce?: Sub_Order_Reduce;
+  @ManyToOne(
+    () => Suborder_Reduce,
+    (Sub_Order_Reduce) => Sub_Order_Reduce.subOrder_reduce_id,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn({ name: 's_sor_subOrder_id' })
+  Suborder_Reduce?: Suborder_Reduce;
 }

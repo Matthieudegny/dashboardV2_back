@@ -64,36 +64,37 @@ export class S_sor_Service {
     }
   }
 
-  // async findAllSetupSoBySubOrderId(subOrderId: number) {
-  //   try {
-  //     const listSs_SoByGlobalOrderId: Array<Ss_SoDto> =
-  //       await this.ssRepository.find({
-  //         where: { ss_so_so_id: subOrderId },
-  //       });
+  async findAllSetupreduceBySubOrderId(subOrderId: number) {
+    try {
+      const listSs_SoByGlobalOrderId: Array<S_sor_Dto> =
+        await this.ssorRepository.find({
+          where: { s_sor_subOrder_id: subOrderId },
+        });
 
-  //     let listSetupSoByGlobalSubOrder: Array<SetupSoDto> = [];
-  //     if (listSs_SoByGlobalOrderId.length > 0) {
-  //       //for each sg_Go i get the setup category data
-  //       for (const ss_So of listSs_SoByGlobalOrderId) {
-  //         const setupData: SetupSoDto = await this.setupSoService.findOne(
-  //           ss_So.ss_so_setup_so_id,
-  //         );
-  //         //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
-  //         if (
-  //           !listSetupSoByGlobalSubOrder.some(
-  //             (setup) => setup.setup_so_id === setupData.setup_so_id,
-  //           )
-  //         )
-  //           listSetupSoByGlobalSubOrder.push(setupData);
-  //       }
-  //     }
+      let listSetupSoByGlobalSubOrder: Array<Setup_SubOrder_ReduceDto> = [];
+      if (listSs_SoByGlobalOrderId.length > 0) {
+        //for each sg_Go i get the setup category data
+        for (const ss_So of listSs_SoByGlobalOrderId) {
+          const setupData: Setup_SubOrder_ReduceDto =
+            await this.setupSoService.findOne(ss_So.s_sor_setupSubOrder_id);
+          //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
+          if (
+            !listSetupSoByGlobalSubOrder.some(
+              (setup) =>
+                setup.setup_SubOrder_Reduce_id ===
+                setupData.setup_SubOrder_Reduce_id,
+            )
+          )
+            listSetupSoByGlobalSubOrder.push(setupData);
+        }
+      }
 
-  //     return listSetupSoByGlobalSubOrder;
-  //   } catch (error) {
-  //     console.log('error', error);
-  //     throw new Error(error);
-  //   }
-  // }
+      return listSetupSoByGlobalSubOrder;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error(error);
+    }
+  }
 
   findAll() {
     return this.ssorRepository.find();

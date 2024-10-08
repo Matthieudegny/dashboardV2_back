@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from '../User';
-@Entity()
+@Entity('setup_subOrder_add')
 export class Setup_SubOrder_Add {
   @PrimaryGeneratedColumn()
   setup_SubOrder_Add_id: number;

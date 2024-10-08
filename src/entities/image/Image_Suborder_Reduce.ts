@@ -14,12 +14,15 @@ export class Image_Suborder_Reduce {
 
   @Column()
   image_Suborder_reduce_subOrder_reduce_id: number;
-
-  // @ManyToOne(() => Sub_Order_Reduce, (Sub_Order) => Sub_Order.subOrder_id, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'imageSubOrder_subOrder_id' })
-  // Sub_Order: Sub_Order_Reduce;
+  @ManyToOne(
+    () => Suborder_Reduce,
+    (Sub_Order) => Sub_Order.subOrder_reduce_id,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn({ name: 'image_Suborder_reduce_subOrder_reduce_id' })
+  Sub_Order: Suborder_Reduce;
 
   @Column({ type: 'text' })
   image_Suborder_reduce_title: string;

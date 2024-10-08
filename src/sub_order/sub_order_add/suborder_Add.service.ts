@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Suborder_Add } from '../../entities/Suborder_Add';
 //other dtos used
-import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
+// import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
 import { S_Soa_Service } from '../../s_soa/s_soa.service';
@@ -132,45 +132,45 @@ export class SubOrder_Add_Service {
   }
 
   // DEPLACER DANS UN MODULE DEDIE
-  async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
-    globalOrderId: number,
-  ) {
-    let subOrderList = new Array<GlobalSubOrderDto>();
+  // async findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
+  //   globalOrderId: number,
+  // ) {
+  //   let subOrderList = new Array<GlobalSubOrderDto>();
 
-    //1. first the list of sub orders
-    const listSubOrders: Array<Sub_Order_Add_Dto> =
-      await this.findAllSubOrderAddByOrderId(globalOrderId);
+  //   //1. first the list of sub orders
+  //   const listSubOrders: Array<Sub_Order_Add_Dto> =
+  //     await this.findAllSubOrderAddByOrderId(globalOrderId);
 
-    //2. then i fill each sub order with its datas
-    for (const subOrder of listSubOrders) {
-      let subOrderFillWithData: GlobalSubOrderDto = new GlobalSubOrderDto();
-      //2.1. fill the sub order with its datas
-      subOrderFillWithData.subOrder = subOrder;
-      //2.2. fill the setup_so used
-      subOrderFillWithData.setupSubOrderList =
-        await this.s_Soa_Service.findAllSetupByOrderId(
-          subOrder.subOrder_add_id,
-        );
-      //2.3. fill the image_so
-      subOrderFillWithData.imageSubOrderList =
-        await this.Image_Suborder_Add_Service.findAllBySubOrderId(
-          subOrder.subOrder_add_id,
-        );
-      //2.4. fill the failure_so used
-      subOrderFillWithData.failureSubOrderList =
-        await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_add_id);
+  //   //2. then i fill each sub order with its datas
+  //   for (const subOrder of listSubOrders) {
+  //     let subOrderFillWithData: GlobalSubOrderDto = new GlobalSubOrderDto();
+  //     //2.1. fill the sub order with its datas
+  //     subOrderFillWithData.subOrder = subOrder;
+  //     //2.2. fill the setup_so used
+  //     subOrderFillWithData.setupSubOrderList =
+  //       await this.s_Soa_Service.findAllSetupAddBySubOrderId(
+  //         subOrder.subOrder_add_id,
+  //       );
+  //     //2.3. fill the image_so
+  //     subOrderFillWithData.imageSubOrderList =
+  //       await this.Image_Suborder_Add_Service.findAllBySubOrderId(
+  //         subOrder.subOrder_add_id,
+  //       );
+  //     //2.4. fill the failure_so used
+  //     subOrderFillWithData.failureSubOrderList =
+  //       await this.fs_So_Service.findAllBySubOrderId(subOrder.subOrder_add_id);
 
-      //2.5. add the sub order to the list
-      subOrderList.push(subOrderFillWithData);
-    }
+  //     //2.5. add the sub order to the list
+  //     subOrderList.push(subOrderFillWithData);
+  //   }
 
-    // 3. return the list of sub orders sorted by date
-    // subOrderList.sort((a, b) => {
-    //   return a.subOrder.subOrder_closeDate < b.subOrder.subOrder_closeDate
-    //     ? -1
-    //     : 1;
-    // });
+  //   // 3. return the list of sub orders sorted by date
+  //   // subOrderList.sort((a, b) => {
+  //   //   return a.subOrder.subOrder_closeDate < b.subOrder.subOrder_closeDate
+  //   //     ? -1
+  //   //     : 1;
+  //   // });
 
-    return subOrderList;
-  }
+  //   return subOrderList;
+  // }
 }

@@ -15,7 +15,9 @@ export class S_Soa_Service {
     private S_soa_Repository: Repository<S_soa>,
     private Setup_SubOrder_Add_Service: Setup_SubOrder_Add_Service,
   ) {}
-  create(createSoDto: S_soa_Dto[]): Promise<Setup_SubOrder_Add_Dto[]> {
+  createAssociationSetupSubOrderAdd(
+    createSoDto: S_soa_Dto[],
+  ): Promise<Setup_SubOrder_Add_Dto[]> {
     try {
       //first i delete all the sg_Go with the same global order id
       if (createSoDto.length > 0) {
@@ -36,7 +38,7 @@ export class S_Soa_Service {
             return this.S_soa_Repository.save(newSgGo);
           }),
         ).then(() => {
-          return this.findAllSetupByOrderId(globalOrderID);
+          return this.findAllSetupAddBySubOrderId(globalOrderID);
         });
       }
     } catch (error) {
@@ -65,9 +67,9 @@ export class S_Soa_Service {
     }
   }
 
-  async findAllSetupByOrderId(globalOrderId: number) {
+  async findAllSetupAddBySubOrderId(subOrderId: number) {
     const listSoByOrderId: Array<S_soa> = await this.S_soa_Repository.find({
-      where: { s_soa_subOrder_Add_id: globalOrderId },
+      where: { s_soa_subOrder_Add_id: subOrderId },
     });
 
     let listSetupGoByOrder: Array<Setup_SubOrder_Add_Dto> = [];

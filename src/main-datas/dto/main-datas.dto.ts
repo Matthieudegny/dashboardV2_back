@@ -9,6 +9,8 @@ import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { ImageOrderDto } from '../../imageOrder/dto/imageOrder.dto';
 import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
 import { Suborder_Reduce_Dto } from '../../sub_order/sub_order_reduce/dto/suborder_Reduce.dto';
+import { GlobalSubOrderReducedDto } from 'src/globalSubOrder/dto/global_suborder.dto';
+import { GlobalSubOrderAddDto } from 'src/globalSubOrder/dto/global_suborder.dto';
 //failure
 import { Failure_go } from '../../entities/Failure/Failure_go';
 import { Failure_so } from '../../entities/Failure/Failure_so';
@@ -16,8 +18,6 @@ import { Failure_so } from '../../entities/Failure/Failure_so';
 import { Setup_Order } from '../../entities/Setup/SetupOrder';
 import { Setup_SubOrder_Add } from 'src/entities/Setup/Setup_SubOrder_Add';
 import { Setup_SubOrder_Reduce } from 'src/entities/Setup/Setup_SubOrder_Reduce';
-import { Suborder_Add } from 'src/entities/Suborder_Add';
-import { Suborder_Reduce } from 'src/entities/Suborder_Reduce';
 
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderDto>;
@@ -50,15 +50,8 @@ export class GlobalOrderDto {
   imageOrderList: Array<Image_Order>;
   @ApiProperty({
     description: 'list subOrder',
-    type: Suborder_Reduce_Dto,
+    type: Array<GlobalSubOrderReducedDto | GlobalSubOrderAddDto>,
     isArray: true,
   })
-  globalSubOrderList: Array<GlobalSubOrderDto>;
-}
-
-export class GlobalSubOrderDto {
-  subOrder: Suborder_Reduce | Suborder_Add;
-  failureSubOrderList: Array<Failure_so>;
-  setupSubOrderList: Array<Setup_SubOrder_Add | Setup_SubOrder_Reduce>;
-  imageSubOrderList: Array<Image_Suborder_Reduce | Image_Suborder_Add>;
+  globalSubOrderList: Array<GlobalSubOrderReducedDto | GlobalSubOrderAddDto>;
 }

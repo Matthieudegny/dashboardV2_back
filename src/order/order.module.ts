@@ -8,10 +8,9 @@ import { Order } from '../entities/Order';
 import { SubOrder_Add_Module } from '../sub_order/sub_order_add/suborder_Add.module';
 import { SubOrder_Reduce_Module } from '../sub_order/sub_order_reduce/suborder_Reduce.module';
 import { ImageOrderModule } from '../imageOrder/imageOrder.module';
-
 import { Fg_Go_Module } from '../fg_go/fg_Go.module';
-
 import { S_o_Module } from '../s_o/s_o.module';
+import { Global_SubOrder_OrderModule } from 'src/globalSubOrder/global_sub_order.module';
 
 @Module({
   imports: [
@@ -21,6 +20,7 @@ import { S_o_Module } from '../s_o/s_o.module';
     S_o_Module,
     ImageOrderModule,
     Fg_Go_Module,
+    Global_SubOrder_OrderModule,
   ],
   controllers: [OrderController],
   providers: [OrderService],

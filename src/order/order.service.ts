@@ -13,6 +13,7 @@ import { ImageOrderService } from '../imageOrder/imageOrder.service';
 import { Fg_GoService } from 'src/fg_go/fg_Go.service';
 import { SubOrder_Add_Service } from '../sub_order/sub_order_add/suborder_Add.service';
 import { SubOrder_Reduce_Service } from '../sub_order/sub_order_reduce/suborder_Reduce.service';
+import { Global_SubOrder_Service } from 'src/globalSubOrder/global_sub_order.service';
 
 @Injectable()
 export class OrderService {
@@ -27,6 +28,7 @@ export class OrderService {
     private subOrderService: SubOrder_Add_Service,
     @Inject(forwardRef(() => SubOrder_Reduce_Service))
     private subOrderReduceService: SubOrder_Reduce_Service,
+    private globalSubOrderService: Global_SubOrder_Service,
   ) {}
 
   async create(createOrderDto: OrderDto) {
@@ -93,24 +95,24 @@ export class OrderService {
     });
 
     //2. then i fill each global order with its datas
-    for (const globalOrder of listOrders) {
+    for (const order of listOrders) {
       //2.0. create the object to fill
       let globalOrderFillWithData: GlobalOrderDto = new GlobalOrderDto();
       //2.1. fill the global order with its datas
-      globalOrderFillWithData.order = globalOrder;
+      globalOrderFillWithData.order = order;
       //2.2. fill the setup used
       globalOrderFillWithData.setupOrderList =
-        await this.sgGoService.findAllSetupByOrderId(globalOrder.order_id);
+        await this.sgGoService.findAllSetupByOrderId(order.order_id);
       //2.3. fill the image_go
       globalOrderFillWithData.imageOrderList =
-        await this.imageGoService.findAllByOrderId(globalOrder.order_id);
+        await this.imageGoService.findAllByOrderId(order.order_id);
       //2.4. fill the failure used
       globalOrderFillWithData.failureOrderList =
-        await this.fg_GoService.findAllByGlobalOrderId(globalOrder.order_id);
+        await this.fg_GoService.findAllByGlobalOrderId(order.order_id);
       //2.5. get the list sub orders and fill them
       globalOrderFillWithData.globalSubOrderList =
-        await this.subOrderService.findAndFillSubOrdersByIdGlobalOrderFilledWithDatas(
-          globalOrder.order_id,
+        await this.globalSubOrderService.findAllGlobalSubOrderByIdOrder(
+          order.order_id,
         );
 
       //2.6. add the global order to the list

@@ -14,12 +14,11 @@ export class Image_Suborder_Add {
 
   @Column()
   image_Suborder_add_subOrder_add_id: number;
-
-  // @ManyToOne(() => Sub_Order_Reduce, (Sub_Order) => Sub_Order.subOrder_id, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'imageSubOrder_subOrder_id' })
-  // Sub_Order: Sub_Order_Reduce;
+  @ManyToOne(() => Suborder_Add, (Sub_Order) => Sub_Order.subOrder_add_id, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'image_Suborder_add_subOrder_add_id' })
+  Sub_Order: Suborder_Add;
 
   @Column({ type: 'text' })
   image_Suborder_add_title: string;

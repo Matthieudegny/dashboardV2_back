@@ -23,9 +23,9 @@ export class S_soa {
 
   @Column()
   s_soa_subOrder_Add_id: number;
-  // @ManyToOne(() => Sub_Order_Add, (Suborder) => Suborder.subOrder_add_id, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 's_soa_subOrder_id' })
-  // Suborder?: Sub_Order_Add;
+  @ManyToOne(() => Suborder_Add, (Suborder) => Suborder.subOrder_add_id, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 's_soa_subOrder_id' })
+  Suborder?: Suborder_Add;
 }

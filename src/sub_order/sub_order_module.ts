@@ -4,5 +4,6 @@ import { SubOrder_Add_Module } from './sub_order_add/suborder_Add.module';
 
 @Module({
   imports: [SubOrder_Reduce_Module, SubOrder_Add_Module],
+  exports: [SubOrder_Reduce_Module, SubOrder_Add_Module],
 })
 export class Sub_OrderModule {}
