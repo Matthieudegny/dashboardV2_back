@@ -30,7 +30,7 @@ export class ImageOrderController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.imageGoService.findImageOrderById(+id);
+    return this.imageGoService.findOneImageOrderByIdImage(+id);
   }
 
   @Patch('update')

@@ -21,7 +21,7 @@ export class Setup_SubOrder_Add_Service {
     return this.setupSubOrderRepository.find();
   }
 
-  findAllSetupSoByIdUser(idUser: number) {
+  findAllSubOrderAddSetupByIdUser(idUser: number) {
     return this.setupSubOrderRepository.find({
       where: { setup_SubOrder_Add_idUser: idUser },
     });

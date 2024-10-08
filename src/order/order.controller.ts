@@ -12,9 +12,9 @@ import { ApiBody, ApiExtraModels } from '@nestjs/swagger';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 
-@ApiTags('Global_Order')
+@ApiTags('Order')
 @ApiExtraModels(OrderDto, OrderDto)
-@Controller('global-order')
+@Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
@@ -44,7 +44,7 @@ export class OrderController {
     return this.orderService.findOneOrderById(+id);
   }
 
-  @ApiTags('Global_Order')
+  @ApiTags('Order')
   @Patch('update/:id')
   async update(
     @Param('id') id: string,

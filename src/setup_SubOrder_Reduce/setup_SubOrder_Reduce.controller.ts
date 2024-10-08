@@ -28,7 +28,9 @@ export class Setup_SubOrder_Reduce_Controller {
 
   @Get(':idUser')
   findAllSetupSoByIdUser(@Param('idUser') idUser: string) {
-    return this.setupSubOrderService.findAllSetupSoByIdUser(+idUser);
+    return this.setupSubOrderService.findAllSubOrderReduceSetupSetupByIdUser(
+      +idUser,
+    );
   }
 
   @Get(':id')

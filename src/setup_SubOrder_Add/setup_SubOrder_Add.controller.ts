@@ -28,7 +28,9 @@ export class Setup_SubOrder_Add_Controller {
 
   @Get(':idUser')
   findAllSetupSoByIdUser(@Param('idUser') idUser: string) {
-    return this.Setup_SubOrder_Add_Service.findAllSetupSoByIdUser(+idUser);
+    return this.Setup_SubOrder_Add_Service.findAllSubOrderAddSetupByIdUser(
+      +idUser,
+    );
   }
 
   @Get(':id')

@@ -62,7 +62,7 @@ describe('ImageGoService', () => {
       const mockImageGos: Image_Order[] = [new Image_Order()];
       jest.spyOn(imageGoRepository, 'find').mockResolvedValueOnce(mockImageGos);
 
-      const result = await imageGoService.findAllByOrderId(globalOrderId);
+      const result = await imageGoService.findAllImagesByOrderId(globalOrderId);
       expect(result).toEqual(mockImageGos);
     });
   });
@@ -74,7 +74,7 @@ describe('ImageGoService', () => {
         .spyOn(imageGoRepository, 'findOneBy')
         .mockResolvedValueOnce(mockImageGo);
 
-      const result = await imageGoService.findImageOrderById(1);
+      const result = await imageGoService.findOneImageOrderByIdImage(1);
       expect(result).toEqual(mockImageGo);
     });
   });

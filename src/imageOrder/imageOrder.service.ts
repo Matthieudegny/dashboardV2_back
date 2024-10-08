@@ -23,13 +23,13 @@ export class ImageOrderService {
     return this.imageOrderRepository.find();
   }
 
-  findAllByOrderId(orderId: number) {
+  findAllImagesByOrderId(orderId: number) {
     return this.imageOrderRepository.find({
       where: { imageOrder_order_id: orderId },
     });
   }
 
-  findImageOrderById(id: number) {
+  findOneImageOrderByIdImage(id: number) {
     return this.imageOrderRepository.findOneBy({ imageOrder_id: id });
   }
 

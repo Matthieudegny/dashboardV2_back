@@ -4,9 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { Order } from '../entities/Order';
 
-//others dto used
-import { GlobalOrderDto } from '../main-datas/dto/main-datas.dto';
-
 //services used
 import { S_o_Service } from 'src/s_o/s_o.service';
 import { ImageOrderService } from '../imageOrder/imageOrder.service';
@@ -46,7 +43,7 @@ export class OrderService {
     return this.orderRepository.find();
   }
 
-  async findAllByIdUser(idUser: number) {
+  async findAllOrderByIdUser(idUser: number) {
     const result = await this.orderRepository.find({
       where: { order_user_id: idUser },
     });
@@ -82,45 +79,6 @@ export class OrderService {
     } catch (error) {
       throw new Error(`Failed to delete global order.${error}`);
     }
-  }
-
-  async findAllGlobalOrdersByIdUserFilledWithData(idUser: number) {
-    let orderList = new Array<GlobalOrderDto>();
-
-    //1. first the list of global orders
-    const listOrders: Array<OrderDto> = await this.findAllByIdUser(idUser);
-    //sort the list of global orders by date
-    listOrders.sort((a, b) => {
-      return a.order_openDate < b.order_openDate ? 1 : -1;
-    });
-
-    //2. then i fill each global order with its datas
-    for (const order of listOrders) {
-      //2.0. create the object to fill
-      let globalOrderFillWithData: GlobalOrderDto = new GlobalOrderDto();
-      //2.1. fill the global order with its datas
-      globalOrderFillWithData.order = order;
-      //2.2. fill the setup used
-      globalOrderFillWithData.setupOrderList =
-        await this.sgGoService.findAllSetupByOrderId(order.order_id);
-      //2.3. fill the image_go
-      globalOrderFillWithData.imageOrderList =
-        await this.imageGoService.findAllByOrderId(order.order_id);
-      //2.4. fill the failure used
-      globalOrderFillWithData.failureOrderList =
-        await this.fg_GoService.findAllByGlobalOrderId(order.order_id);
-      //2.5. get the list sub orders and fill them
-      globalOrderFillWithData.globalSubOrderList =
-        await this.globalSubOrderService.findAllGlobalSubOrderByIdOrder(
-          order.order_id,
-        );
-
-      //2.6. add the global order to the list
-      orderList.push(globalOrderFillWithData);
-    }
-
-    //3. return the list of global orders
-    return orderList;
   }
 
   // after some changes in the sub order list, we need to update the global order

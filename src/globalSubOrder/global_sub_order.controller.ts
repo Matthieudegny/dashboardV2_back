@@ -2,11 +2,9 @@ import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
+  HttpException,
+  HttpStatus,
   Param,
-  Delete,
 } from '@nestjs/common';
 import { Global_SubOrder_Service } from './global_sub_order.service';
 
@@ -17,13 +15,17 @@ export class Global_SubOrder_Controller {
     private readonly globalSubOrderService: Global_SubOrder_Service,
   ) {}
 
-  @Get()
-  findAllGlobalSubOrderByIdOrder(@Param('idOrder') idOrder: number) {
-    return this.globalSubOrderService.findAllGlobalSubOrderByIdOrder(idOrder);
+  @Get('getAllGlobalSubOrderByOrderId')
+  async findAllGlobalSubOrderByIdOrder(@Param('idOrder') idOrder: number) {
+    try {
+      return await this.globalSubOrderService.findAllGlobalSubOrderByIdOrder(
+        idOrder,
+      );
+    } catch (error) {
+      throw new HttpException(
+        'Failed to get global sub order',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.globalSubOrderService.findOne(+id);
-  // }
 }

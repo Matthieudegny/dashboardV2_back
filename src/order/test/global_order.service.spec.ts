@@ -117,7 +117,7 @@ describe('GlobalOrderService', () => {
         .spyOn(globalOrderRepository, 'find')
         .mockResolvedValueOnce(mockGlobalOrders);
 
-      const result = await globalOrderService.findAllByIdUser(userId);
+      const result = await globalOrderService.findAllOrderByIdUser(userId);
 
       expect(result).toEqual(mockGlobalOrders);
     });
