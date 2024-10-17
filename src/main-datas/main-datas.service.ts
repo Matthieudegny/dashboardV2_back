@@ -42,10 +42,10 @@ export class MainDatasService {
         await this.setupSoReduceService.findAllSubOrderReduceSetupSetupByIdUser(
           idUser,
         );
-      mainDatas.failureOrderList =
-        await this.failureGoService.findAllFailureByIdUSer(idUser);
-      mainDatas.failureSubOrderList =
-        await this.failureSoService.findAllFailureByIdUser(idUser);
+      // mainDatas.failureOrderList =
+      //   await this.failureGoService.findAllFailureByIdUSer(idUser);
+      // mainDatas.failureSubOrderList =
+      //   await this.failureSoService.findAllFailureByIdUser(idUser);
 
       //2 then the global orders data (filles with images, setups, failures, and the list of global suborders)
       mainDatas.globalOrderList =

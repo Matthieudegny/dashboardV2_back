@@ -30,7 +30,7 @@ export class S_Soa_Service {
             'Error while deleting the sg_Go with the same global order id',
           );
         // Wait for all save operations to complete before returning the list of setups used
-        let globalOrderID = createSoDto[0].s_soa_subOrder_id;
+        let globalOrderID = createSoDto[0].s_soa_subOrder_Add_id;
 
         return Promise.all(
           createSoDto.map((sg_Go) => {

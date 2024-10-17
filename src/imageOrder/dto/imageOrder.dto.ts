@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class ImageOrderDto {
   @ApiProperty()
-  imageOrder_id: number;
+  image_Order_id: number;
   @ApiProperty()
-  imageOrder_order_id: number;
+  image_Order_order_id: number;
   @ApiProperty()
-  imageOrder_title: string;
+  image_Order_title: string;
   @ApiProperty()
-  imageOrder_description: string;
+  image_Order_description: string;
   @ApiProperty()
-  imageOrder_contentImage: string;
+  image_Order_contentImage: string;
 }

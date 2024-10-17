@@ -6,6 +6,7 @@ import { Setup_SubOrder_Add } from 'src/entities/Setup/Setup_SubOrder_Add';
 import { Setup_SubOrder_Reduce } from 'src/entities/Setup/Setup_SubOrder_Reduce';
 import { Suborder_Add } from 'src/entities/Suborder_Add';
 import { Suborder_Reduce } from 'src/entities/Suborder_Reduce';
+import { suborder_Type } from '../model/model_type_suborder';
 
 export class GlobalSubOrderReducedDto {
   @ApiProperty({ description: 'Sub order', type: Suborder_Reduce })
@@ -31,6 +32,14 @@ export class GlobalSubOrderReducedDto {
     isArray: true,
   })
   imageSubOrderList: Array<Image_Suborder_Reduce>;
+
+  @ApiProperty({
+    description: 'type suborder',
+    type: suborder_Type,
+    isArray: true,
+    enum: suborder_Type,
+  })
+  typeSuborder: 'REDUCE';
 }
 
 export class GlobalSubOrderAddDto {
@@ -57,4 +66,11 @@ export class GlobalSubOrderAddDto {
     isArray: true,
   })
   imageSubOrderList: Array<Image_Suborder_Add>;
+
+  @ApiProperty({
+    description: 'type suborder',
+    type: suborder_Type,
+    enum: suborder_Type,
+  })
+  typeSuborder: 'ADD';
 }

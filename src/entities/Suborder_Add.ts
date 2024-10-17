@@ -7,8 +7,6 @@ import {
 } from 'typeorm';
 import { Order } from './Order';
 
-import { suborder_directionType } from 'src/sub_order/sub_order_add/model/model-suborder_direction';
-
 export class DecimalColumnTransformer {
   to(data: number): number {
     return data;
@@ -70,6 +68,11 @@ export class Suborder_Add {
   @Column({ type: 'text' })
   subOrder_add_comment: string;
 
-  @Column({ type: 'enum', enum: suborder_directionType })
-  subOrder_add_direction: suborder_directionType;
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new DecimalColumnTransformer(),
+  })
+  subOrder_add_percentageEngaged: number;
 }

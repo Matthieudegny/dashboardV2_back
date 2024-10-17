@@ -18,7 +18,7 @@ export class SetupOrderService {
 
   findAllSetupGoByIdUser(idUser: number) {
     return this.setupOrderRepository.find({
-      where: { setupOrder_idUser: idUser },
+      where: { setup_Order_idUser: idUser },
     });
   }
 
@@ -27,7 +27,7 @@ export class SetupOrderService {
   }
 
   findOne(id: number) {
-    return this.setupOrderRepository.findOneBy({ setupOrder_id: id });
+    return this.setupOrderRepository.findOneBy({ setup_Order_id: id });
   }
 
   update(id: number, updateSetupDto: SetupOrderDto) {

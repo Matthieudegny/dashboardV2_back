@@ -80,7 +80,7 @@ export class S_o_Service {
         //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
         if (
           !listSetupGoByOrder.some(
-            (setup) => setup.setupOrder_id === setupData.setupOrder_id,
+            (setup) => setup.setup_Order_id === setupData.setup_Order_id,
           )
         )
           listSetupGoByOrder.push(setupData);

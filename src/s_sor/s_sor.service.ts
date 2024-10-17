@@ -20,14 +20,14 @@ export class S_sor_Service {
     try {
       //first i delete all the Sso with the same sub order id
       const listIsReset = this.deleteAllSsBySubOrderId(
-        createSsDto[0].s_sor_subOrder_id,
+        createSsDto[0].s_sor_subOrder_Reduce_id,
       );
       if (!listIsReset)
         throw new Error('Error while deleting the Sso with the same order id');
       if (createSsDto.length > 0) {
         //creation of the new Sso
         // Wait for all save operations to complete before returning the list of setups used
-        let subOrderId = createSsDto[0].s_sor_subOrder_id;
+        let subOrderId = createSsDto[0].s_sor_subOrder_Reduce_id;
 
         return Promise.all(
           createSsDto.map((ss_So) => {
@@ -48,10 +48,9 @@ export class S_sor_Service {
 
   async deleteAllSsBySubOrderId(subOrderId: number): Promise<boolean> {
     try {
-      const listSsoBySubOrderId: Array<S_sor_Dto> =
-        await this.ssorRepository.find({
-          where: { s_sor_subOrder_id: subOrderId },
-        });
+      const listSsoBySubOrderId: Array<S_sor> = await this.ssorRepository.find({
+        where: { s_sor_subOrder_id: subOrderId },
+      });
       if (listSsoBySubOrderId.length > 0) {
         listSsoBySubOrderId.forEach((ss_So) => {
           this.ssorRepository.delete(ss_So.s_sor_id);
@@ -66,7 +65,7 @@ export class S_sor_Service {
 
   async findAllSetupreduceBySubOrderId(subOrderId: number) {
     try {
-      const listSs_SoByGlobalOrderId: Array<S_sor_Dto> =
+      const listSs_SoByGlobalOrderId: Array<S_sor> =
         await this.ssorRepository.find({
           where: { s_sor_subOrder_id: subOrderId },
         });

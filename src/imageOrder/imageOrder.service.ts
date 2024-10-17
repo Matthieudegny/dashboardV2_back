@@ -25,18 +25,18 @@ export class ImageOrderService {
 
   findAllImagesByOrderId(orderId: number) {
     return this.imageOrderRepository.find({
-      where: { imageOrder_order_id: orderId },
+      where: { image_Order_order_id: orderId },
     });
   }
 
   findOneImageOrderByIdImage(id: number) {
-    return this.imageOrderRepository.findOneBy({ imageOrder_id: id });
+    return this.imageOrderRepository.findOneBy({ image_Order_id: id });
   }
 
   async update(updateImageGoDto: ImageOrderDto): Promise<boolean> {
     try {
       const response = await this.imageOrderRepository.update(
-        updateImageGoDto.imageOrder_id,
+        updateImageGoDto.image_Order_id,
         updateImageGoDto,
       );
       if (response.affected === 0) {

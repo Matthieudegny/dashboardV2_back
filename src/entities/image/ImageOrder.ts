@@ -10,10 +10,10 @@ import { Order } from '../Order';
 @Entity()
 export class Image_Order {
   @PrimaryGeneratedColumn()
-  imageOrder_id: number;
+  image_Order_id: number;
 
   @Column()
-  imageOrder_order_id: number;
+  image_Order_order_id: number;
 
   @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
@@ -22,11 +22,11 @@ export class Image_Order {
   Global_Order: Order;
 
   @Column({ type: 'text' })
-  imageOrder_title: string;
+  image_Order_title: string;
 
   @Column({ type: 'text' })
-  imageOrder_description: string;
+  image_Order_description: string;
 
   @Column({ type: 'mediumtext' })
-  imageOrder_contentImage: string;
+  image_Order_contentImage: string;
 }

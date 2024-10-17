@@ -86,6 +86,7 @@ export class Global_SubOrder_Service {
       failureSubOrderList: [],
       setupSubOrderList: [],
       imageSubOrderList: [],
+      typeSuborder: 'ADD',
     };
 
     globalSubOrder.failureSubOrderList =
@@ -108,6 +109,7 @@ export class Global_SubOrder_Service {
       failureSubOrderList: [],
       setupSubOrderList: [],
       imageSubOrderList: [],
+      typeSuborder: 'REDUCE',
     };
 
     globalSubOrder.failureSubOrderList =

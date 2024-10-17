@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { suborder_directionType } from '../model/model-suborder_direction';
 
 export class Sub_Order_Add_Dto {
   subOrder_add_id: number;
@@ -17,6 +16,6 @@ export class Sub_Order_Add_Dto {
   subOrder_add_amountBought: number;
   @ApiProperty({ example: 'Comment', description: 'Comment' })
   subOrder_add_comment: string;
-  @ApiProperty({ example: 'REDUCE', description: 'Direction' })
-  subOrder_add_direction: suborder_directionType;
+  @ApiProperty({ example: 10, description: 'Percentage Engaged' })
+  subOrder_add_percentageEngaged: number;
 }

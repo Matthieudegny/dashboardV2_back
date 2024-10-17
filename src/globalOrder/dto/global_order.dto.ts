@@ -8,8 +8,8 @@ import { OrderDto } from 'src/order/dto/order.dto';
 import { Failure_go } from 'src/entities/Failure/Failure_go';
 import { FailureGoDto } from 'src/failure_go/dtos/failure_go.dto';
 import {
-  GlobalSubOrderAddDto,
   GlobalSubOrderReducedDto,
+  GlobalSubOrderAddDto,
 } from 'src/globalSubOrder/dto/global_suborder.dto';
 
 export class GlobalOrderDto {

@@ -27,9 +27,9 @@ export class MainDatasDto {
   })
   setupSubOrderAddList: Array<Setup_SubOrder_Add_Dto>;
 
-  @ApiProperty({ description: 'Failure order', type: FailureGoDto })
-  failureOrderList: Array<FailureGoDto>;
+  // @ApiProperty({ description: 'Failure order', type: FailureGoDto })
+  // failureOrderList: Array<FailureGoDto>;
 
-  @ApiProperty({ description: 'Failure sub order', type: FailureSoDto })
-  failureSubOrderList: Array<FailureSoDto>;
+  // @ApiProperty({ description: 'Failure sub order', type: FailureSoDto })
+  // failureSubOrderList: Array<FailureSoDto>;
 }

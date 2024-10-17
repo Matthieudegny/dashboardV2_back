@@ -7,8 +7,6 @@ import {
 } from 'typeorm';
 import { Order } from './Order';
 
-import { suborder_directionType } from 'src/sub_order/sub_order_reduce/model/model-suborder_direction';
-
 export class DecimalColumnTransformer {
   to(data: number): number {
     return data;
@@ -33,7 +31,7 @@ export class Suborder_Reduce {
   Global_Order?: Order;
 
   @Column({ type: 'datetime' })
-  subOrder_reduce_closeDate: Date;
+  subOrder_reduce_openDate: Date;
 
   @Column({
     type: 'decimal',
@@ -77,7 +75,4 @@ export class Suborder_Reduce {
 
   @Column({ type: 'text' })
   subOrder_reduce_comment: string;
-
-  @Column({ type: 'enum', enum: suborder_directionType })
-  subOrder_reduce_direction: suborder_directionType;
 }

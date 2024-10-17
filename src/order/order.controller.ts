@@ -24,16 +24,6 @@ export class OrderController {
     return this.orderService.create(createOrderDto);
   }
 
-  // @Post('createGlobalOrderWithDatas')
-  // @ApiBody({ type: GlobalOrderFillWithDatasDto })
-  // createGlobalOrderWithDatas(
-  //   @Body() createGlobalOrderWithDatasDto: GlobalOrderFillWithDatasDto,
-  // ) {
-  //   return this.globalOrderService.createGlobalOrderWithDatas(
-  //     createGlobalOrderWithDatasDto,
-  //   );
-  // }
-
   @Get()
   findAll() {
     return this.orderService.findAll();
