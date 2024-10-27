@@ -33,9 +33,10 @@ export class SubOrder_Add_Service {
       const result = await this.subOrderRepository.save(newSubOrder);
       if (result) {
         //update the order  with the new suborder (result, status)
-        const orderResultIsUpdated = await this.orderService.updateOrder(
-          result.subOrder_add_order_id,
-        );
+        const orderResultIsUpdated =
+          await this.orderService.updateOrderAfterSubOrderReduceChanges(
+            result.subOrder_add_order_id,
+          );
         if (!orderResultIsUpdated) {
           throw new Error('Failed to update the order result');
         }
@@ -81,9 +82,10 @@ export class SubOrder_Add_Service {
         const subOrderUpdated = await this.findOneSubOrderAddOrderById(id);
         if (subOrderUpdated) {
           //update the order  with the new suborder (result, status)
-          const orderResultIsUpdated = await this.orderService.updateOrder(
-            updateSubOrderDto.subOrder_add_order_id,
-          );
+          const orderResultIsUpdated =
+            await this.orderService.updateOrderAfterSubOrderReduceChanges(
+              updateSubOrderDto.subOrder_add_order_id,
+            );
           if (!orderResultIsUpdated) {
             throw new Error('Failed to update the order result');
           }
@@ -117,9 +119,10 @@ export class SubOrder_Add_Service {
 
       if (subOrderisDeleted.affected > 0) {
         //update the order, the fact to remove a sub order can change the status and result of the order
-        const orderResultIsUpdated = await this.orderService.updateOrder(
-          subOrderToDelete.subOrder_add_order_id,
-        );
+        const orderResultIsUpdated =
+          await this.orderService.updateOrderAfterSubOrderReduceChanges(
+            subOrderToDelete.subOrder_add_order_id,
+          );
 
         if (!orderResultIsUpdated) {
           throw new Error('Failed to update the order result');

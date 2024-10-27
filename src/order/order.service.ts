@@ -22,7 +22,7 @@ export class OrderService {
     private fg_GoService: Fg_GoService,
     // private subOrderService: SubOrderService,
     @Inject(forwardRef(() => SubOrder_Add_Service))
-    private subOrderService: SubOrder_Add_Service,
+    private subOrderAddService: SubOrder_Add_Service,
     @Inject(forwardRef(() => SubOrder_Reduce_Service))
     private subOrderReduceService: SubOrder_Reduce_Service,
     private globalSubOrderService: Global_SubOrder_Service,
@@ -81,13 +81,17 @@ export class OrderService {
     }
   }
 
-  // after some changes in the sub order list, we need to update the global order
+  // after some changes in the sub order list, we need to update the order
   // method usualy called after a sub order is created, updated or deleted
-  async updateOrder(idOrder: number): Promise<OrderDto> {
+  async updateOrderAfterSubOrderReduceChanges(
+    idOrder: number,
+  ): Promise<OrderDto> {
     try {
       //get the list of sub orders
       const listSubOrder =
-        await this.subOrderService.findAllSubOrderAddByOrderId(idOrder);
+        await this.subOrderReduceService.findAllSubOrderReduceByOrderId(
+          idOrder,
+        );
 
       //get the order
       const orderToUpdate = await this.findOneOrderById(idOrder);
@@ -100,10 +104,10 @@ export class OrderService {
         // check if the order is closed or not (remind close  === status false)
         let result = 0;
         let assetSold = 0;
-        // for (const subOrder of listSubOrder) {
-        //   result += subOrder.subOrder_result;
-        //   assetSold += subOrder.subOrder_quantityAsset_sold;
-        // }
+        for (const subOrder of listSubOrder) {
+          result += subOrder.subOrder_reduce_result;
+          assetSold += subOrder.subOrder_reduce_quantityAsset_sold;
+        }
 
         // update the result of the global order
         orderToUpdate.order_result = result;

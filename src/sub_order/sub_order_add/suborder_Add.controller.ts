@@ -63,7 +63,7 @@ export class SubOrder_Add_Controller {
     }
   }
 
-  @Delete('deleteSubOrder/:id')
+  @Delete('deleteSubOrderAdd/:id')
   async removeSubOrderAdd(@Param('id') id: string) {
     try {
       return await this.subOrderService.removeSubOrderAddById(+id);

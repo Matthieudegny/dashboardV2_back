@@ -29,4 +29,17 @@ export class OrderDto {
   order_isTypeOrder: boolean;
   @ApiProperty({ description: 'Direction' })
   order_direction: order_directionType;
+
+  constructor() {
+    this.order_result = 0;
+    this.order_status = true;
+    this.order_comment = '';
+    this.order_isTypeOrder = false;
+    this.order_direction = 'LONG';
+    this.order_asset = '';
+    this.order_entryPrice = 0;
+    this.order_percentageEngaged = 0;
+    this.order_amountEngaged = 0;
+    this.order_percentageStopLoss = 0;
+  }
 }

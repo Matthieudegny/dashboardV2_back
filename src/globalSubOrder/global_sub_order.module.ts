@@ -22,4 +22,4 @@ import { Image_Suborder_Reduce_Module } from 'src/image_Suborder_Reduce/image_Su
     Fs_So_Module,
   ],
 })
-export class Global_SubOrder_OrderModule {}
+export class Global_SubOrder_Module {}

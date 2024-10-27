@@ -43,4 +43,11 @@ export class GlobalOrderDto {
     isArray: true,
   })
   globalSubOrderList: Array<GlobalSubOrderReducedDto | GlobalSubOrderAddDto>;
+
+  constructor() {
+    this.failureOrderList = [];
+    this.setupOrderList = [];
+    this.imageOrderList = [];
+    this.globalSubOrderList = [];
+  }
 }

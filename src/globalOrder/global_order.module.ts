@@ -8,11 +8,17 @@ import { OrderModule } from 'src/order/order.module';
 import { S_o_Module } from 'src/s_o/s_o.module';
 import { ImageOrderModule } from 'src/imageOrder/imageOrder.module';
 import { Fg_Go_Module } from 'src/fg_go/fg_Go.module';
-
+import { Global_SubOrder_Module } from 'src/globalSubOrder/global_sub_order.module';
 @Module({
   controllers: [Global_Order_Controller],
   providers: [Global_Order_Service],
   exports: [Global_Order_Service],
-  imports: [OrderModule, Fg_Go_Module, S_o_Module, ImageOrderModule],
+  imports: [
+    OrderModule,
+    Fg_Go_Module,
+    S_o_Module,
+    ImageOrderModule,
+    Global_SubOrder_Module,
+  ],
 })
 export class Global_Order_Module {}
