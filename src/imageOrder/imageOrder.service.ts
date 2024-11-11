@@ -12,8 +12,8 @@ export class ImageOrderService {
   ) {}
   async create(imageOrderDto: ImageOrderDto): Promise<ImageOrderDto> {
     try {
-      const newImageGo = this.imageOrderRepository.create(imageOrderDto);
-      return this.imageOrderRepository.save(newImageGo);
+      const imageIsCreated = this.imageOrderRepository.create(imageOrderDto);
+      return this.imageOrderRepository.save(imageIsCreated);
     } catch (error) {
       throw new Error(error);
     }

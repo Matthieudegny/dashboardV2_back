@@ -12,7 +12,7 @@ import { SetupOrderService } from './setupOrder.service';
 import { SetupOrderDto } from './dto/setup_go.dto';
 
 @ApiTags('Setup_Go')
-@Controller('setup_go')
+@Controller('setup_Order')
 export class SetupOrderController {
   constructor(private setupService: SetupOrderService) {}
 

@@ -7,6 +7,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ImageOrderService } from './imageOrder.service';
 import { ImageOrderDto } from './dto/imageOrder.dto';
@@ -20,7 +22,14 @@ export class ImageOrderController {
   @Post('create')
   @ApiBody({ type: [ImageOrderDto] })
   create(@Body() imageGoDto: ImageOrderDto): Promise<ImageOrderDto> {
-    return this.imageGoService.create(imageGoDto);
+    try {
+      return this.imageGoService.create(imageGoDto);
+    } catch (error) {
+      throw new HttpException(
+        'Failed to create image order',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()

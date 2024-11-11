@@ -20,8 +20,6 @@ export class Global_Order_Service {
     // first i get the list of order by idUser
     const listOrder = await this.orderService.findAllOrderByIdUser(idUser);
 
-    console.log('listOrder', listOrder);
-
     // then i sort the list of order by date
     listOrder.sort((a, b) => {
       return a.order_openDate < b.order_openDate ? 1 : -1;
@@ -34,13 +32,17 @@ export class Global_Order_Service {
     for (const order of listOrder) {
       const globalOrder = new GlobalOrderDto();
       globalOrder.order = order;
+      // Failures
       globalOrder.failureOrderList =
         await this.Fg_GoService.findAllByGlobalOrderId(order.order_id);
+      // Setups
       globalOrder.setupOrderList = await this.S_o_Service.findAllSetupByOrderId(
         order.order_id,
       );
+      // Images
       globalOrder.imageOrderList =
         await this.imageService.findAllImagesByOrderId(order.order_id);
+      // Suborders
       globalOrder.globalSubOrderList =
         await this.globalSubOrderService.findAllGlobalSubOrderByIdOrder(
           order.order_id,
@@ -48,6 +50,11 @@ export class Global_Order_Service {
 
       listGlobalOrder.push(globalOrder);
     }
+
+    // sort list by the most recent to the oldest
+    listGlobalOrder.sort((a, b) => {
+      return a.order.order_openDate < b.order.order_openDate ? 1 : -1;
+    });
 
     // then i return the list of global order
     return listGlobalOrder;

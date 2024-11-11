@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Failure_so } from '../Failure_so';
-import { Suborder_Reduce } from '../../Suborder_Reduce';
+import { Suborder } from '../../Suborder';
 
 @Entity({ name: 'fs_so' })
 export class Fs_So {

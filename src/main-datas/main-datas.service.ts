@@ -2,19 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { MainDatasDto } from './dto/main-datas.dto';
 
 //Services
-import { Setup_SubOrder_Add_Service } from 'src/setup_SubOrder_Add/setup_SubOrder_Add.service';
 import { SetupOrderService } from 'src/setupOrder/setupOrder.service';
 import { FailureGoService } from 'src/failure_go/failure_go.service';
 import { FailureSoService } from 'src/failure_so/failure_so.service';
 import { UserService } from 'src/user/user.service';
 import { Global_Order_Service } from 'src/globalOrder/global_order_service';
-import { Setup_SubOrder_Reduce_Service } from 'src/setup_SubOrder_Reduce/setup_SubOrder_Reduce.service';
+import { Setup_SubOrder_Service } from 'src/setup_SubOrder/setup_SubOrder.service';
 
 @Injectable()
 export class MainDatasService {
   constructor(
-    private readonly Setup_SubOrder_Add_Service: Setup_SubOrder_Add_Service,
-    private readonly setupSoReduceService: Setup_SubOrder_Reduce_Service,
+    private readonly Setup_SubOrder_Service: Setup_SubOrder_Service,
     private readonly SetupOrderService: SetupOrderService,
     private readonly failureGoService: FailureGoService,
     private readonly failureSoService: FailureSoService,
@@ -34,12 +32,8 @@ export class MainDatasService {
       //1. first the categories data
       mainDatas.setupOrderList =
         await this.SetupOrderService.findAllSetupGoByIdUser(idUser);
-      mainDatas.setupSubOrderAddList =
-        await this.Setup_SubOrder_Add_Service.findAllSubOrderAddSetupByIdUser(
-          idUser,
-        );
-      mainDatas.setupSubOrderReduceList =
-        await this.setupSoReduceService.findAllSubOrderReduceSetupSetupByIdUser(
+      mainDatas.setupSubOrderList =
+        await this.Setup_SubOrder_Service.findAllSubOrderSetupSetupByIdUser(
           idUser,
         );
       // mainDatas.failureOrderList =
@@ -54,7 +48,6 @@ export class MainDatasService {
       console.log('Error in MainDatasService.findMainDatasbyIdUser', error);
       throw error;
     }
-
     return mainDatas;
   }
 }
