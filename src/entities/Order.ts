@@ -40,7 +40,7 @@ export class Order {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalColumnTransformer(),
   })
@@ -49,7 +49,7 @@ export class Order {
   @Column({
     type: 'decimal',
     precision: 10,
-    scale: 4,
+    scale: 7,
     transformer: new DecimalColumnTransformer(),
   })
   order_entryPrice: number;

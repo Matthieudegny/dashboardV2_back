@@ -35,7 +35,7 @@ export class Suborder {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalColumnTransformer(),
   })

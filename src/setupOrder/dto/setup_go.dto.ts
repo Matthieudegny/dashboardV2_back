@@ -8,4 +8,6 @@ export class SetupOrderDto {
   setup_Order_description: string;
   @ApiProperty()
   setup_Order_idUser: number;
+  @ApiProperty()
+  setup_Order_CategorySetupId: number | null;
 }
