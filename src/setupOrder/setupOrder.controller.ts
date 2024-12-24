@@ -11,37 +11,42 @@ import {
 import { SetupOrderService } from './setupOrder.service';
 import { SetupOrderDto } from './dto/setup_go.dto';
 
-@ApiTags('Setup_Go')
+@ApiTags('Setup_Order')
 @Controller('setup_Order')
 export class SetupOrderController {
   constructor(private setupService: SetupOrderService) {}
 
-  @Post('createSetupGo')
+  @Post('createSetupOrder')
   create(@Body() createSetupDto: SetupOrderDto) {
     return this.setupService.create(createSetupDto);
   }
 
-  @Get()
+  @Get('findAllSetupOrder')
   findAll() {
     return this.setupService.findAll();
   }
 
-  @Get(':idUser')
+  @Get('findAllSetupOrderByIdUser/:idUser')
   findAllSetupGoByIdUser(@Param('idUser') idUser: string) {
     return this.setupService.findAllSetupGoByIdUser(+idUser);
   }
 
-  @Get(':id')
+  @Get('findOneSetupOrder/:id')
   findOne(@Param('id') id: string) {
     return this.setupService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('updateSetupOrder/:id')
   update(@Param('id') id: string, @Body() updateSetupDto: SetupOrderDto) {
-    return this.setupService.update(+id, updateSetupDto);
+    try {
+      return this.setupService.update(+id, updateSetupDto);
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(error);
+    }
   }
 
-  @Delete(':id')
+  @Delete('deleteSetupOrder/:id')
   remove(@Param('id') id: string) {
     return this.setupService.remove(+id);
   }
