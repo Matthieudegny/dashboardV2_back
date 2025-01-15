@@ -16,7 +16,7 @@ export class S_so_Service {
     private ssorRepository: Repository<S_so>,
     private setupSoService: Setup_SubOrder_Service,
   ) {}
-  create(createSsDto: S_so_Dto[]): Promise<Setup_SubOrderDto[]> {
+  updateListSso(createSsDto: S_so_Dto[]): Promise<Setup_SubOrderDto[]> {
     try {
       //first i delete all the Sso with the same sub order id
       const listIsReset = this.deleteAllSsBySubOrderId(

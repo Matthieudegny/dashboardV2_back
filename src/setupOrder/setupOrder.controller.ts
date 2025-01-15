@@ -38,6 +38,7 @@ export class SetupOrderController {
 
   @Patch('updateSetupOrder/:id')
   update(@Param('id') id: string, @Body() updateSetupDto: SetupOrderDto) {
+    console.log('updateSetupDto', updateSetupDto);
     try {
       return this.setupService.update(+id, updateSetupDto);
     } catch (error) {

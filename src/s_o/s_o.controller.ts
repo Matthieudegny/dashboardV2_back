@@ -18,11 +18,11 @@ import { SetupOrderDto } from '../setupOrder/dto/setup_go.dto';
 export class S_o_Controller {
   constructor(private readonly soService: S_o_Service) {}
 
-  //create SgGoList and return the list of the setup used
-  @Post('createSoList')
+  //update list association table Setup_Order - Category_Setup_Order
+  @Post('updateListSo')
   @ApiBody({ type: [S_o_Dto] })
-  create(@Body() createSgGosDto: S_o_Dto[]): Promise<SetupOrderDto[]> {
-    return this.soService.create(createSgGosDto);
+  updateAll(@Body() createSgGosDto: S_o_Dto[]): Promise<SetupOrderDto[]> {
+    return this.soService.updateListSo(createSgGosDto);
   }
 
   @Get()

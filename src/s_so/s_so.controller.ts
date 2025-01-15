@@ -19,10 +19,10 @@ import { Setup_SubOrderDto } from '../setup_SubOrder/dto/setup_SubOrder.dto';
 export class S_so_Controller {
   constructor(private readonly ssorService: S_so_Service) {}
 
-  @Post('createSsoList')
+  @Post('updateListSso')
   @ApiBody({ type: [S_so_Dto] })
-  create(@Body() createSsDto: S_so_Dto[]): Promise<Setup_SubOrderDto[]> {
-    return this.ssorService.create(createSsDto);
+  updateAll(@Body() createSsDto: S_so_Dto[]): Promise<Setup_SubOrderDto[]> {
+    return this.ssorService.updateListSso(createSsDto);
   }
 
   @Get()

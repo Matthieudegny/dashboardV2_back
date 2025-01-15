@@ -15,7 +15,7 @@ export class S_o_Service {
     private soRepository: Repository<S_o>,
     private setupOrderService: SetupOrderService,
   ) {}
-  create(createSoDto: S_o_Dto[]): Promise<SetupOrderDto[]> {
+  updateListSo(createSoDto: S_o_Dto[]): Promise<SetupOrderDto[]> {
     try {
       //first i delete all the sg_Go with the same global order id
       if (createSoDto.length > 0) {
@@ -66,18 +66,19 @@ export class S_o_Service {
   }
 
   async findAllSetupByOrderId(globalOrderId: number) {
+    // fetch the association list of setup_order - order
     const listSoByOrderId: Array<S_o_Dto> = await this.soRepository.find({
       where: { s_o_order_id: globalOrderId },
     });
 
     let listSetupGoByOrder: Array<SetupOrderDto> = [];
     if (listSoByOrderId.length > 0) {
-      //for each sg_Go i get the setup category data
-      for (const sg_Go of listSoByOrderId) {
+      //for each so i fetch the setup order data
+      for (const so of listSoByOrderId) {
         const setupData: SetupOrderDto = await this.setupOrderService.findOne(
-          sg_Go.s_o_setupOrder_id,
+          so.s_o_setupOrder_id,
         );
-        //if listSetupCategoriesByGlobalOrder doesnt contain the setup category, i add it
+        //if item is not already in the list, i add it
         if (
           !listSetupGoByOrder.some(
             (setup) => setup.setup_Order_id === setupData.setup_Order_id,

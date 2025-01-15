@@ -20,7 +20,7 @@ export class DecimalColumnTransformer {
   }
 }
 
-@Entity()
+@Entity({ name: 'order' })
 export class Order {
   @PrimaryGeneratedColumn()
   order_id: number;

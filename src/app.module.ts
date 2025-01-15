@@ -23,8 +23,7 @@ import { S_so } from './entities/Setup/Associations/S_so';
 import { Setup_SubOrder } from './entities/Setup/Setup_SubOrder';
 import { Setup_Order } from './entities/Setup/SetupOrder';
 import { Suborder } from './entities/Suborder';
-import { Category_Setup_Order } from './entities/Setup/Category_Setup_Order';
-import { Category_Setup_SubOrder } from './entities/Setup/Category_Setup_SubOrder';
+
 //modules
 import { UserModule } from './user/user.module';
 //failures
@@ -40,9 +39,6 @@ import { SetupOrderModule } from './setupOrder/setupOrder.module';
 import { Setup_SubOrder_Module } from './setup_SubOrder/setup_SubOrder.module';
 import { S_so_Module } from './s_so/s_so.module';
 import { S_o_Module } from './s_o/s_o.module';
-//category setup order
-import { CategorySetupOrderModule } from './category_setup_order/category_setup_order.module';
-import { CategorySetupSubOrderModule } from './category_setup_SubOrder/category_setup_SubOrder.module';
 //order
 import { OrderModule } from './order/order.module';
 // sub order
@@ -78,15 +74,15 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         //setups
         S_o,
         S_so,
+
         Setup_SubOrder,
         Setup_Order,
-        Category_Setup_Order,
-        Category_Setup_SubOrder,
+
         //order
         Order,
         Suborder,
       ],
-      synchronize: true,
+      synchronize: false,
     }),
     UserModule,
     //failure
@@ -102,8 +98,6 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     Setup_SubOrder_Module,
     S_so_Module,
     S_o_Module,
-    CategorySetupOrderModule,
-    CategorySetupSubOrderModule,
     //order
     OrderModule,
     //sub order
