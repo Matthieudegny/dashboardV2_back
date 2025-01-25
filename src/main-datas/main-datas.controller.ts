@@ -12,4 +12,9 @@ export class MainDatasController {
   findMainDatasbyIdUser(@Param('idUser') idUser: number) {
     return this.mainDatasService.findMainDatasbyIdUser(idUser);
   }
+
+  @Get('test')
+  test() {
+    return 'test';
+  }
 }
