@@ -1,5 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Param } from '@nestjs/common';
+import { Public } from 'src/public.decorator';
+
 //Services
 import { MainDatasService } from './main-datas.service';
 
@@ -13,6 +15,7 @@ export class MainDatasController {
     return this.mainDatasService.findMainDatasbyIdUser(idUser);
   }
 
+  @Public()
   @Get('test')
   test() {
     return 'test';
