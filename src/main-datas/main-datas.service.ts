@@ -29,7 +29,7 @@ export class MainDatasService {
 
     const mainDatas = new MainDatasDto();
     try {
-      //1. first the categories data
+      //1. first the categories data (list setup for order and suborder)
       mainDatas.setupOrderList =
         await this.SetupOrderService.findAllSetupGoByIdUser(idUser);
       mainDatas.setupSubOrderList =
@@ -41,9 +41,14 @@ export class MainDatasService {
       // mainDatas.failureSubOrderList =
       //   await this.failureSoService.findAllFailureByIdUser(idUser);
 
-      //2 then the global orders data (filles with images, setups, failures, and the list of global suborders)
+      //2 then the global orders data (filles with images, setups, failures, and the list of global suborders) + the list of suborders
+      const globalOrderListPlusSubOrderList =
+        await this.globalOrderService.findAllGlobalOrderByIdUserPlusListSubOrder(
+          idUser,
+        );
       mainDatas.globalOrderList =
-        await this.globalOrderService.findAllGlobalOrderByIdUser(idUser);
+        globalOrderListPlusSubOrderList.listGlobalOrder;
+      mainDatas.subOrderList = globalOrderListPlusSubOrderList.listSubOrder;
     } catch (error) {
       console.log('Error in MainDatasService.findMainDatasbyIdUser', error);
       throw error;

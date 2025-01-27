@@ -56,10 +56,28 @@ export class SubOrder_Service {
     return this.subOrderRepository.find();
   }
 
+  findAllSubOrderByUserId(userId: number) {
+    try {
+      return this.subOrderRepository.find({
+        where: { subOrder_user_id: userId },
+      });
+    } catch (error) {
+      throw new Error(
+        'Failed to retrieve suborders for user: ' + error.message,
+      );
+    }
+  }
+
   findAllSubOrderByOrderId(orderId: number) {
-    return this.subOrderRepository.find({
-      where: { subOrder_order_id: orderId },
-    });
+    try {
+      return this.subOrderRepository.find({
+        where: { subOrder_order_id: orderId },
+      });
+    } catch (error) {
+      throw new Error(
+        'Failed to retrieve suborders for order: ' + error.message,
+      );
+    }
   }
 
   findOneSubOrderById(id: number) {

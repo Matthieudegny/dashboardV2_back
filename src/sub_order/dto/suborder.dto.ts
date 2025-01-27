@@ -4,6 +4,8 @@ export class Suborder_Dto {
   subOrder_id: number;
   @ApiProperty({ example: 1, description: 'Id of the global order' })
   subOrder_order_id: number;
+  @ApiProperty({ example: 1, description: 'Id of the user' })
+  subOrder_user_id: number;
   @ApiProperty({ example: new Date(), description: 'Open Date' })
   subOrder_openDate: Date;
   @ApiProperty({ example: '10', description: 'QuantityAsset' })
@@ -22,6 +24,7 @@ export class Suborder_Dto {
   constructor() {
     this.subOrder_id = 0;
     this.subOrder_order_id = 0;
+    this.subOrder_user_id = 0;
     this.subOrder_openDate = new Date();
     this.subOrder_quantityAsset_sold = 0;
     this.subOrder_quantityAsset_sold_Perc = 0;

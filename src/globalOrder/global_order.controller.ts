@@ -16,7 +16,9 @@ export class Global_Order_Controller {
   @Get('getAllGlobalOrderByUserId')
   async findAllGlobalOrderByIdUser(@Param('idUser') idUser: number) {
     try {
-      return await this.globalOrderService.findAllGlobalOrderByIdUser(idUser);
+      return await this.globalOrderService.findAllGlobalOrderByIdUserPlusListSubOrder(
+        idUser,
+      );
     } catch (error) {
       throw new HttpException(
         'Failed to get global order list',

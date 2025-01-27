@@ -40,6 +40,11 @@ export class SubOrder_Controller {
     return this.subOrderService.findAllSubOrder();
   }
 
+  @Get('allSubOrderByUserId/:userId')
+  async findAllSubOrderByIdUser(@Param('userId') userId: string) {
+    return this.subOrderService.findAllSubOrderByUserId(+userId);
+  }
+
   @Get(':id')
   findOneSubOrder(@Param('id') id: string) {
     return this.subOrderService.findOneSubOrderById(+id);

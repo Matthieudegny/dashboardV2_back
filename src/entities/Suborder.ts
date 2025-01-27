@@ -6,6 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Order } from './Order';
+import { User } from './User';
 
 export class DecimalColumnTransformer {
   to(data: number): number {
@@ -21,14 +22,22 @@ export class DecimalColumnTransformer {
 export class Suborder {
   @PrimaryGeneratedColumn()
   subOrder_id: number;
+
   @Column()
   subOrder_order_id: number;
-
   @ManyToOne(() => Order, (Global_Order) => Global_Order.order_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'subOrder_order_id' })
   Global_Order?: Order;
+
+  @Column()
+  subOrder_user_id: number;
+  @ManyToOne(() => User, (user) => user.idUser, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'subOrder_user_id' })
+  user?: User;
 
   @Column({ type: 'datetime' })
   subOrder_openDate: Date;
