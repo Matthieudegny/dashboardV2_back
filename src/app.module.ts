@@ -56,11 +56,12 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      // host: process.env.DB_HOST,
-      // username: process.env.DB_USERNAME,
-      // password: process.env.DB_PASSWORD,
-      // database: process.env.DB_DATABASE,
-      url: process.env.MYSQL_URL,
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      // url: process.env.MYSQL_URL,
       entities: [
         User,
         //failure

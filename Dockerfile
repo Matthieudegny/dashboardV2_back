@@ -1,5 +1,5 @@
 # Utiliser une image Node.js comme base
-FROM node:18
+FROM node:20
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Exposer le port sur lequel l'application sera servie
-EXPOSE 3000
+EXPOSE 8080
 
 # Commande pour lancer l'application
 CMD ["node", "dist/main"]

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MainDatasDto } from './dto/main-datas.dto';
 
 //Services
@@ -24,7 +24,7 @@ export class MainDatasService {
     //check if user is present in DBB
     const userIsAllowed = await this.userService.findOne(idUser);
     if (!userIsAllowed) {
-      throw new Error('User not found');
+      throw new NotFoundException(`User with ID ${idUser} not found`);
     }
 
     const mainDatas = new MainDatasDto();
