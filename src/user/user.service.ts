@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user.dto';
+import { PublicUserDto, UserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/User';
@@ -11,23 +11,82 @@ export class UserService {
   ) {}
 
   create(createUserDto: UserDto) {
-    const newUser = this.userRepository.create(createUserDto);
-    return this.userRepository.save(newUser);
+    try {
+      const newUser = this.userRepository.create(createUserDto);
+      return this.userRepository.save(newUser);
+    } catch (error) {
+      console.log('Error in UserService.create', error);
+      throw error;
+    }
   }
 
   findAll() {
-    return this.userRepository.find();
+    try {
+      return this.userRepository.find();
+    } catch (error) {
+      console.log('Error in UserService.findAll', error);
+      throw error;
+    }
   }
 
   findOne(id: number) {
-    return this.userRepository.findOne({ where: { idUser: id } });
+    try {
+      return this.userRepository.findOne({ where: { idUser: id } });
+    } catch (error) {
+      console.log('Error in UserService.findOne', error);
+      throw error;
+    }
   }
 
   updateUser(id: number, updateUserDto: UserDto) {
-    return this.userRepository.update(id, updateUserDto);
+    try {
+      return this.userRepository.update(id, updateUserDto);
+    } catch (error) {
+      console.log('Error in UserService.updateUser', error);
+      throw error;
+    }
   }
 
   remove(id: number) {
-    return this.userRepository.delete(id);
+    try {
+      return this.userRepository.delete(id);
+    } catch (error) {
+      console.log('Error in UserService.remove', error);
+      throw error;
+    }
+  }
+
+  findInitialCapitalAmountByIdUser(id: number): Promise<number> {
+    try {
+      return this.userRepository
+        .findOne({ where: { idUser: id } })
+        .then((user) => {
+          return user.initial_capital_amount;
+        });
+    } catch (error) {
+      console.log(
+        'Error in UserService.findInitialCapitalAmountByIdUser',
+        error,
+      );
+      throw error;
+    }
+  }
+
+  findUserInfosByIdUser(id: number): Promise<PublicUserDto> {
+    try {
+      return this.userRepository
+        .findOne({ where: { idUser: id } })
+        .then((user) => {
+          return {
+            idUser: user.idUser,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            initial_capital_amount: user.initial_capital_amount,
+          } as PublicUserDto;
+        });
+    } catch (error) {
+      console.log('Error in UserService.findUserInfosByIdUser', error);
+      throw error;
+    }
   }
 }

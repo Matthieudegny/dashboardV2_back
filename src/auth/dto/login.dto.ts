@@ -15,6 +15,4 @@ export class LoginDto {
 export class AccessTokenResponseDto {
   access_token: string;
   idUser: number;
-  firstName: string;
-  lastName: string;
 }

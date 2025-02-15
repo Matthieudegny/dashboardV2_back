@@ -49,6 +49,10 @@ export class MainDatasService {
       mainDatas.globalOrderList =
         globalOrderListPlusSubOrderList.listGlobalOrder;
       mainDatas.subOrderList = globalOrderListPlusSubOrderList.listSubOrder;
+
+      //3 then the user infos (initial capital amount + name + email)
+      mainDatas.userInfos =
+        await this.userService.findUserInfosByIdUser(idUser);
     } catch (error) {
       console.log('Error in MainDatasService.findMainDatasbyIdUser', error);
       throw error;

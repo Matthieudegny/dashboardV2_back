@@ -25,6 +25,7 @@ export class SubOrder_Controller {
     @Body() createSubOrderDto: Suborder_Dto,
   ): Promise<{ suborder: Suborder_Dto; order: OrderDto }> {
     try {
+      console.log('createSubOrderDto', createSubOrderDto);
       return await this.subOrderService.createSubOrder(createSubOrderDto);
     } catch (error) {
       // Log the error here if needed

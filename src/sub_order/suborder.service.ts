@@ -48,6 +48,8 @@ export class SubOrder_Service {
         throw new Error('Failed to create sub order.');
       }
     } catch (error) {
+      console.log('dd');
+      console.log('error', error);
       throw new Error(error.message);
     }
   }

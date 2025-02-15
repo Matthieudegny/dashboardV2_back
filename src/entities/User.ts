@@ -16,4 +16,7 @@ export class User {
 
   @Column({ length: 255 })
   password: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  initial_capital_amount: number;
 }

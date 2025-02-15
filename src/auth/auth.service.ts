@@ -24,16 +24,13 @@ export class AuthService {
 
     const payload = {
       sub: 'MyDashBoard2024',
-      firstName: user.firstName,
-      lastName: user.lastName,
       login: user.login,
       id: user.idUser,
     };
+
     return {
       access_token: await this.jwtService.signAsync(payload),
       idUser: user.idUser,
-      firstName: user.firstName,
-      lastName: user.lastName,
     };
   }
 }

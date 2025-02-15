@@ -5,13 +5,13 @@ import { FailureSoDto } from 'src/failure_so/dtos/failureSo.dto';
 import { FailureGoDto } from '../../failure_go/dtos/failure_go.dto';
 import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
 import { Suborder_Dto } from 'src/sub_order/dto/suborder.dto';
-
+import { PublicUserDto } from 'src/user/dto/user.dto';
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderDto>;
   subOrderList: Array<Suborder_Dto>;
   setupOrderList: Array<Setup_Order>;
   setupSubOrderList: Array<Setup_SubOrderDto>;
-
+  userInfos: PublicUserDto;
   // @ApiProperty({ description: 'Failure order', type: FailureGoDto })
   // failureOrderList: Array<FailureGoDto>;
 
@@ -22,5 +22,6 @@ export class MainDatasDto {
     this.subOrderList = [];
     this.setupOrderList = [];
     this.setupSubOrderList = [];
+    this.userInfos = new PublicUserDto();
   }
 }
