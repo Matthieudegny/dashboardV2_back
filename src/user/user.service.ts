@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PublicUserDto, UserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -29,9 +29,16 @@ export class UserService {
     }
   }
 
-  findOne(id: number) {
+  async findOne(id: number): Promise<User> {
     try {
-      return this.userRepository.findOne({ where: { idUser: id } });
+      const user = await this.userRepository.findOne({
+        where: { idUser: id },
+      });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      console.log('acces user', user);
+      return user;
     } catch (error) {
       console.log('Error in UserService.findOne', error);
       throw error;
@@ -86,6 +93,25 @@ export class UserService {
         });
     } catch (error) {
       console.log('Error in UserService.findUserInfosByIdUser', error);
+      throw error;
+    }
+  }
+
+  async updateInitialCapitalAmount(
+    id: number,
+    initial_capital_amount: number,
+  ): Promise<boolean> {
+    try {
+      const result = await this.userRepository
+        .createQueryBuilder()
+        .update(User)
+        .set({ initial_capital_amount })
+        .where('idUser = :id', { id })
+        .execute();
+
+      return result.affected > 0;
+    } catch (error) {
+      console.error('Error updating initial capital amount:', error);
       throw error;
     }
   }

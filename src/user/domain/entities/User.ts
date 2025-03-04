@@ -1,16 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DecimalColumnTransformer {
-  to(data: number): number {
-    return data;
-  }
-
-  from(data: string): number {
-    return parseFloat(data);
-  }
-}
-
 @Entity()
 export class User {
   @ApiProperty({
@@ -59,10 +49,6 @@ export class User {
     minimum: 0,
     type: 'number',
   })
-  @Column({
-    type: 'int',
-    default: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
-  initial_capital_amount: number; // Stored as cents: 50.00 would be stored as 5000
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  initial_capital_amount: number;
 }

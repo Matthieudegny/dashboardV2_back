@@ -7,9 +7,11 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
+import { User } from 'src/entities/User';
 
 @ApiTags('User')
 @Controller('user')
@@ -28,13 +30,21 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UserDto) {
     return this.userService.updateUser(+id, updateUserDto);
+  }
+
+  @Patch('updateInitialCapitalAmount/:id/:amount')
+  updateInitialCapitalAmount(
+    @Param('id') id: string,
+    @Param('amount') amount: string,
+  ): Promise<boolean> {
+    return this.userService.updateInitialCapitalAmount(+id, +amount);
   }
 
   @Delete(':id')
