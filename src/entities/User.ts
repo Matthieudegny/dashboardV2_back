@@ -64,5 +64,5 @@ export class User {
     default: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  initial_capital_amount: number; // Stored as cents: 50.00 would be stored as 5000
+  initial_capital_amount: number;
 }

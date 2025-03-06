@@ -37,7 +37,6 @@ export class UserService {
       if (!user) {
         throw new NotFoundException('User not found');
       }
-      console.log('acces user', user);
       return user;
     } catch (error) {
       console.log('Error in UserService.findOne', error);
