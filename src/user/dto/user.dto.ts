@@ -33,6 +33,14 @@ export class UserDto {
   })
   @IsNumber()
   initial_capital_amount: number;
+
+  @ApiProperty({
+    example: 11,
+    description: 'Pagination limit',
+    type: Number,
+  })
+  @IsNumber()
+  pagination_limit: number;
 }
 
 export class PublicUserDto {
@@ -54,4 +62,11 @@ export class PublicUserDto {
   })
   @IsNumber()
   initial_capital_amount: number;
+
+  @ApiProperty({
+    example: 11,
+    type: Number,
+  })
+  @IsNumber()
+  pagination_limit: number;
 }

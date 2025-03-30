@@ -89,8 +89,11 @@ export class Order {
   })
   order_result: number;
 
-  @Column({ type: 'text' })
-  order_comment: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  order_comment: string | null;
 
   @Column({
     type: 'boolean',

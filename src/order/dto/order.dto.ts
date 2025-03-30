@@ -24,7 +24,7 @@ export class OrderDto {
   @ApiProperty({ description: 'Result' })
   order_result: number;
   @ApiProperty({ description: 'Comment' })
-  order_comment: string;
+  order_comment: string | null;
   @ApiProperty({ description: 'is type order' })
   order_isTypeOrder: boolean;
   @ApiProperty({ description: 'Direction' })
@@ -33,7 +33,7 @@ export class OrderDto {
   constructor() {
     this.order_result = 0;
     this.order_status = true;
-    this.order_comment = '';
+    this.order_comment = null;
     this.order_isTypeOrder = false;
     this.order_direction = 'LONG';
     this.order_asset = '';

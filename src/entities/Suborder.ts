@@ -82,6 +82,9 @@ export class Suborder {
   })
   subOrder_amountSold: number;
 
-  @Column({ type: 'text' })
-  subOrder_comment: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  subOrder_comment: string | null;
 }

@@ -19,7 +19,7 @@ export class Suborder_Dto {
   @ApiProperty({ example: 10, description: 'Amount Sold' })
   subOrder_amountSold: number;
   @ApiProperty({ example: 'Comment', description: 'Comment' })
-  subOrder_comment: string;
+  subOrder_comment: string | null;
 
   constructor() {
     this.subOrder_id = 0;
@@ -31,6 +31,6 @@ export class Suborder_Dto {
     this.subOrder_exitPrice = 0;
     this.subOrder_result = 0;
     this.subOrder_amountSold = 0;
-    this.subOrder_comment = '';
+    this.subOrder_comment = null;
   }
 }

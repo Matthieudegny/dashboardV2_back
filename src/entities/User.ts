@@ -65,4 +65,17 @@ export class User {
     transformer: new DecimalColumnTransformer(),
   })
   initial_capital_amount: number;
+
+  @ApiProperty({
+    description: "User's pagination limit",
+    example: 11,
+    minimum: 0,
+    type: 'number',
+  })
+  @Column({
+    type: 'int',
+    default: 11,
+    transformer: new DecimalColumnTransformer(),
+  })
+  pagination_limit: number;
 }

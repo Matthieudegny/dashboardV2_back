@@ -88,6 +88,7 @@ export class UserService {
             firstName: user.firstName,
             lastName: user.lastName,
             initial_capital_amount: user.initial_capital_amount,
+            pagination_limit: user.pagination_limit,
           } as PublicUserDto;
         });
     } catch (error) {
@@ -101,16 +102,26 @@ export class UserService {
     initial_capital_amount: number,
   ): Promise<boolean> {
     try {
-      const result = await this.userRepository
-        .createQueryBuilder()
-        .update(User)
-        .set({ initial_capital_amount })
-        .where('idUser = :id', { id })
-        .execute();
-
+      const result = await this.userRepository.update(
+        { idUser: id },
+        { initial_capital_amount },
+      );
       return result.affected > 0;
     } catch (error) {
       console.error('Error updating initial capital amount:', error);
+      throw error;
+    }
+  }
+
+  async updatePaginationLimit(id: number, limit: number): Promise<boolean> {
+    try {
+      const result = await this.userRepository.update(
+        { idUser: id },
+        { pagination_limit: limit },
+      );
+      return result.affected > 0;
+    } catch (error) {
+      console.error('Error updating pagination limit:', error);
       throw error;
     }
   }

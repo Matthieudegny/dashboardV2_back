@@ -47,6 +47,14 @@ export class UserController {
     return this.userService.updateInitialCapitalAmount(+id, +amount);
   }
 
+  @Patch('updatePaginationLimit/:id/:limit')
+  updatePaginationLimit(
+    @Param('id') id: string,
+    @Param('limit') limit: string,
+  ): Promise<boolean> {
+    return this.userService.updatePaginationLimit(+id, +limit);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
