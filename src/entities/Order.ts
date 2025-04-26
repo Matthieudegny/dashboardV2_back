@@ -6,6 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from './User';
+import { TradingInstrument } from './tradingInstrument/TradingInstrument';
 
 // model
 import { order_directionType } from '../order/model/model-order_direction';
@@ -31,6 +32,19 @@ export class Order {
   @ManyToOne(() => User, (user) => user.idUser, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'order_user_id' })
   user?: User;
+
+  @Column()
+  order_trading_instrument_id: number;
+
+  @ManyToOne(
+    () => TradingInstrument,
+    (tradingInstrument) => tradingInstrument.trading_instrument_id,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn({ name: 'order_trading_instrument_id' })
+  tradingInstrument: TradingInstrument;
 
   @Column({ type: 'datetime' })
   order_openDate: Date;

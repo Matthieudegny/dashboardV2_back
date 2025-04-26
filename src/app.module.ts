@@ -18,6 +18,7 @@ import { User } from './entities/User';
 import { Image_Order } from './entities/image/ImageOrder';
 import { Image_Suborder } from './entities/image/Image_Suborder';
 import { Order } from './entities/Order';
+import { TradingInstrument } from './entities/tradingInstrument/TradingInstrument';
 import { S_o } from './entities/Setup/Associations/S_o';
 import { S_so } from './entities/Setup/Associations/S_so';
 import { Setup_SubOrder } from './entities/Setup/Setup_SubOrder';
@@ -41,6 +42,8 @@ import { S_so_Module } from './s_so/s_so.module';
 import { S_o_Module } from './s_o/s_o.module';
 //order
 import { OrderModule } from './order/order.module';
+//trading instrument
+import { TradingInstrumentModule } from './tradingInstrument/tradingInstrument.module';
 // sub order
 import { SubOrder_Module } from './sub_order/suborder.module';
 
@@ -81,6 +84,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
 
         //order
         Order,
+        TradingInstrument,
         Suborder,
       ],
       synchronize: false,
@@ -101,6 +105,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     S_o_Module,
     //order
     OrderModule,
+    TradingInstrumentModule,
     //sub order
     SubOrder_Module,
     //others
