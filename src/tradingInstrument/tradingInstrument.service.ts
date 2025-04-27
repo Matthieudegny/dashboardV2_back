@@ -29,20 +29,36 @@ export class TradingInstrumentService {
   async create(
     tradingInstrument: Partial<TradingInstrument>,
   ): Promise<TradingInstrument> {
-    const newTradingInstrument =
-      this.tradingInstrumentRepository.create(tradingInstrument);
-    return this.tradingInstrumentRepository.save(newTradingInstrument);
+    try {
+      const newTradingInstrument =
+        this.tradingInstrumentRepository.create(tradingInstrument);
+      return await this.tradingInstrumentRepository.save(newTradingInstrument);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async update(
     id: number,
     tradingInstrument: Partial<TradingInstrument>,
-  ): Promise<TradingInstrument> {
-    await this.tradingInstrumentRepository.update(id, tradingInstrument);
-    return this.findOne(id);
+  ): Promise<boolean> {
+    try {
+      const result = await this.tradingInstrumentRepository.update(
+        id,
+        tradingInstrument,
+      );
+      return result.affected > 0;
+    } catch (error) {
+      return false;
+    }
   }
 
-  async remove(id: number): Promise<void> {
-    await this.tradingInstrumentRepository.delete(id);
+  async remove(id: number): Promise<boolean> {
+    try {
+      const result = await this.tradingInstrumentRepository.delete(id);
+      return result.affected > 0;
+    } catch (error) {
+      return false;
+    }
   }
 }

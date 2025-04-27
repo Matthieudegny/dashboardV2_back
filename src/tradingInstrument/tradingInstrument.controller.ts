@@ -39,7 +39,7 @@ export class TradingInstrumentController {
   update(
     @Param('id') id: string,
     @Body() updateTradingInstrumentDto: UpdateTradingInstrumentDto,
-  ): Promise<TradingInstrument> {
+  ): Promise<boolean> {
     return this.tradingInstrumentService.update(
       +id,
       updateTradingInstrumentDto,
@@ -47,7 +47,7 @@ export class TradingInstrumentController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
+  remove(@Param('id') id: string): Promise<boolean> {
     return this.tradingInstrumentService.remove(+id);
   }
 }

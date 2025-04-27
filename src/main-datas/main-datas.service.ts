@@ -9,6 +9,7 @@ import { UserService } from 'src/user/user.service';
 import { Global_Order_Service } from 'src/globalOrder/global_order_service';
 import { Setup_SubOrder_Service } from 'src/setup_SubOrder/setup_SubOrder.service';
 import { TradingInstrumentService } from 'src/tradingInstrument/tradingInstrument.service';
+import { TradingBrokerService } from 'src/tradingBroker/tradingBroker.service';
 
 @Injectable()
 export class MainDatasService {
@@ -20,6 +21,7 @@ export class MainDatasService {
     private readonly userService: UserService,
     private readonly globalOrderService: Global_Order_Service,
     private readonly tradingInstrumentService: TradingInstrumentService,
+    private readonly tradingBrokerService: TradingBrokerService,
   ) {}
 
   public async findMainDatasbyIdUser(idUser: number) {
@@ -59,6 +61,10 @@ export class MainDatasService {
       //4 get the trading instruments for the user
       mainDatas.tradingInstrumentList =
         await this.tradingInstrumentService.findAllByUserId(idUser);
+
+      //5 get the trading brokers for the user
+      mainDatas.tradingBrokerList =
+        await this.tradingBrokerService.findAllByUserId(idUser);
     } catch (error) {
       console.log('Error in MainDatasService.findMainDatasbyIdUser', error);
       throw error;

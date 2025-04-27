@@ -7,6 +7,7 @@ import { SetupOrderDto } from '../../setupOrder/dto/setup_go.dto';
 import { Suborder_Dto } from 'src/sub_order/dto/suborder.dto';
 import { PublicUserDto } from 'src/user/dto/user.dto';
 import { TradingInstrument } from '../../entities/tradingInstrument/TradingInstrument';
+import { TradingBroker } from '../../entities/tradingBroker/TradingBroker';
 
 export class MainDatasDto {
   globalOrderList: Array<GlobalOrderDto>;
@@ -15,6 +16,7 @@ export class MainDatasDto {
   setupSubOrderList: Array<Setup_SubOrderDto>;
   userInfos: PublicUserDto;
   tradingInstrumentList: Array<TradingInstrument>;
+  tradingBrokerList: Array<TradingBroker>;
   // @ApiProperty({ description: 'Failure order', type: FailureGoDto })
   // failureOrderList: Array<FailureGoDto>;
 
@@ -27,5 +29,6 @@ export class MainDatasDto {
     this.setupSubOrderList = [];
     this.userInfos = new PublicUserDto();
     this.tradingInstrumentList = [];
+    this.tradingBrokerList = [];
   }
 }

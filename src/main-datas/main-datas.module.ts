@@ -10,6 +10,7 @@ import { FailureSoModule } from 'src/failure_so/failure_so.module';
 import { UserModule } from 'src/user/user.module';
 import { Global_Order_Module } from 'src/globalOrder/global_order.module';
 import { TradingInstrumentModule } from '../tradingInstrument/tradingInstrument.module';
+import { TradingBrokerModule } from '../tradingBroker/tradingBroker.module';
 
 @Module({
   imports: [
@@ -20,8 +21,10 @@ import { TradingInstrumentModule } from '../tradingInstrument/tradingInstrument.
     UserModule,
     Global_Order_Module,
     TradingInstrumentModule,
+    TradingBrokerModule,
   ],
   controllers: [MainDatasController],
   providers: [MainDatasService],
+  exports: [MainDatasService],
 })
 export class MainDatasModule {}
