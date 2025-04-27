@@ -88,23 +88,7 @@ export class Order {
     scale: 0,
     transformer: new DecimalColumnTransformer(),
   })
-  order_percentageEngaged: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
   order_amountEngaged: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 0,
-    transformer: new DecimalColumnTransformer(),
-  })
-  order_percentageStopLoss: number;
 
   @Column({ type: 'boolean' })
   order_status: boolean;

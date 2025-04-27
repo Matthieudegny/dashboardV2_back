@@ -15,12 +15,8 @@ export class OrderDto {
   order_quantity: number;
   @ApiProperty({ description: 'Entry Price' })
   order_entryPrice: number;
-  @ApiProperty({ description: 'Exit Price' })
-  order_percentageEngaged: number;
   @ApiProperty({ description: 'Amount engaged' })
   order_amountEngaged: number;
-  @ApiProperty({ description: '% stop loss' })
-  order_percentageStopLoss: number;
   @ApiProperty({ description: 'Status' })
   order_status: boolean;
   @ApiProperty({ description: 'Result' })
@@ -40,9 +36,7 @@ export class OrderDto {
     this.order_direction = 'LONG';
     this.order_asset = '';
     this.order_entryPrice = 0;
-    this.order_percentageEngaged = 0;
     this.order_amountEngaged = 0;
-    this.order_percentageStopLoss = 0;
     this.order_trading_instrument_id = 0;
   }
 }
