@@ -21,8 +21,6 @@ import { Order } from './entities/Order';
 import { TradingInstrument } from './entities/tradingInstrument/TradingInstrument';
 import { TradingBroker } from './entities/tradingBroker/TradingBroker';
 import { S_o } from './entities/Setup/Associations/S_o';
-import { S_so } from './entities/Setup/Associations/S_so';
-import { Setup_SubOrder } from './entities/Setup/Setup_SubOrder';
 import { Setup_Order } from './entities/Setup/SetupOrder';
 import { Suborder } from './entities/Suborder';
 
@@ -38,8 +36,6 @@ import { Image_Suborder_Module } from './image_Suborder/image_Sub_Order.module';
 import { ImageOrderModule } from './imageOrder/imageOrder.module';
 //setup
 import { SetupOrderModule } from './setupOrder/setupOrder.module';
-import { Setup_SubOrder_Module } from './setup_SubOrder/setup_SubOrder.module';
-import { S_so_Module } from './s_so/s_so.module';
 import { S_o_Module } from './s_o/s_o.module';
 //order
 import { OrderModule } from './order/order.module';
@@ -80,11 +76,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         Image_Suborder,
         //setups
         S_o,
-        S_so,
-
-        Setup_SubOrder,
         Setup_Order,
-
         //order
         Order,
         TradingInstrument,
@@ -104,8 +96,6 @@ import { MainDatasModule } from './main-datas/main-datas.module';
     ImageOrderModule,
     //setup
     SetupOrderModule,
-    Setup_SubOrder_Module,
-    S_so_Module,
     S_o_Module,
     //order
     OrderModule,

@@ -8,7 +8,6 @@ import { GlobalSubOrderDto } from './dto/global_suborder.dto';
 
 // services used
 import { Fs_SoService } from 'src/fs_so/fs_So.service';
-import { S_so_Service } from 'src/s_so/s_so.service';
 import { Image_Suborder_Service } from 'src/image_Suborder/image_Sub_Order.service';
 
 @Injectable()
@@ -16,7 +15,6 @@ export class Global_SubOrder_Service {
   constructor(
     private readonly subOrderService: SubOrder_Service,
     private readonly failureSoService: Fs_SoService,
-    private readonly s_so_Service: S_so_Service,
     private readonly imageSuborderService: Image_Suborder_Service,
   ) {}
 
@@ -54,14 +52,11 @@ export class Global_SubOrder_Service {
     const globalSubOrder: GlobalSubOrderDto = {
       subOrder: subOrder,
       failureSubOrderList: [],
-      setupSubOrderList: [],
       imageSubOrderList: [],
     };
 
     globalSubOrder.failureSubOrderList =
       await this.failureSoService.findAllBySubOrderId(subOrder.subOrder_id);
-    globalSubOrder.setupSubOrderList =
-      await this.s_so_Service.findAllSetupBySubOrderId(subOrder.subOrder_id);
     globalSubOrder.imageSubOrderList =
       await this.imageSuborderService.findAllBySubOrderId(subOrder.subOrder_id);
 

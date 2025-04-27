@@ -3,7 +3,6 @@ import { MainDatasService } from './main-datas.service';
 import { MainDatasController } from './main-datas.controller';
 
 //modules used
-import { Setup_SubOrder_Module } from 'src/setup_SubOrder/setup_SubOrder.module';
 import { SetupOrderModule } from 'src/setupOrder/setupOrder.module';
 import { FailureGoModule } from 'src/failure_go/failure_go.module';
 import { FailureSoModule } from 'src/failure_so/failure_so.module';
@@ -14,7 +13,6 @@ import { TradingBrokerModule } from '../tradingBroker/tradingBroker.module';
 
 @Module({
   imports: [
-    Setup_SubOrder_Module,
     SetupOrderModule,
     FailureGoModule,
     FailureSoModule,

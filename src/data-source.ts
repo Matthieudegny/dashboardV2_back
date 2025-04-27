@@ -8,12 +8,11 @@ import { Fs_So } from './entities/Failure/Associations/Fs_So';
 import { Image_Order } from './entities/image/ImageOrder';
 import { Image_Suborder } from './entities/image/Image_Suborder';
 import { S_o } from './entities/Setup/Associations/S_o';
-import { S_so } from './entities/Setup/Associations/S_so';
-import { Setup_SubOrder } from './entities/Setup/Setup_SubOrder';
 import { Setup_Order } from './entities/Setup/SetupOrder';
 import { Order } from './entities/Order';
 import { Suborder } from './entities/Suborder';
-
+import { TradingBroker } from './entities/tradingBroker/TradingBroker';
+import { TradingInstrument } from './entities/tradingInstrument/TradingInstrument';
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST,
@@ -30,11 +29,11 @@ export const AppDataSource = new DataSource({
     Image_Order,
     Image_Suborder,
     S_o,
-    S_so,
-    Setup_SubOrder,
     Setup_Order,
     Order,
     Suborder,
+    TradingBroker,
+    TradingInstrument,
   ],
   synchronize: false, // Set to true for development only, false for production
 });

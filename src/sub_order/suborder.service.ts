@@ -7,7 +7,6 @@ import { Suborder } from '../entities/Suborder';
 // import { GlobalSubOrderDto } from '../../main-datas/dto/main-datas.dto';
 
 //services used
-import { S_so_Service } from '../s_so/s_so.service';
 import { Image_Suborder_Service } from '../image_Suborder/image_Sub_Order.service';
 import { Fs_SoService } from '../fs_so/fs_So.service';
 import { OrderService } from '../order/order.service';
@@ -18,7 +17,6 @@ export class SubOrder_Service {
   constructor(
     @InjectRepository(Suborder)
     private subOrderRepository: Repository<Suborder>,
-    private readonly s_Sor_Service: S_so_Service,
     private readonly Image_Suborder_Reduce_Service: Image_Suborder_Service,
     private readonly fs_So_Service: Fs_SoService,
     @Inject(forwardRef(() => OrderService))

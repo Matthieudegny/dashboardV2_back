@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Failure_so } from 'src/entities/Failure/Failure_so';
 import { Image_Suborder } from 'src/entities/image/Image_Suborder';
-import { Setup_SubOrder } from 'src/entities/Setup/Setup_SubOrder';
-import { suborder_Type } from '../model/model_type_suborder';
+import { Setup_Order } from 'src/entities/Setup/SetupOrder';
+import { Suborder } from 'src/entities/Suborder';
 import { Suborder_Dto } from 'src/sub_order/dto/suborder.dto';
 
 export class GlobalSubOrderDto {
@@ -17,13 +17,6 @@ export class GlobalSubOrderDto {
   failureSubOrderList: Array<Failure_so>;
 
   @ApiProperty({
-    description: 'list setupSubOrder',
-    type: Setup_SubOrder,
-    isArray: true,
-  })
-  setupSubOrderList: Array<Setup_SubOrder>;
-
-  @ApiProperty({
     description: 'list imageSubOrder',
     type: Image_Suborder,
     isArray: true,
@@ -32,7 +25,6 @@ export class GlobalSubOrderDto {
 
   constructor() {
     this.failureSubOrderList = [];
-    this.setupSubOrderList = [];
     this.imageSubOrderList = [];
   }
 }
