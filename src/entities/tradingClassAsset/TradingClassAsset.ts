@@ -7,20 +7,20 @@ import {
 } from 'typeorm';
 import { User } from '../User';
 
-@Entity()
-export class TradingInstrument {
+@Entity('trading_classAsset')
+export class TradingClassAsset {
   @PrimaryGeneratedColumn()
-  trading_instrument_id: number;
+  trading_classAsset_id: number;
 
   @Column({ type: 'text' })
-  trading_instrument_title: string;
+  trading_classAsset_title: string;
 
   @Column()
-  trading_instrument_user_id: number;
+  trading_classAsset_user_id: number;
 
   @ManyToOne(() => User, (user) => user.idUser, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'trading_instrument_user_id' })
+  @JoinColumn({ name: 'trading_classAsset_user_id' })
   user: User;
 }

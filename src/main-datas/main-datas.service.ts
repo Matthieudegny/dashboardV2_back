@@ -5,7 +5,7 @@ import { MainDatasDto } from './dto/main-datas.dto';
 import { SetupOrderService } from 'src/setupOrder/setupOrder.service';
 import { UserService } from 'src/user/user.service';
 import { Global_Order_Service } from 'src/globalOrder/global_order_service';
-import { TradingInstrumentService } from 'src/tradingInstrument/tradingInstrument.service';
+import { TradingClassAssetService } from 'src/tradingClassAsset/tradingClassAsset.service';
 import { TradingBrokerService } from 'src/tradingBroker/tradingBroker.service';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class MainDatasService {
     private readonly SetupOrderService: SetupOrderService,
     private readonly userService: UserService,
     private readonly globalOrderService: Global_Order_Service,
-    private readonly tradingInstrumentService: TradingInstrumentService,
+    private readonly tradingClassAssetService: TradingClassAssetService,
     private readonly tradingBrokerService: TradingBrokerService,
   ) {}
 
@@ -44,9 +44,9 @@ export class MainDatasService {
       mainDatas.userInfos =
         await this.userService.findUserInfosByIdUser(idUser);
 
-      //4 get the trading instruments for the user
-      mainDatas.tradingInstrumentList =
-        await this.tradingInstrumentService.findAllByUserId(idUser);
+      //4 get the trading class assets for the user
+      mainDatas.tradingClassAssetList =
+        await this.tradingClassAssetService.findAllByUserId(idUser);
 
       //5 get the trading brokers for the user
       mainDatas.tradingBrokerList =

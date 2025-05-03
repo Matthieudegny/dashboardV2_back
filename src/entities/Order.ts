@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from './User';
-import { TradingInstrument } from './tradingInstrument/TradingInstrument';
+import { TradingClassAsset } from './tradingClassAsset/TradingClassAsset';
 import { TradingBroker } from './tradingBroker/TradingBroker';
 
 // model
@@ -35,17 +35,17 @@ export class Order {
   user?: User;
 
   @Column()
-  order_trading_instrument_id: number;
+  order_trading_classAsset_id: number;
 
   @ManyToOne(
-    () => TradingInstrument,
-    (tradingInstrument) => tradingInstrument.trading_instrument_id,
+    () => TradingClassAsset,
+    (tradingClassAsset) => tradingClassAsset.trading_classAsset_id,
     {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn({ name: 'order_trading_instrument_id' })
-  tradingInstrument: TradingInstrument;
+  @JoinColumn({ name: 'order_trading_classAsset_id' })
+  tradingClassAsset: TradingClassAsset;
 
   @Column()
   order_trading_broker_id: number;

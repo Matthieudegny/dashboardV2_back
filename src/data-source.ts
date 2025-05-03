@@ -12,7 +12,7 @@ import { Setup_Order } from './entities/Setup/SetupOrder';
 import { Order } from './entities/Order';
 import { Suborder } from './entities/Suborder';
 import { TradingBroker } from './entities/tradingBroker/TradingBroker';
-import { TradingInstrument } from './entities/tradingInstrument/TradingInstrument';
+import { TradingClassAsset } from './entities/tradingClassAsset/TradingClassAsset';
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST,
@@ -33,7 +33,7 @@ export const AppDataSource = new DataSource({
     Order,
     Suborder,
     TradingBroker,
-    TradingInstrument,
+    TradingClassAsset,
   ],
   synchronize: false, // Set to true for development only, false for production
 });

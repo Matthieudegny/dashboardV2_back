@@ -18,7 +18,7 @@ import { User } from './entities/User';
 import { Image_Order } from './entities/image/ImageOrder';
 import { Image_Suborder } from './entities/image/Image_Suborder';
 import { Order } from './entities/Order';
-import { TradingInstrument } from './entities/tradingInstrument/TradingInstrument';
+import { TradingClassAsset } from './entities/tradingClassAsset/TradingClassAsset';
 import { TradingBroker } from './entities/tradingBroker/TradingBroker';
 import { S_o } from './entities/Setup/Associations/S_o';
 import { Setup_Order } from './entities/Setup/SetupOrder';
@@ -40,7 +40,7 @@ import { S_o_Module } from './s_o/s_o.module';
 //order
 import { OrderModule } from './order/order.module';
 //trading instrument
-import { TradingInstrumentModule } from './tradingInstrument/tradingInstrument.module';
+import { TradingInstrumentModule } from './tradingClassAsset/tradingClassAsset.module';
 //trading broker
 import { TradingBrokerModule } from './tradingBroker/tradingBroker.module';
 // sub order
@@ -79,7 +79,7 @@ import { MainDatasModule } from './main-datas/main-datas.module';
         Setup_Order,
         //order
         Order,
-        TradingInstrument,
+        TradingClassAsset,
         TradingBroker,
         Suborder,
       ],

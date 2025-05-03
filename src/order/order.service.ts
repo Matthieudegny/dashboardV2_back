@@ -52,6 +52,7 @@ export class OrderService {
   }
 
   async update(id: number, updateOrderDto: OrderDto): Promise<OrderDto> {
+    console.log('updateOrderDto', updateOrderDto);
     try {
       const orderIsUpdated = await this.orderRepository.update(
         id,

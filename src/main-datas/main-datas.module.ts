@@ -9,7 +9,7 @@ import { FailureSoModule } from 'src/failure_so/failure_so.module';
 import { UserModule } from 'src/user/user.module';
 
 import { Global_Order_Module } from 'src/globalOrder/global_order.module';
-import { TradingInstrumentModule } from '../tradingInstrument/tradingInstrument.module';
+import { TradingInstrumentModule } from '../tradingClassAsset/tradingClassAsset.module';
 import { TradingBrokerModule } from '../tradingBroker/tradingBroker.module';
 
 @Module({

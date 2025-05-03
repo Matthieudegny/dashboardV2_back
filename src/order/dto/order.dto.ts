@@ -6,7 +6,9 @@ export class OrderDto {
   @ApiProperty({ description: 'User ID' })
   order_user_id: number;
   @ApiProperty({ description: 'Trading Instrument ID' })
-  order_trading_instrument_id: number;
+  order_trading_classAsset_id: number;
+  @ApiProperty({ description: 'Trading Broker ID' })
+  order_trading_broker_id: number;
   @ApiProperty({ description: 'Open Date' })
   order_openDate: Date;
   @ApiProperty({ description: 'Asset' })
@@ -37,6 +39,7 @@ export class OrderDto {
     this.order_asset = '';
     this.order_entryPrice = 0;
     this.order_amountEngaged = 0;
-    this.order_trading_instrument_id = 0;
+    this.order_trading_classAsset_id = 0;
+    this.order_trading_broker_id = 0;
   }
 }
